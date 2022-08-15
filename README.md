@@ -23,6 +23,18 @@ Modules must not import from other modules in this project except `common` or ot
 
 # Data Sources
 
+## Coverage By Package Manager 
+
+* golang  - gemnasium, trivy, grype, oss-index  (have only seen results from trivy / oss-index)
+* npm - gemnasium, trivy, grype, oss-index (confirmed results from all 4)
+* maven - gemnasium, trivy, grype, oss-index (confirmed results from all 4)
+* pypi - gemnasium, trivy, grype, oss-index (confirmed results from all 4)
+* nuget - gemnasium, trivy, oss-index, grype ( no testing)
+* gem - gemnasium, trivy, grype, oss-index (tested but got no results using a small bom)
+* rpm - grype, oss-index (oss-index coverage seems quite poor, trivy has rpm in their database but blows up on rpm purls)
+* deb - grype (trivy has deb in their database but blows up on rpm purls)
+* raw - fnci via efoss data.  
+
 ## Gemnasium 
 
 As a note the official gemnasium database has terms of service that say it can't be used in 3rd party tools without explicit permission.  
