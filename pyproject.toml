@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "vuln"
+version = "0.1.0"
+description = ""
+authors = ["kganger <keith.e.ganger@lmco.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10 "
+hoppr-cyclonedx-models = "^0.2.1"
+typer = "^0.6.1"
+PyYAML = "^6.0"
+cvss = "^2.5"
+packageurl-python = "^0.10.1"
+tabulate = "^0.8.10"
+tinydb = "^4.7.0"
+
+[tool.poetry.scripts]
+gemnasium = "vuln.gemnasium.cli:app"
+grype = "vuln.grype.cli:app"
+combined = "vuln.combined.cli:app"
+oss = "vuln.ossindex.cli:app"
+trivy = "vuln.trivy.cli:app"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = "^22.6.0"
+pylint = "^2.14.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

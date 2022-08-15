@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/vulnerabilities.css" rel="stylesheet">
+</head>
+<body>
+<div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-4 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+                <table class="min-w-full text-center ">
+                    <thead class="border-b bg-gray-50">
+                    <tr>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">ID</th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Severity</th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Found By</th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Description</th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Purl</th>
+                    </tr>
+                    </thead class="border-b">
+                    <tbody>
+                    {% for vulnerability in findings %}
+
+                    <tr class="bg-white border-b">
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            <a href="{{base_name}}-details/{{vulnerability.id}}.html"
+                               class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">{{ vulnerability.id }}</a></td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            <div class="{{ severity_classes[vulnerability.ratings | severity ] }}" role="alert">
+                                {{ vulnerability.ratings | severity }}
+                            </div>
+                        </td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            {% for tool in vulnerability.tools %}
+                            {{tool.vendor}} {{tool.name}}
+                            {{ ", " if not loop.last else "" }}
+                            {% endfor %}
+                        </td>
+
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap text-left">
+                            {% if vulnerability.description %}
+                            {{ vulnerability.description  |truncate(300, False) }}
+                            {%endif %}
+                        </td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ vulnerability.affects[0].ref.__root__ |truncate(100, True)  }}</td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" style="display: none">
+    critical
+</div>
+<div class="bg-yellow-100 rounded-lg py-5 px-6 mb-4 text-base text-yellow-700 mb-3" role="alert" style="display: none">
+   high
+</div>
+</body>
+</html>

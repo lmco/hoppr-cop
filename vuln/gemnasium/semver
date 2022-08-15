@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'semver_dialects'
+require "semver_dialects/cli.rb"
+SemverDialects::CLI.start( ARGV )
