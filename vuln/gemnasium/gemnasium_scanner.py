@@ -5,10 +5,11 @@ import pkgutil
 import stat
 import subprocess
 import tempfile
+import time
 import zipfile
 from pathlib import Path
 from typing import Optional
-
+from urllib.parse import urlparse
 import requests
 import typer
 import yaml
@@ -26,11 +27,11 @@ class GemnasiumScanner(VulnerabilitySuper):
 
     supported_formats = ["npm", "maven", "pypi", "gem", "golang", "connan"]
     database_path = Path(tempfile.gettempdir()) / "gemnasium"
-    url = "https://gitlab.com/gitlab-org/security-products/gemnasium-db/-/archive/master/gemnasium-db-master.zip"
-    # url = os.getenv(
-    #     "GEMNASIUM_DATABASE_ZIP",
-    #     "https://gitlab.com/gitlab-org/advisories-community/-/archive/main/advisories-community-main.zip",
-    # )
+    # url = "https://gitlab.com/gitlab-org/security-products/gemnasium-db/-/archive/master/gemnasium-db-master.zip"
+    url = os.getenv(
+        "GEMNASIUM_DATABASE_ZIP",
+        "https://gitlab.com/gitlab-org/advisories-community/-/archive/main/advisories-community-main.zip",
+    )
 
     semver_path = "/usr/local/bin/semver"
     required_tools_on_path = ["ruby"]
@@ -54,9 +55,14 @@ class GemnasiumScanner(VulnerabilitySuper):
 
     def __download_and_extract_database(self):
         """Downloads the gymnasium database"""
-        path_to_zip_file = Path(tempfile.gettempdir()) / "gemasium-db.zip"
-        print(self.database_path)
-        if not path_to_zip_file.exists():
+        url = urlparse(self.url)
+
+        path_to_zip_file = Path(tempfile.gettempdir()) / os.path.basename(url.path)
+
+
+        print(path_to_zip_file)
+
+        def do_download_and_unpack():
             typer.echo(f"Updating Gemnasium database to {self.database_path}")
             request = requests.get(self.url, allow_redirects=True)
             with open(path_to_zip_file, "wb") as file:
@@ -65,6 +71,17 @@ class GemnasiumScanner(VulnerabilitySuper):
 
             with zipfile.ZipFile(path_to_zip_file, "r") as zip_ref:
                 zip_ref.extractall(self.database_path)
+
+        if not path_to_zip_file.exists():
+            do_download_and_unpack()
+        else:
+            file_time = os.path.getmtime(path_to_zip_file)
+            # Check against 24 hours
+            older_than_one_day = ((time.time() - file_time) / 3600 > 24 * 1)
+            if older_than_one_day:
+                os.remove(self.database_path / path_to_zip_file.stem)
+                do_download_and_unpack()
+        self.database_path = self.database_path / path_to_zip_file.stem
 
     def __is_affected_range(self, repository_format, version, affected_range) -> bool:
         """
@@ -172,4 +189,4 @@ class GemnasiumScanner(VulnerabilitySuper):
         else:
             path_slug = f"{repo_format}/{purl.name}"
 
-        return self.database_path / "gemnasium-db-master" / Path(path_slug)
+        return self.database_path / Path(path_slug)

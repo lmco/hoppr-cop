@@ -18,8 +18,4 @@ A scanner that finds vulnerabilties in the [gitlab advisory database](https://gi
 This uses the [MIT licensed version of the gemnasium database](https://gitlab.com/gitlab-org/advisories-community).
 This can be set to the full version by setting the environment variable `GEMNASIUM_DATABASE_ZIP` to `https://gitlab.com/gitlab-org/security-products/gemnasium-db/-/archive/master/gemnasium-db-master.zip`
 Note this can only be done with the explicit permission of Gitlab.  It violates their terms of use to use that database as part of a 3rd party tool. 
-We should contact gitlab for permission to use this for internal use. 
-
-## TODO 
-- the semver command is suddenly failing on a lot of versions.  I turned check to False when the command is executed.  This needs run to ground. 
-- The database is not updated if it exists.  It should be updated daily 
+We should contact gitlab for permission to use this for internal use.
