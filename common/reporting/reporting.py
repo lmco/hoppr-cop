@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import List, Optional, Union
 
 import typer
-from hoppr_cyclonedx_models.cyclonedx_1_4 import Vulnerability, Affect, Rating
+from hoppr_cyclonedx_models.cyclonedx_1_4 import Vulnerability, Affect, Rating, Advisory
 from jinja2 import Template
 import jinja2
 from packageurl import PackageURL
@@ -31,7 +31,7 @@ class Reporting:
         flattened_vulnerabilties = self.__add_purl_as_bom_ref_and_flatten(vulnerabilities)
         if ReportFormat.table in formats:
             findings = self.__get_fields_from_vulnerabilities(flattened_vulnerabilties)
-            typer.echo(tabulate(findings, headers=["purl", "id", "severity", "found by"]))
+            typer.echo(tabulate(findings, headers=["type", "name", "version", "id", "severity", "found by"]))
         if ReportFormat.cyclone_dx in formats and bom is not None:
             self.add_vulnerabilities_to_bom(bom, flattened_vulnerabilties)
             with open(self.output_path / f"{self.base_name}-enhanced.json", "w", encoding="UTF-8") as file:
@@ -80,7 +80,13 @@ class Reporting:
         def get_fields(vuln: Vulnerability) -> List:
             tools = [] if vuln.tools is None else vuln.tools
             tools = list(map(lambda x: f"{x.vendor} {x.name}", tools))
-            return [str(vulnerability.affects[0].ref.__root__), vuln.id, self.__get_severity(vuln.ratings),
+            severity = self.__get_severity(vuln.ratings)
+            if severity == "critical":
+                severity = typer.style(severity, fg=typer.colors.RED)
+            elif severity == "high":
+                severity = typer.style(severity, fg=typer.colors.BRIGHT_YELLOW)
+            purl = PackageURL.from_string(str(vulnerability.affects[0].ref.__root__))
+            return [purl.type, purl.name, purl.version, vuln.id, severity,
                     " | ".join(tools)]
 
         for vulnerability in vulnerabilities:
@@ -137,7 +143,9 @@ class Reporting:
         output_path = self.output_path / f"{self.base_name}-details"
         output_path.mkdir(exist_ok=True)
         template_data = pkgutil.get_data(__name__, "templates/vulnerability_details.html").decode("utf-8")
-        template = Template(template_data)
+        env = jinja2.Environment()
+        env.filters["featured_link"] = self.__get_featured_link
+        template = env.from_string(template_data)
         for vuln in vulnerabilities:
             purl = PackageURL.from_string(str(vuln.affects[0].ref.__root__))
             result = template.render(
@@ -190,9 +198,18 @@ class Reporting:
             out.write(json.dumps(report, indent=4, sort_keys=True, default=str))
             out.close()
 
+    @staticmethod
+    def __get_featured_link(advisories: Optional[List[Advisory]]) -> Optional[str]:
+        if advisories is not None:
+            for adv in advisories:
+                url = "" if adv.url is None else adv.url
+                if "https://snyk.io/" in url:
+                    return url
+        return None
+
     def __get_severity(self, ratings: Optional[List[Rating]]) -> str:
         best_rating = self.__get_best_rating(ratings)
-        if best_rating is None:
+        if best_rating is None or best_rating.severity is None:
             return "none"
         else:
             return str(best_rating.severity.value)

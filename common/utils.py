@@ -19,7 +19,7 @@ def convert_xml_to_json(file_path: Path) -> Path:
     Function to convert a xml file to json format.
     """
     typer.echo("xml format detected, attempt to convert with cyclonedx tools")
-    # Default to the path specified in the py-efoss docker file or define the local filename to save data
+    # Default to the path specified in the hoppr-cop docker file or define the local filename to save data
     docker_image_path = Path("/usr/local/bin/cyclone-dx")
     cyclone_dx_path = docker_image_path if docker_image_path.exists() else Path(tempfile.gettempdir()) / "cyclonedx"
     if not cyclone_dx_path.exists():

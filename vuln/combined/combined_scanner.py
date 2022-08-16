@@ -10,7 +10,7 @@ from packageurl import PackageURL
 from hoppr_cyclonedx_models.cyclonedx_1_3 import CyclonedxSoftwareBillOfMaterialSpecification as Bom_1_3
 from hoppr_cyclonedx_models.cyclonedx_1_4 import CyclonedxSoftwareBillOfMaterialsStandard as Bom_1_4
 from hoppr_cyclonedx_models.cyclonedx_1_4 import Vulnerability
-
+from rich.progress import Progress, SpinnerColumn, TextColumn
 from common.vulnerability_scanner import VulnerabilitySuper
 from common.vulnerability_combiner import combine_vulnerabilities
 
@@ -37,18 +37,25 @@ class CombinedScanner(VulnerabilitySuper):
                 self.scanners.append(scanner)
 
     def ___scan_concurrently(self, function) -> dict[str, Optional[list[Vulnerability]]]:
-        results = []
-        with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
-            futures = {executor.submit(function, scanner): scanner for scanner in self.scanners}
-        for future in concurrent.futures.as_completed(futures):
-            scanner = futures[future]
-            try:
-                scanner_results = future.result()
-                results.append(scanner_results)
-                # if not found:
-                #     failed.append(purl)
-            except Exception as exc:  # pylint: disable=broad-except
-                print(f"{scanner.__class__.__name__} generated an exception: {exc}")
+        with Progress(
+                SpinnerColumn(),
+                TextColumn("[progress.description]{task.description}"),
+                transient=True,
+        ) as progress:
+            results = []
+            progress.add_task(description="Fetching vulnerabilities...", total=None)
+            with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
+                futures = {executor.submit(function, scanner): scanner for scanner in self.scanners}
+            for future in concurrent.futures.as_completed(futures):
+                scanner = futures[future]
+                try:
+
+                    scanner_results = future.result()
+                    results.append(scanner_results)
+                    # if not found:
+                    #     failed.append(purl)
+                except Exception as exc:  # pylint: disable=broad-except
+                    print(f"{scanner.__class__.__name__} generated an exception: {exc}")
         return combine_vulnerabilities(list(results))
 
     def get_vulnerabilities_by_purl(self, purls: list[PackageURL]) -> dict[str, Optional[list[Vulnerability]]]:

@@ -2,6 +2,7 @@
 
 import os
 import pkgutil
+import shutil
 import stat
 import subprocess
 import tempfile
@@ -79,7 +80,7 @@ class GemnasiumScanner(VulnerabilitySuper):
             # Check against 24 hours
             older_than_one_day = ((time.time() - file_time) / 3600 > 24 * 1)
             if older_than_one_day:
-                os.remove(self.database_path / path_to_zip_file.stem)
+                shutil.rmtree(self.database_path / path_to_zip_file.stem)
                 do_download_and_unpack()
         self.database_path = self.database_path / path_to_zip_file.stem
 
