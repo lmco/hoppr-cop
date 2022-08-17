@@ -40,12 +40,13 @@ The vex and html reports provide an ideal way to communicate vulnerability statu
 
 ## Installation 
 
-hoppr-cop is available as a python module or as a docker image.   
+hoppr-cop is available as a python module.   
 
 ### Prerequisites
 
-Note all of these are optional, if not performed that scanner will not be activated. 
-#### Note python 3.10 is required
+#### Note python 3.10 is required 
+The remaining prerequisites are optional, if not performed that scanner will not be activated. 
+
 1. [Install grype](https://github.com/anchore/grype#installation) `curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin`
 2. [Install trivy](https://aquasecurity.github.io/trivy/v0.31.2/getting-started/installation/) `curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.31.2`
 3. Register for a [free account with OSS-Index](https://ossindex.sonatype.org/user/register)
@@ -56,6 +57,11 @@ Note all of these are optional, if not performed that scanner will not be activa
 #### Note python 3.10 is required to install the tool
 
 ` pip install hoppr-cop --extra-index-url https://gitlab.com/api/v4/projects/38643089/packages/pypi/simple`
+
+### Usage
+
+Note the first time you run the command each day can be quite slow as it downloads the databases.  Subsequent runs should be much more performant. 
+![](docs/usage.png)
 ## Contributing 
 
 See the [Contribution Guidelines](docs/contributing.md)
@@ -66,18 +72,18 @@ This library can also be used programmatically, here is an example of interactin
 ```python
 from pathlib import Path
 
-from common.reporting.models import ReportFormat
-from common.reporting.reporting import Reporting
-from common.utils import parse_sbom
-from vuln.combined.combined_scanner import CombinedScanner
-from vuln.gemnasium.gemnasium_scanner import GemnasiumScanner
-from vuln.grype.grype_scanner import GrypeScanner
-from vuln.trivy.trivy_scanner import TrivyScanner
-from vuln.ossindex.oss_index_scanner import OSSIndexScanner
+from security_commons.common.reporting.models import ReportFormat
+from security_commons.common.reporting.reporting import Reporting
+from security_commons.common.utils import parse_sbom
+from hopprcop.combined.combined_scanner import CombinedScanner
+from hopprcop.gemnasium.gemnasium_scanner import GemnasiumScanner
+from hopprcop.grype.grype_scanner import GrypeScanner
+from hopprcop.trivy.trivy_scanner import TrivyScanner
+from hopprcop.ossindex.oss_index_scanner import OSSIndexScanner
 
 output_dir = Path("./reports")
 bom = Path("bom.json")
-formats = [ReportFormat.html]
+formats = [ReportFormat.HTML]
 
 reporting = Reporting(output_dir, bom.name.removesuffix(".json"))
 combined = CombinedScanner()
