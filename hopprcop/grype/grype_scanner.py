@@ -1,4 +1,4 @@
-""""Interacts with the grype cli to scan an sbom"""
+""""Interacts with the grype cli to scan a sbom"""
 # This file is part of hoppr-cop
 #
 # Licensed under the MIT License;

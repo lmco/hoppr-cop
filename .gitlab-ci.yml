@@ -178,7 +178,7 @@ build-dist:
 #       when: never
 #     - if: $CI_COMMIT_REF_NAME != "main"
 
- pages:
+pages:
    # Only build the documentation and push to GitLab Pages on
    # main.
    cache:
@@ -195,7 +195,7 @@ build-dist:
    script:
      - !reference [".setup_pages", "script"]
      - !reference [".base-python", "before_script"]
-     - cp docs/example-reports public
+     - cp -r docs/example-reports public
    rules:
      - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
        when: never
