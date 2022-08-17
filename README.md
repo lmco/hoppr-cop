@@ -5,7 +5,7 @@ Software Bill of Materials (SBOM) by aggregating data from multiple vulnerabilit
 
 ## Project Status
 
-Under Development
+Alpha 
 
 ## Features
 
@@ -17,7 +17,7 @@ Under Development
 * Combines information from these sources in a way that reduces duplicates and ensures complete information for each vulnerability. 
 * Generates reports in multiple formats
   * [cyclone-dx vex](https://cyclonedx.org/capabilities/vex/) either embedded in the existing bom or as a standalone file.  
-  * [html]() - detailed vulnerability information that can be viewed in disconnected networks. 
+  * [html](https://lmco.gitlab.io/hoppr/utilities/supply-chain-security/hoppr-cop/npm-vulnerabilities.html) - detailed vulnerability information that can be viewed in disconnected networks. 
   * Gitlab Dependency Scanning - Which enables  [Vulnerability Reports](https://docs.gitlab.com/ee/user/application_security/vulnerability_report/),
   [Dependency List](https://docs.gitlab.com/ee/user/application_security/dependency_list/), and [Security Dashboard](https://docs.gitlab.com/ee/user/application_security/security_dashboard/)
   
