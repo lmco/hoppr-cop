@@ -1,5 +1,20 @@
 """A Vulnerability Scanner for Gitlab's Gemnasiumm Database """
+# This file is part of hoppr-cop
+#
+# Licensed under the MIT License;
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://opensource.org/licenses/MIT
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
+# Copyright (c) 2022 Lockheed Martin Corporation
 import os
 import pkgutil
 import shutil
@@ -60,9 +75,6 @@ class GemnasiumScanner(VulnerabilitySuper):
 
         path_to_zip_file = Path(tempfile.gettempdir()) / os.path.basename(url.path)
 
-
-        print(path_to_zip_file)
-
         def do_download_and_unpack():
             typer.echo(f"Updating Gemnasium database to {self.database_path}")
             request = requests.get(self.url, allow_redirects=True)
@@ -78,7 +90,7 @@ class GemnasiumScanner(VulnerabilitySuper):
         else:
             file_time = os.path.getmtime(path_to_zip_file)
             # Check against 24 hours
-            older_than_one_day = ((time.time() - file_time) / 3600 > 24 * 1)
+            older_than_one_day = (time.time() - file_time) / 3600 > 24 * 1
             if older_than_one_day:
                 shutil.rmtree(self.database_path / path_to_zip_file.stem)
                 do_download_and_unpack()

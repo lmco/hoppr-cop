@@ -35,7 +35,7 @@ The vex and html reports provide an ideal way to communicate vulnerability statu
 - Combining information from multiple sources leads to more complete and accurate information for each vulnerability identified, leading to quicker resolutions. 
 
 ## Demo
-
+![](docs/example.png)
 [![asciicast](https://asciinema.org/a/sbQOjmD21IpewQEdg6DBVq7iR.svg)](https://asciinema.org/a/sbQOjmD21IpewQEdg6DBVq7iR)
 
 ## Installation 
@@ -59,6 +59,31 @@ TODO
 
 See the [Contribution Guidelines](docs/contributing.md)
 
+## Use as Python Library
 
+This library can also be used programmatically, here is an example of interacting with the combined scanner from pyton code. 
+```python
+from pathlib import Path
+
+from common.reporting.models import ReportFormat
+from common.reporting.reporting import Reporting
+from common.utils import parse_sbom
+from vuln.combined.combined_scanner import CombinedScanner
+from vuln.gemnasium.gemnasium_scanner import GemnasiumScanner
+from vuln.grype.grype_scanner import GrypeScanner
+from vuln.trivy.trivy_scanner import TrivyScanner
+from vuln.ossindex.oss_index_scanner import OSSIndexScanner
+
+output_dir = Path("./reports")
+bom = Path("bom.json")
+formats = [ReportFormat.html]
+
+reporting = Reporting(output_dir, bom.name.removesuffix(".json"))
+combined = CombinedScanner()
+combined.set_scanners([GemnasiumScanner(), GrypeScanner(), TrivyScanner, OSSIndexScanner()])
+parsed_bom = parse_sbom(bom)
+result = combined.get_vulnerabilities_by_sbom(parsed_bom)
+reporting.generate_vulnerability_reports(formats, result, parsed_bom)
+```
 
 

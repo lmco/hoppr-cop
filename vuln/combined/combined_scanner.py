@@ -1,4 +1,20 @@
 """A Vulnerability Scanner that combines results from all configured scanners"""
+# This file is part of hoppr-cop
+#
+# Licensed under the MIT License;
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://opensource.org/licenses/MIT
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# Copyright (c) 2022 Lockheed Martin Corporation
 import concurrent.futures
 import importlib
 from typing import List, Optional, Union
@@ -38,9 +54,9 @@ class CombinedScanner(VulnerabilitySuper):
 
     def ___scan_concurrently(self, function) -> dict[str, Optional[list[Vulnerability]]]:
         with Progress(
-                SpinnerColumn(),
-                TextColumn("[progress.description]{task.description}"),
-                transient=True,
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            transient=True,
         ) as progress:
             results = []
             progress.add_task(description="Fetching vulnerabilities...", total=None)
