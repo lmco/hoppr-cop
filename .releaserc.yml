@@ -48,7 +48,7 @@ plugins:
 - - "@semantic-release/git"
   - assets:
     - docs/CHANGELOG.md
-    - hoppr/__init__.py
+    - hopprcop/__init__.py
     - pyproject.toml
     - yarn.lock
 - - "@semantic-release/gitlab"

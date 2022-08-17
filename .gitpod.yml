@@ -1,0 +1,29 @@
+image: python:3.10
+
+# Open port to connect with mkdocs
+ports:
+  - port: 8000
+    onOpen: open-browser
+
+tasks:
+  # Open a terminal and start mkdocs, which should open in a separate
+  # browser tab.
+  - command: |
+      sleep 30
+      source ~/.bashrc
+      poetry run mkdocs serve
+
+  # Open a terminal with poetry shell already started
+  - command: |
+      echo "export PATH=$PATH:/home/gitpod/.local/bin" >> ~/.bashrc && \
+      echo "unset PIP_USER" >> ~/.bashrc
+      source ~/.bashrc
+      pip install poetry pre-commit
+      pre-commit install
+      poetry install
+      poetry shell
+
+vscode:
+  extensions:
+    - littlefoxteam.vscode-python-test-adapter@0.7.0
+    - ms-python.python

@@ -1,0 +1,62 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      - id: check-yaml
+        args: ['--unsafe']
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+        exclude: ^docs/
+
+  - repo: https://github.com/pre-commit/pre-commit
+    rev: v2.17.0
+    hooks:
+      - id: validate_manifest
+
+  - repo: https://github.com/python-poetry/poetry
+    rev: '1.2.0b1'
+    hooks:
+      - id: poetry-check
+      - id: poetry-lock
+      - id: poetry-export
+        args: [ "-f", "requirements.txt", "-o", "requirements.txt" ]
+
+  - repo: https://github.com/awslabs/git-secrets
+    rev: master
+    hooks:
+      - id: git-secrets
+
+  - repo: local
+    hooks:
+      - id: system
+        name: isort
+        entry: poetry run isort hopprcop/
+        pass_filenames: false
+        language: system
+        args: ["--profile", "black"]
+
+  - repo: local
+    hooks:
+      - id: system
+        name: Black
+        entry: poetry run black hopprcop/
+        pass_filenames: false
+        language: system
+
+  - repo: local
+    hooks:
+      - id: system
+        name: MyPy
+        entry: poetry run mypy --namespace-packages --explicit-package-bases --install-types --non-interactive hopprcop/
+        pass_filenames: false
+        language: system
+
+  - repo: local
+    hooks:
+      - id: system
+        name: Pylint
+        entry: poetry run pylint -j 0 hopprcop/
+        pass_filenames: false
+        language: system
+        args:
+          - "--max-line-length=120"
