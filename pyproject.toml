@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hoppr-cop"
-version = "1.0.0"
+version = "1.0.1"
 description = ""
 authors = ["kganger <keith.e.ganger@lmco.com>"]
 

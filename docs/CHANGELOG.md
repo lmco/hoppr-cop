@@ -1,3 +1,11 @@
+## [1.0.1](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.0...v1.0.1) (2022-08-17)
+
+
+### Bug Fixes
+
+* changed to use common python module.  Added examples to the documentation. ([b0560f5](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/commit/b0560f5f0300e1c8fc585f1a0bc0e764f48d7806))
+* changed to use common python module.  Added examples to the documentation. ([2747d2b](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/commit/2747d2bf1254185c5356f3a67769c5abba00c322))
+
 ## 1.0.0 (2022-08-17)
 
 
