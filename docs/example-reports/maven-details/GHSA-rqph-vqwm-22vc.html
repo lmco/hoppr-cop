@@ -1,0 +1,250 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../assets/vulnerabilities.css" rel="stylesheet">
+</head>
+<body>
+<h1><a href="https://github.com/advisories/GHSA-rqph-vqwm-22vc" target="_blank"
+       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">GHSA-rqph-vqwm-22vc</a>
+</h1>
+<div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-4 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+                <table class="min-w-full text-left ">
+
+                    <thead class="border-b bg-gray-50
+
+">
+                    <tr class="border-b bg-slate-500">
+                        <th scope="col" class="text-sm font-medium text-white px-6 py-4" colspan="5">Vulnerable Component
+                            Details
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4" >Type</th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4" >Namespace</th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4" >Name</th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4" >Version</th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4" >Package URL</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="bg-white border-b">
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">maven</td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">org.springframework</td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">spring-core</td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">5.3.10</td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">pkg:maven/org.springframework/spring-core@5.3.10?type=jar</td>
+                    </tr>
+                    </tbody>
+
+
+                    <thead class="border-b bg-gray-50">
+                    <tr class="border-b bg-slate-500">
+                        <th scope="col"  class="text-sm font-medium text-white px-6 py-4"  colspan="5">Vulnerability
+                            Details
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">ID</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"><a
+                                href="https://github.com/advisories/GHSA-rqph-vqwm-22vc" target="_blank"
+                                class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">GHSA-rqph-vqwm-22vc</a></td>
+                    </tr>
+
+                    
+
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">Description</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="5">In spring framework versions prior to 5.3.20+, 5.2.22+ and old unsupported versions, application with a STOMP over WebSocket endpoint is vulnerable to a denial of service attack by an authenticated user.
+                        </td>
+                    </tr>
+                    
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">Recommendation</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="4">Upgrade to versions 5.2.22.RELEASE, 5.3.20 or above..  ||  State: fixed | Fix Versions: 5.3.20
+                        </td>
+                    </tr>
+                    
+                    
+
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">Ratings</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="3">
+                            <table>
+                                <thead class="border-b bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Severity</th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Score</th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Method</th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Vector</th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Source</th>
+                                </tr>
+                                </thead>
+                                
+
+                                <tbody>
+                                <tr>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">
+                                        <div class="bg-gray-50 rounded-lg py-5 px-6 mb-4 text-base text-gray-500 mb-3" role="alert">
+                                            medium
+                                        </div>
+                                    </td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">4.0</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">CVSSv2</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">AV:N/AC:L/Au:S/C:N/I:N/A:P</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">
+                                        
+                                            nvd
+                                        
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                                
+
+                                <tbody>
+                                <tr>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">
+                                        <div class="bg-gray-50 rounded-lg py-5 px-6 mb-4 text-base text-gray-500 mb-3" role="alert">
+                                            medium
+                                        </div>
+                                    </td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">6.5</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">CVSSv3</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">
+                                        
+                                            ghsa
+                                        
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                                
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    
+
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4" colspan="1">Related Vulnerabilities</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="4">
+                            <ul>
+                                
+                                <li>
+                                    <a href="https://github.com/advisories/GHSA-rqph-vqwm-22vc"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4"
+                                       target="_blank">GHSA-rqph-vqwm-22vc</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-22971"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4"
+                                       target="_blank">CVE-2022-22971</a>
+                                </li>
+                                
+                            </ul>
+                        </td>
+                    </tr>
+                    
+
+                    
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">Found By</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="4">
+                            
+                            Anchore Grype
+                            , 
+                            
+                            Aquasec Trivy
+                            , 
+                            
+                            Gitlab Gemnasium
+                            
+                            
+                        </td>
+                    </tr>
+                    
+
+                    
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">References / Advisories</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="4">
+                            <ul>
+                                
+                                <li>
+                                    <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-22971" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://nvd.nist.gov/vuln/detail/CVE-2022-22971</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://github.com/advisories/GHSA-rqph-vqwm-22vc" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://github.com/advisories/GHSA-rqph-vqwm-22vc</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://tanzu.vmware.com/security/cve-2022-22971" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://tanzu.vmware.com/security/cve-2022-22971</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://access.redhat.com/security/cve/CVE-2022-22971" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://access.redhat.com/security/cve/CVE-2022-22971</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://security.netapp.com/advisory/ntap-20220616-0003/" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://security.netapp.com/advisory/ntap-20220616-0003/</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://www.oracle.com/security-alerts/cpujul2022.html" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://www.oracle.com/security-alerts/cpujul2022.html</a>
+                                </li>
+                                
+                            </ul>
+                        </td>
+                    </tr>
+                    
+
+                    
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">Weakness Enumeration</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="4">
+                            <ul>
+                                
+                                <li>
+                                    <a href="http://cwe.mitre.org/data/definitions/1035.html"
+                                       target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">CWE-1035</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="http://cwe.mitre.org/data/definitions/770.html"
+                                       target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">CWE-770</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="http://cwe.mitre.org/data/definitions/937.html"
+                                       target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">CWE-937</a>
+                                </li>
+                                
+                            </ul>
+                        </td>
+                    </tr>
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

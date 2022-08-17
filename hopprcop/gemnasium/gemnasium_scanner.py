@@ -33,12 +33,12 @@ from cvss import CVSS2, CVSS3
 from hoppr_cyclonedx_models.cyclonedx_1_4 import Vulnerability, Rating, Severity, Tool
 from packageurl import PackageURL
 
-from common.utils import (
+from security_commons.common.utils import (
     get_vulnerability_source,
     get_advisories_from_urls,
     get_references_from_ids,
 )
-from common.vulnerability_scanner import VulnerabilitySuper
+from security_commons.common.vulnerability_scanner import VulnerabilitySuper
 from hopprcop.gemnasium.models import GemnasiumVulnerability
 
 

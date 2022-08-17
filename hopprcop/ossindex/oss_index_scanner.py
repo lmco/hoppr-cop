@@ -23,9 +23,12 @@ from cvss.exceptions import CVSS3MalformedError
 from hoppr_cyclonedx_models.cyclonedx_1_4 import Vulnerability, Rating, Severity, Tool
 from packageurl import PackageURL
 from requests.auth import HTTPBasicAuth
+from security_commons.common.utils import (
+    get_vulnerability_source,
+    get_advisories_from_urls,
+)
+from security_commons.common.vulnerability_scanner import VulnerabilitySuper
 
-from common.utils import get_vulnerability_source, get_advisories_from_urls
-from common.vulnerability_scanner import VulnerabilitySuper
 from hopprcop.ossindex.api.model import OssIndexComponent
 from hopprcop.ossindex.api.model import Vulnerability as OssVulnerability
 from hopprcop.ossindex.api.ossindex import OssIndex

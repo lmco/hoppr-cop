@@ -6,9 +6,9 @@ from typing import List
 import typer
 from typer import Typer
 
-from common.reporting.models import ReportFormat
-from common.reporting.reporting import Reporting
-from common.utils import parse_sbom
+from security_commons.common.reporting.models import ReportFormat
+from security_commons.common.reporting.reporting import Reporting
+from security_commons.common.utils import parse_sbom
 from hopprcop.combined.combined_scanner import CombinedScanner
 
 app = Typer()

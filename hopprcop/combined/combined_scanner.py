@@ -31,8 +31,8 @@ from hoppr_cyclonedx_models.cyclonedx_1_4 import (
 )
 from hoppr_cyclonedx_models.cyclonedx_1_4 import Vulnerability
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from common.vulnerability_scanner import VulnerabilitySuper
-from common.vulnerability_combiner import combine_vulnerabilities
+from security_commons.common.vulnerability_scanner import VulnerabilitySuper
+from security_commons.common.vulnerability_combiner import combine_vulnerabilities
 
 
 class CombinedScanner(VulnerabilitySuper):

@@ -18,13 +18,11 @@ packageurl-python = "^0.10.1"
 tabulate = "^0.8.10"
 tinydb = "^4.7.0"
 rich = "^12.5.1"
+hoppr-security-commons = "1.0.1"
 
 [tool.poetry.scripts]
-gemnasium = "hopprcop.gemnasium.cli:app"
-grype = "hopprcop.grype.cli:app"
 hoppr-cop = "hopprcop.combined.cli:app"
-oss = "hopprcop.ossindex.cli:app"
-trivy = "hopprcop.trivy.cli:app"
+
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -34,3 +32,9 @@ pylint = "^2.14.4"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+
+[[tool.poetry.source]]
+name = "hoppr-security-commons"
+url = "https://gitlab.com/api/v4/projects/38610490/packages/pypi/simple"
+

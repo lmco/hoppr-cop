@@ -1,0 +1,353 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../assets/vulnerabilities.css" rel="stylesheet">
+</head>
+<body>
+<h1><a href="https://github.com/advisories/GHSA-8489-44mv-ggj8" target="_blank"
+       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">GHSA-8489-44mv-ggj8</a>
+</h1>
+<div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-4 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+                <table class="min-w-full text-left ">
+
+                    <thead class="border-b bg-gray-50
+
+">
+                    <tr class="border-b bg-slate-500">
+                        <th scope="col" class="text-sm font-medium text-white px-6 py-4" colspan="5">Vulnerable Component
+                            Details
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4" >Type</th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4" >Namespace</th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4" >Name</th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4" >Version</th>
+                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4" >Package URL</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="bg-white border-b">
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">maven</td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">org.apache.logging.log4j</td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">log4j-api</td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">2.16.0</td>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">pkg:maven/org.apache.logging.log4j/log4j-api@2.16.0?type=jar</td>
+                    </tr>
+                    </tbody>
+
+
+                    <thead class="border-b bg-gray-50">
+                    <tr class="border-b bg-slate-500">
+                        <th scope="col"  class="text-sm font-medium text-white px-6 py-4"  colspan="5">Vulnerability
+                            Details
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">ID</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"><a
+                                href="https://github.com/advisories/GHSA-8489-44mv-ggj8" target="_blank"
+                                class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">GHSA-8489-44mv-ggj8</a></td>
+                    </tr>
+
+                    
+
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">Description</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="5">Apache Log4j2 versions 2.0-beta7 through 2.17.0 are vulnerable to a remote code execution (RCE) attack when a configuration uses a JDBC Appender with a JNDI LDAP data source URI when an attacker has control of the target LDAP server. This issue is fixed by limiting JNDI data source names to the java protocol in Log4j2.
+                        </td>
+                    </tr>
+                    
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">Recommendation</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="4">Upgrade to versions 2.3.2, 2.12.4, 2.17.1 or above.
+                        </td>
+                    </tr>
+                    
+                    
+
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">Ratings</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="3">
+                            <table>
+                                <thead class="border-b bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Severity</th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Score</th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Method</th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Vector</th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Source</th>
+                                </tr>
+                                </thead>
+                                
+
+                                <tbody>
+                                <tr>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">
+                                        <div class="bg-gray-50 rounded-lg py-5 px-6 mb-4 text-base text-gray-500 mb-3" role="alert">
+                                            medium
+                                        </div>
+                                    </td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">None</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4"></td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">None</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">
+                                        
+                                            amazon
+                                        
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                                
+
+                                <tbody>
+                                <tr>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">
+                                        <div class="bg-yellow-100 rounded-lg py-5 px-6 mb-4 text-base text-yellow-700 mb-3" role="alert">
+                                            high
+                                        </div>
+                                    </td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">8.5</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">CVSSv2</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">AV:N/AC:M/Au:S/C:C/I:C/A:C</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">
+                                        
+                                            nvd
+                                        
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                                
+
+                                <tbody>
+                                <tr>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">
+                                        <div class="bg-gray-50 rounded-lg py-5 px-6 mb-4 text-base text-gray-500 mb-3" role="alert">
+                                            medium
+                                        </div>
+                                    </td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">None</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4"></td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">None</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">
+                                        
+                                            ubuntu
+                                        
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                                
+
+                                <tbody>
+                                <tr>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">
+                                        <div class="bg-gray-50 rounded-lg py-5 px-6 mb-4 text-base text-gray-500 mb-3" role="alert">
+                                            medium
+                                        </div>
+                                    </td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">6.6</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">CVSSv3</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:H/I:H/A:H</td>
+                                    <td class="text-sm font-medium text-gray-900 px-6 py-4">
+                                        
+                                            ghsa
+                                        
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                                
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    
+
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4" colspan="1">Related Vulnerabilities</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="4">
+                            <ul>
+                                
+                                <li>
+                                    <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-44832"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4"
+                                       target="_blank">CVE-2021-44832</a>
+                                </li>
+                                
+                            </ul>
+                        </td>
+                    </tr>
+                    
+
+                    
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">Found By</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="4">
+                            
+                            Aquasec Trivy
+                            , 
+                            
+                            Gitlab Gemnasium
+                            
+                            
+                        </td>
+                    </tr>
+                    
+
+                    
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">References / Advisories</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="4">
+                            <ul>
+                                
+                                <li>
+                                    <a href="https://github.com/advisories/GHSA-8489-44mv-ggj8" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://github.com/advisories/GHSA-8489-44mv-ggj8</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://issues.apache.org/jira/browse/LOG4J2-3293" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://issues.apache.org/jira/browse/LOG4J2-3293</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-44832" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://nvd.nist.gov/vuln/detail/CVE-2021-44832</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="http://www.openwall.com/lists/oss-security/2021/12/28/1" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">http://www.openwall.com/lists/oss-security/2021/12/28/1</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://www.oracle.com/security-alerts/cpujan2022.html" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://www.oracle.com/security-alerts/cpujan2022.html</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://cert-portal.siemens.com/productcert/pdf/ssa-784507.pdf" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://cert-portal.siemens.com/productcert/pdf/ssa-784507.pdf</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://lists.apache.org/thread/s1o5vlo78ypqxnzn6p8zf6t9shtq5143" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://lists.apache.org/thread/s1o5vlo78ypqxnzn6p8zf6t9shtq5143</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://lists.debian.org/debian-lts-announce/2021/12/msg00036.html" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://lists.debian.org/debian-lts-announce/2021/12/msg00036.html</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://access.redhat.com/security/cve/CVE-2021-44832" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://access.redhat.com/security/cve/CVE-2021-44832</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44832" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44832</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://github.com/apache/logging-log4j2/commit/05db5f9527254632b59aed2a1d78a32c5ab74f16" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://github.com/apache/logging-log4j2/commit/05db5f9527254632b59aed2a1d78a32c5ab74f16</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/EVV25FXL4FU5X6X5BSL7RLQ7T6F65MRA/" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/EVV25FXL4FU5X6X5BSL7RLQ7T6F65MRA/</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/T57MPJUW3MA6QGWZRTMCHHMMPQNVKGFC/" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/T57MPJUW3MA6QGWZRTMCHHMMPQNVKGFC/</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://security.netapp.com/advisory/ntap-20220104-0001/" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://security.netapp.com/advisory/ntap-20220104-0001/</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-apache-log4j-qRuKNEbd" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-apache-log4j-qRuKNEbd</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://ubuntu.com/security/notices/USN-5222-1" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://ubuntu.com/security/notices/USN-5222-1</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://www.oracle.com/security-alerts/cpuapr2022.html" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://www.oracle.com/security-alerts/cpuapr2022.html</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="https://www.oracle.com/security-alerts/cpujul2022.html" target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">https://www.oracle.com/security-alerts/cpujul2022.html</a>
+                                </li>
+                                
+                            </ul>
+                        </td>
+                    </tr>
+                    
+
+                    
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="text-sm font-medium text-gray-900 px-6 py-4">Weakness Enumeration</th>
+                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-wrap" colspan="4">
+                            <ul>
+                                
+                                <li>
+                                    <a href="http://cwe.mitre.org/data/definitions/1035.html"
+                                       target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">CWE-1035</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="http://cwe.mitre.org/data/definitions/20.html"
+                                       target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">CWE-20</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="http://cwe.mitre.org/data/definitions/74.html"
+                                       target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">CWE-74</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="http://cwe.mitre.org/data/definitions/78.html"
+                                       target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">CWE-78</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="http://cwe.mitre.org/data/definitions/937.html"
+                                       target="_blank"
+                                       class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">CWE-937</a>
+                                </li>
+                                
+                            </ul>
+                        </td>
+                    </tr>
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

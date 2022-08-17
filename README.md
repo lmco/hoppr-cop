@@ -45,7 +45,7 @@ hoppr-cop is available as a python module or as a docker image.
 ### Prerequisites
 
 Note all of these are optional, if not performed that scanner will not be activated. 
-
+#### Note python 3.10 is required
 1. [Install grype](https://github.com/anchore/grype#installation) `curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin`
 2. [Install trivy](https://aquasecurity.github.io/trivy/v0.31.2/getting-started/installation/) `curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.31.2`
 3. Register for a [free account with OSS-Index](https://ossindex.sonatype.org/user/register)
@@ -53,8 +53,9 @@ Note all of these are optional, if not performed that scanner will not be activa
 
 ### Install Python Module 
 
-TODO
+#### Note python 3.10 is required to install the tool
 
+` pip install hoppr-cop --extra-index-url https://gitlab.com/api/v4/projects/38643089/packages/pypi/simple`
 ## Contributing 
 
 See the [Contribution Guidelines](docs/contributing.md)

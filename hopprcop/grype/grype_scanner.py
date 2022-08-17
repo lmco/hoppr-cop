@@ -15,29 +15,28 @@
 #
 
 # Copyright (c) 2022 Lockheed Martin Corporation
+# pylint: disable=duplicate-code
 import json
 from subprocess import PIPE, Popen
 from typing import Optional, Union
 
 from cvss import CVSS3, CVSS2
-
-from packageurl import PackageURL
-
-from hoppr_cyclonedx_models.cyclonedx_1_4 import Vulnerability, Rating, Severity, Tool
 from hoppr_cyclonedx_models.cyclonedx_1_3 import (
     CyclonedxSoftwareBillOfMaterialSpecification as Bom_1_3,
 )
 from hoppr_cyclonedx_models.cyclonedx_1_4 import (
     CyclonedxSoftwareBillOfMaterialsStandard as Bom_1_4,
 )
-
-from common.utils import (
+from hoppr_cyclonedx_models.cyclonedx_1_4 import Vulnerability, Rating, Severity, Tool
+from packageurl import PackageURL
+from security_commons.common.utils import (
     get_vulnerability_source,
     get_advisories_from_urls,
     get_references_from_ids,
     build_bom_from_purls,
 )
-from common.vulnerability_scanner import VulnerabilitySuper
+from security_commons.common.vulnerability_scanner import VulnerabilitySuper
+
 from hopprcop.grype.models import Match, GrypeResult
 
 
