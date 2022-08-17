@@ -1,0 +1,233 @@
+---
+workflow:
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+      when: always
+    - if: '$CI_PIPELINE_SOURCE =~ /^trigger|pipeline|web|api$/'
+      when: always
+    - if: $CI_COMMIT_TAG
+      when: never
+    - when: always
+
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Dependency-Scanning.gitlab-ci.yml
+  - template: Security/License-Scanning.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  # - template: Security/Container-Scanning.gitlab-ci.yml
+
+  - local: 'ci/semantic-release.yml'
+
+# Global SAST Variables
+
+variables:
+  SAST_EXCLUDED_PATHS: "spec,test,tests,tmp,node_modules,target,venv"
+  SAST_BANDIT_EXCLUDED_PATHS: "*/test/**,*/tests/**,*/node_modules/**,*/target/**,*/venv/**"
+  SECRET_DETECTION_EXCLUDED_PATHS: "docs"
+  PYTHON_IMAGE: "python"
+  PYTHON_TAG: "3.10"
+
+  ## Semantic Release
+  ENABLE_SEMANTIC_RELEASE: "true"
+  ENABLE_SEMANTIC_RELEASE_DRY_RUN: "true"
+
+stages:
+- test
+- build
+- docs
+- deploy
+- publish
+
+.base-python:
+  image: $PYTHON_IMAGE:$PYTHON_TAG
+  before_script:
+    - pip install poetry
+    - poetry install
+
+.setup_pages:
+  script:
+    - apt-get update && apt-get install curl -y
+    - curl -ksL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o /bin/yq
+    - chmod a+x /bin/yq
+    - curl -kfsSL https://deb.nodesource.com/setup_16.x | bash -
+    - apt-get update && apt install -y nodejs
+    - |
+      apt-get -o dir::cache::archives="apt-cache" install \
+      python3.10 \
+      python3.10-venv \
+      python3-pip \
+      git \
+      jq -y
+    - npm install -g yarn
+
+
+###########
+# test
+###########
+mkdocs:
+  stage: test
+  needs: []
+  # Always test build mkdocs to ensure no issues with the documentation.
+  extends: .base-python
+  script:
+  - poetry run mkdocs build --strict --verbose
+  artifacts:
+    paths:
+    - "public"
+
+sast:
+  stage: test
+  needs: []
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+
+# unit-tests:
+#   extends: .base-python
+#   stage: test
+#   needs: []
+#   script:
+#     - poetry run coverage run --source=hoppr/ -m pytest --junit-xml=test.xml
+#     - poetry run coverage report -m
+#     - poetry run coverage xml --fail-under=95
+#   coverage: "/TOTAL.+ ([0-9]{1,3}%)/"
+#   artifacts:
+#     reports:
+#       junit:
+#         - test.xml
+#       coverage_report:
+#         coverage_format: cobertura
+#         path: coverage.xml
+
+check-format:
+  extends: .base-python
+  stage: test
+  needs: []
+  script:
+    - poetry run black --check ./vuln
+
+check-lint:
+  extends: .base-python
+  stage: test
+  needs: []
+  script:
+    - poetry run pylint ./vuln
+
+# check-types:
+#   extends: .base-python
+#   stage: test
+#   needs: []
+#   script:
+#     - poetry run mypy --namespace-packages --explicit-package-bases --install-types --non-interactive hoppr/
+
+###########
+# build
+###########
+
+build-dist:
+  extends: .base-python
+  stage: build
+  needs: ["semantic-release:dry-run"]
+  script:
+    - sed -i -e "s/^__version__ = \".*\"/__version__ = \"$RELEASE_VERSION\"/" hoppr/__init__.py
+    - poetry version $RELEASE_VERSION
+    - poetry build
+  artifacts:
+    paths:
+      - "dist/"
+      - vuln/__init__.py
+      - pyproject.toml
+
+###########
+# docs
+###########
+# pages-review:
+#   cache:
+#     paths:
+#     - apt-cache/
+#   image: "ubuntu:jammy-20220428"
+#   stage: docs
+#   needs:
+#     - job: semantic-release:dry-run
+#       artifacts: true
+#   variables:
+#     PUBLIC_URL: "/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/public"
+#   environment:
+#     name: review/$CI_COMMIT_REF_SLUG
+#     url: "https://lmco.gitlab.io/-/hoppr/hoppr/-/jobs/$CI_JOB_ID/artifacts/public/index.html"
+#     auto_stop_in: 1 week
+#   script:
+#     - !reference [".setup_pages", "script"]
+#     - !reference [".base-python", "before_script"]
+#     - /bin/yq eval ".extra.hoppr.version = \"$RELEASE_VERSION\"" -i mkdocs.yml
+#     - yarn install
+#     - yarn run make:hoppr
+#   artifacts:
+#     expose_as: 'Hoppr Docs Preview'
+#     paths:
+#     - "public"
+#   rules:
+#     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+#       when: never
+#     - if: '$CI_PIPELINE_SOURCE == "schedule"'
+#       when: never
+#     - if: $CI_COMMIT_REF_NAME != "main"
+
+# pages:
+#   # Only build the documentation and push to GitLab Pages on
+#   # main.
+#   cache:
+#     paths:
+#     - apt-cache/
+#   image: "ubuntu:jammy-20220428"
+#   stage: docs
+#   needs:
+#     - job: semantic-release:dry-run
+#       artifacts: true
+#   artifacts:
+#     paths:
+#     - public
+#   script:
+#     - !reference [".setup_pages", "script"]
+#     - !reference [".base-python", "before_script"]
+#     - /bin/yq eval ".extra.hoppr.version = \"$RELEASE_VERSION\"" -i mkdocs.yml
+#     - yarn install
+#     - yarn run make:hoppr:prod
+#     # - poetry run mkdocs build --strict --verbose
+#   rules:
+#     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+#       when: never
+#     - if: '$CI_PIPELINE_SOURCE == "schedule"'
+#       when: never
+#     - if: $CI_COMMIT_REF_NAME == "main"
+
+###########
+# deploy
+###########
+semantic-release:
+  stage: deploy
+
+publish-whl:
+  stage: publish
+  extends: .base-python
+  needs: ["semantic-release", "build-dist"]
+  variables:
+    RUNNER_GENERATE_ARTIFACTS_METADATA: "true"
+  script:
+    - poetry config repositories.gitlab "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi"
+    - poetry publish --repository gitlab --username gitlab-ci-token --password "${CI_JOB_TOKEN}"
+  artifacts:
+    paths:
+      - dist/hoppr-*
+      - hoppr/__init__.py
+      - pyproject.toml
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH && $ENABLE_SEMANTIC_RELEASE == "true" && $CI_PROJECT_NAMESPACE =~ /^lmco/'
+      when: on_success
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
