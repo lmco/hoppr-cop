@@ -79,7 +79,9 @@ class OssIndexJsonEncoder(JSONEncoder):
                 if new_key in _HYPHENATED_ATTRIBUTES:
                     new_key = new_key.replace("_", "-")
                 elif "_" in new_key:
-                    new_key = _PYTHON_TO_JSON_NAME.sub(lambda x: x.group(1).upper(), new_key)
+                    new_key = _PYTHON_TO_JSON_NAME.sub(
+                        lambda x: x.group(1).upper(), new_key
+                    )
 
                 if v or v is False:
                     if isinstance(v, PackageURL):

@@ -1,8 +1,12 @@
 [tool.poetry]
-name = "vuln"
+name = "hoppr-cop"
 version = "0.1.0"
 description = ""
 authors = ["kganger <keith.e.ganger@lmco.com>"]
+
+packages = [
+    { include = "hopprcop" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.10 "
@@ -16,11 +20,11 @@ tinydb = "^4.7.0"
 rich = "^12.5.1"
 
 [tool.poetry.scripts]
-gemnasium = "vuln.gemnasium.cli:app"
-grype = "vuln.grype.cli:app"
-hoppr-cop = "vuln.combined.cli:app"
-oss = "vuln.ossindex.cli:app"
-trivy = "vuln.trivy.cli:app"
+gemnasium = "hopprcop.gemnasium.cli:app"
+grype = "hopprcop.grype.cli:app"
+hoppr-cop = "hopprcop.combined.cli:app"
+oss = "hopprcop.ossindex.cli:app"
+trivy = "hopprcop.trivy.cli:app"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

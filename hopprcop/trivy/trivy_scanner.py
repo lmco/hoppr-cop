@@ -20,7 +20,9 @@ import tempfile
 from subprocess import PIPE, Popen
 from typing import Optional
 
-from hoppr_cyclonedx_models.cyclonedx_1_4 import CyclonedxSoftwareBillOfMaterialsStandard as Bom_1_4
+from hoppr_cyclonedx_models.cyclonedx_1_4 import (
+    CyclonedxSoftwareBillOfMaterialsStandard as Bom_1_4,
+)
 from hoppr_cyclonedx_models.cyclonedx_1_4 import Vulnerability, Tool
 from packageurl import PackageURL
 
@@ -36,7 +38,9 @@ class TrivyScanner(VulnerabilitySuper):
     required_tools_on_path = ["trivy"]
     supported_types = ["npm", "maven", "pypi", "gem", "golang", "nuget", "connan"]
 
-    def get_vulnerabilities_by_purl(self, purls: list[PackageURL]) -> dict[str, Optional[list[Vulnerability]]]:
+    def get_vulnerabilities_by_purl(
+        self, purls: list[PackageURL]
+    ) -> dict[str, Optional[list[Vulnerability]]]:
         """Get the vulnerabilities for a list of package URLS (purls)
         This function will return a dictionary of package URL to vulnerabilities or none if no vulnerabilities are found
         """
@@ -52,7 +56,10 @@ class TrivyScanner(VulnerabilitySuper):
                 bom_file.write(json.dumps(bom))
 
                 with Popen(
-                    ["trivy", "sbom", "--format", "cyclonedx", str(bom_file.name)], stdout=PIPE, stdin=PIPE, stderr=PIPE
+                    ["trivy", "sbom", "--format", "cyclonedx", str(bom_file.name)],
+                    stdout=PIPE,
+                    stdin=PIPE,
+                    stderr=PIPE,
                 ) as process:
                     stdout_data = process.communicate(input=b"")[0]
                     bom_file.close()

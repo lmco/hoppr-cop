@@ -1,4 +1,4 @@
-from vuln import __version__
+from hopprcop import __version__
 
 
 def test_version():

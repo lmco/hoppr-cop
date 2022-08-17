@@ -24,8 +24,12 @@ from cvss import CVSS3, CVSS2
 from packageurl import PackageURL
 
 from hoppr_cyclonedx_models.cyclonedx_1_4 import Vulnerability, Rating, Severity, Tool
-from hoppr_cyclonedx_models.cyclonedx_1_3 import CyclonedxSoftwareBillOfMaterialSpecification as Bom_1_3
-from hoppr_cyclonedx_models.cyclonedx_1_4 import CyclonedxSoftwareBillOfMaterialsStandard as Bom_1_4
+from hoppr_cyclonedx_models.cyclonedx_1_3 import (
+    CyclonedxSoftwareBillOfMaterialSpecification as Bom_1_3,
+)
+from hoppr_cyclonedx_models.cyclonedx_1_4 import (
+    CyclonedxSoftwareBillOfMaterialsStandard as Bom_1_4,
+)
 
 from common.utils import (
     get_vulnerability_source,
@@ -34,7 +38,7 @@ from common.utils import (
     build_bom_from_purls,
 )
 from common.vulnerability_scanner import VulnerabilitySuper
-from vuln.grype.models import Match, GrypeResult
+from hopprcop.grype.models import Match, GrypeResult
 
 
 class GrypeScanner(VulnerabilitySuper):
@@ -45,18 +49,24 @@ class GrypeScanner(VulnerabilitySuper):
     def __init__(self):
         super()
 
-    def get_vulnerabilities_by_purl(self, purls: list[PackageURL]) -> dict[str, Optional[list[Vulnerability]]]:
+    def get_vulnerabilities_by_purl(
+        self, purls: list[PackageURL]
+    ) -> dict[str, Optional[list[Vulnerability]]]:
         """Get the vulnerabilities for a list of package URLS (purls)
         This function will return a dictionary of package URL to vulnerabilities or none if no vulnerabilities are found
         """
         bom = build_bom_from_purls(purls)
         return self.get_vulnerabilities_by_sbom(bom)
 
-    def get_vulnerabilities_by_sbom(self, bom: [Union[Bom_1_4, Bom_1_3]]) -> dict[str, Optional[list[Vulnerability]]]:
+    def get_vulnerabilities_by_sbom(
+        self, bom: [Union[Bom_1_4, Bom_1_3]]
+    ) -> dict[str, Optional[list[Vulnerability]]]:
         """Parse a cyclone dx 1.4 compatible BOM and return a list of vulnerabilities "
         This function will return a dictionary of package URL to vulnerabilities or none if no vulnerabilities are found
         """
-        with Popen(["grype", "--output", "json"], stdout=PIPE, stdin=PIPE, stderr=PIPE) as process:
+        with Popen(
+            ["grype", "--output", "json"], stdout=PIPE, stdin=PIPE, stderr=PIPE
+        ) as process:
             stdout_data = process.communicate(input=(bytes(bom.json(), "utf-8")))[0]
             result = GrypeResult(**json.loads(stdout_data))
             results = {}
@@ -74,7 +84,11 @@ class GrypeScanner(VulnerabilitySuper):
     def __convert_to_cyclone_dx(match: Match) -> Vulnerability:
         """Converts a match to a vulnerability"""
 
-        related = match.vulnerability if len(match.related_vulnerabilities) == 0 else match.related_vulnerabilities[0]
+        related = (
+            match.vulnerability
+            if len(match.related_vulnerabilities) == 0
+            else match.related_vulnerabilities[0]
+        )
         for related_vuln in match.related_vulnerabilities:
             if related_vuln.id.startswith("CVE"):
                 related = related_vuln
@@ -91,12 +105,18 @@ class GrypeScanner(VulnerabilitySuper):
             source=get_vulnerability_source(related.id),
         )
 
-        ids = [match.vulnerability.id] + list(map(lambda x: x.id, match.related_vulnerabilities))
+        ids = [match.vulnerability.id] + list(
+            map(lambda x: x.id, match.related_vulnerabilities)
+        )
 
         cyclone_vuln.source.url = related.data_source
         cyclone_vuln.advisories = get_advisories_from_urls(related.urls)
         cyclone_vuln.references = get_references_from_ids(ids, cyclone_vuln.id)
-        cvss_scores = match.vulnerability.cvss if len(match.vulnerability.cvss) > 0 else related.cvss
+        cvss_scores = (
+            match.vulnerability.cvss
+            if len(match.vulnerability.cvss) > 0
+            else related.cvss
+        )
         for cvss in cvss_scores:
             if cvss.version.startswith("3"):
                 cvss3 = CVSS3(cvss.vector)
@@ -120,6 +140,11 @@ class GrypeScanner(VulnerabilitySuper):
                     )
                 )
         if len(cyclone_vuln.ratings) == 0 and match.vulnerability.severity is not None:
-            cyclone_vuln.ratings.append(Rating(severity=Severity[match.vulnerability.severity.lower()], method="other"))
+            cyclone_vuln.ratings.append(
+                Rating(
+                    severity=Severity[match.vulnerability.severity.lower()],
+                    method="other",
+                )
+            )
         cyclone_vuln.tools = [Tool(vendor="Anchore", name="Grype")]
         return cyclone_vuln

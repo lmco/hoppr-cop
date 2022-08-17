@@ -320,7 +320,14 @@ class OssIndexComponent:
         return False
 
     def __hash__(self) -> int:
-        return hash((self.coordinates, self.description, self.reference, tuple(self.vulnerabilities)))
+        return hash(
+            (
+                self.coordinates,
+                self.description,
+                self.reference,
+                tuple(self.vulnerabilities),
+            )
+        )
 
     def __repr__(self) -> str:
         return f"<OssIndexComponent coordinates={self.coordinates}>"
@@ -344,7 +351,9 @@ class OssIndexComponent:
         max_cvss_score = 0.0
         if self.vulnerabilities:
             for v in self.vulnerabilities:
-                max_cvss_score = OssIndexComponent._reduce_on_max_cvss_score(v=v, current_max=max_cvss_score)
+                max_cvss_score = OssIndexComponent._reduce_on_max_cvss_score(
+                    v=v, current_max=max_cvss_score
+                )
         return max_cvss_score
 
     @staticmethod

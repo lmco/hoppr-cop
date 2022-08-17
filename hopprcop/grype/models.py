@@ -93,7 +93,9 @@ class Artifact(BaseModel):
 
 class Match(BaseModel):
     vulnerability: Vulnerability
-    related_vulnerabilities: List[RelatedVulnerability] = Field(..., alias="relatedVulnerabilities")
+    related_vulnerabilities: List[RelatedVulnerability] = Field(
+        ..., alias="relatedVulnerabilities"
+    )
     match_details: List[MatchDetail] = Field(..., alias="matchDetails")
     artifact: Artifact
 

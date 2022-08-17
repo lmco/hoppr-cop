@@ -69,16 +69,16 @@ stages:
 ###########
 # test
 ###########
-mkdocs:
-  stage: test
-  needs: []
-  # Always test build mkdocs to ensure no issues with the documentation.
-  extends: .base-python
-  script:
-  - poetry run mkdocs build --strict --verbose
-  artifacts:
-    paths:
-    - "public"
+#mkdocs:
+#  stage: test
+#  needs: []
+#  # Always test build mkdocs to ensure no issues with the documentation.
+#  extends: .base-python
+#  script:
+#  - poetry run mkdocs build --strict --verbose
+#  artifacts:
+#    paths:
+#    - "public"
 
 sast:
   stage: test
@@ -109,14 +109,14 @@ check-format:
   stage: test
   needs: []
   script:
-    - poetry run black --check ./vuln
+    - poetry run black --check ./hopprcop
 
 check-lint:
   extends: .base-python
   stage: test
   needs: []
   script:
-    - poetry run pylint ./vuln
+    - poetry run pylint ./hopprcop
 
 # check-types:
 #   extends: .base-python
@@ -134,13 +134,13 @@ build-dist:
   stage: build
   needs: ["semantic-release:dry-run"]
   script:
-    - sed -i -e "s/^__version__ = \".*\"/__version__ = \"$RELEASE_VERSION\"/" hoppr/__init__.py
+    - sed -i -e "s/^__version__ = \".*\"/__version__ = \"$RELEASE_VERSION\"/" hopprcop/__init__.py
     - poetry version $RELEASE_VERSION
     - poetry build
   artifacts:
     paths:
       - "dist/"
-      - vuln/__init__.py
+      - hopprcop/__init__.py
       - pyproject.toml
 
 ###########
@@ -223,8 +223,8 @@ publish-whl:
     - poetry publish --repository gitlab --username gitlab-ci-token --password "${CI_JOB_TOKEN}"
   artifacts:
     paths:
-      - dist/hoppr-*
-      - hoppr/__init__.py
+      - dist/hoppr-cop-*
+      - hopprcop/__init__.py
       - pyproject.toml
   rules:
     - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH && $ENABLE_SEMANTIC_RELEASE == "true" && $CI_PROJECT_NAMESPACE =~ /^lmco/'

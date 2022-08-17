@@ -33,9 +33,13 @@ from cvss import CVSS2, CVSS3
 from hoppr_cyclonedx_models.cyclonedx_1_4 import Vulnerability, Rating, Severity, Tool
 from packageurl import PackageURL
 
-from common.utils import get_vulnerability_source, get_advisories_from_urls, get_references_from_ids
+from common.utils import (
+    get_vulnerability_source,
+    get_advisories_from_urls,
+    get_references_from_ids,
+)
 from common.vulnerability_scanner import VulnerabilitySuper
-from vuln.gemnasium.models import GemnasiumVulnerability
+from hopprcop.gemnasium.models import GemnasiumVulnerability
 
 
 class GemnasiumScanner(VulnerabilitySuper):
@@ -107,7 +111,13 @@ class GemnasiumScanner(VulnerabilitySuper):
         try:
 
             output = subprocess.run(
-                [self.semver_path, "check_version", repository_format, version, affected_range],
+                [
+                    self.semver_path,
+                    "check_version",
+                    repository_format,
+                    version,
+                    affected_range,
+                ],
                 capture_output=True,
                 text=True,
                 check=False,
@@ -119,7 +129,9 @@ class GemnasiumScanner(VulnerabilitySuper):
             print(f"Failed to check version for: {repository_format} {version} {err}")
             return False
 
-    def get_vulnerabilities_by_purl(self, purls: list[PackageURL]) -> dict[str, Optional[list[Vulnerability]]]:
+    def get_vulnerabilities_by_purl(
+        self, purls: list[PackageURL]
+    ) -> dict[str, Optional[list[Vulnerability]]]:
         """Get the vulnerabilities for a list of package URLS (purls)
         This function will return a dictionary of package URL to vulnerabilities or none if no vulnerabilities are found
         """
@@ -136,10 +148,14 @@ class GemnasiumScanner(VulnerabilitySuper):
                                 file.close()
                                 vuln = GemnasiumVulnerability(**data)
 
-                                if self.__is_affected_range(purl.type, purl.version, vuln.affected_range):
+                                if self.__is_affected_range(
+                                    purl.type, purl.version, vuln.affected_range
+                                ):
                                     vulnerability = self.__convert_to_cyclone_dx(vuln)
                                     if len(vulnerability.ratings) > 0:
-                                        vulnerabilities_by_purl[purl.to_string()].append(vulnerability)
+                                        vulnerabilities_by_purl[
+                                            purl.to_string()
+                                        ].append(vulnerability)
                     except:  # pylint: disable=bare-except
                         print(f"failed to parse gemnasium file for {purl}")
 
@@ -163,7 +179,9 @@ class GemnasiumScanner(VulnerabilitySuper):
             source=get_vulnerability_source(vuln_id),
         )
         cyclone_vuln.advisories = get_advisories_from_urls(vuln.urls)
-        cyclone_vuln.references = get_references_from_ids(vuln.identifiers, cyclone_vuln.id)
+        cyclone_vuln.references = get_references_from_ids(
+            vuln.identifiers, cyclone_vuln.id
+        )
         if vuln.cvss_v3 is not None:
             cvss = CVSS3(vuln.cvss_v3)
             cyclone_vuln.ratings.append(
