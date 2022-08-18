@@ -37,11 +37,11 @@ variables:
   ENABLE_SEMANTIC_RELEASE_DRY_RUN: "true"
 
 stages:
-- test
-- build
-- docs
-- deploy
-- publish
+  - test
+  - build
+  - docs
+  - deploy
+  - publish
 
 .base-python:
   image: $PYTHON_IMAGE:$PYTHON_TAG
@@ -71,18 +71,18 @@ stages:
 ###########
 mkdocs:
   stage: test
-  needs: []
+  needs: [ ]
   # Always test build mkdocs to ensure no issues with the documentation.
   extends: .base-python
   script:
-  - poetry run mkdocs build --strict --verbose
+    - poetry run mkdocs build --strict --verbose
   artifacts:
     paths:
-    - "site"
+      - "site"
 
 sast:
   stage: test
-  needs: []
+  needs: [ ]
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
@@ -107,14 +107,14 @@ sast:
 check-format:
   extends: .base-python
   stage: test
-  needs: []
+  needs: [ ]
   script:
     - poetry run black --check ./hopprcop
 
 check-lint:
   extends: .base-python
   stage: test
-  needs: []
+  needs: [ ]
   script:
     - poetry run pylint ./hopprcop
 
@@ -132,7 +132,7 @@ check-lint:
 build-dist:
   extends: .base-python
   stage: build
-  needs: ["semantic-release:dry-run"]
+  needs: [ "semantic-release:dry-run" ]
   script:
     - sed -i -e "s/^__version__ = \".*\"/__version__ = \"$RELEASE_VERSION\"/" hopprcop/__init__.py
     - poetry version $RELEASE_VERSION
@@ -147,53 +147,52 @@ build-dist:
 # docs
 ##########
 pages-review:
-   extends: .base-python
-   stage: docs
-   needs:
-     - job: semantic-release:dry-run
-       artifacts: true
-   variables:
-     PUBLIC_URL: "/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/public"
-   environment:
-     name: review/$CI_COMMIT_REF_SLUG
-     url: "https://lmco.gitlab.io/hoppr/utilities/supply-chain-security/hoppr-cop/-/jobs/$CI_JOB_ID/artifacts/public/index.html"
-     auto_stop_in: 1 week
-   script:
-     - poetry run mkdocs build --strict --verbose
-     - mv site public
+  extends: .base-python
+  stage: docs
+  needs:
+    - job: semantic-release:dry-run
+      artifacts: true
+  variables:
+    PUBLIC_URL: "/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/public"
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    url: "https://lmco.gitlab.io/hoppr/utilities/supply-chain-security/hoppr-cop/-/jobs/$CI_JOB_ID/artifacts/public/index.html"
+    auto_stop_in: 1 week
+  script:
+    - poetry run mkdocs build --strict --verbose
+    - mv site public
 
-   artifacts:
-     expose_as: 'Hoppr Cop Docs Preview'
-     paths:
-     - "public"
-   rules:
-     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-       when: never
-     - if: '$CI_PIPELINE_SOURCE == "schedule"'
-       when: never
-     - if: $CI_COMMIT_REF_NAME != "main"
+  artifacts:
+    expose_as: 'Hoppr Docs Preview'
+    paths:
+      - "public"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: $CI_COMMIT_REF_NAME != "main"
 
 pages:
-   # Only build the documentation and push to GitLab Pages on
-   # main.
-  mkdocs:
-    stage: docs
-    needs: [ ]
-    # Always test build mkdocs to ensure no issues with the documentation.
-    extends: .base-python
-    script:
-      - poetry run mkdocs build --strict --verbose
-      - mv site public
-    artifacts:
-      paths:
-        - "public"
-    rules:
-     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-       when: never
-     - if: '$CI_PIPELINE_SOURCE == "schedule"'
-       when: never
-     - if: $CI_COMMIT_REF_NAME == "main"
+  # Only build the documentation and push to GitLab Pages on
+  # main.
+  stage: docs
+  needs: [ ]
+  # Always test build mkdocs to ensure no issues with the documentation.
+  extends: .base-python
+  artifacts:
+    paths:
+      - public
 
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "main"
+  script:
+    - poetry run mkdocs build --strict --verbose
+    - mv site public
 ###########
 # deploy
 ###########
@@ -203,7 +202,7 @@ semantic-release:
 publish-whl:
   stage: publish
   extends: .base-python
-  needs: ["semantic-release", "build-dist"]
+  needs: [ "semantic-release", "build-dist" ]
   variables:
     RUNNER_GENERATE_ARTIFACTS_METADATA: "true"
   script:
