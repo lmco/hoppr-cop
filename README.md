@@ -2,6 +2,7 @@
 
 Hoppr Cop is a cli and python library that generates high quality vulnerability information from a [cyclone-dx](https://cyclonedx.org/)
 Software Bill of Materials (SBOM) by aggregating data from multiple vulnerability databases.
+This project is offered as part of the [hoppr](https://hoppr.dev/) ecosystem, however it is fully functional as a standalone cli or python library. 
 
 ## Project Status
 
