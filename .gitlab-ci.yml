@@ -78,7 +78,7 @@ mkdocs:
   - poetry run mkdocs build --strict --verbose
   artifacts:
     paths:
-    - "public"
+    - "site"
 
 sast:
   stage: test
@@ -165,8 +165,7 @@ pages-review:
      - !reference [".setup_pages", "script"]
      - !reference [".base-python", "before_script"]
      - /bin/yq eval ".extra.hoppr.version = \"$RELEASE_VERSION\"" -i mkdocs.yml
-     - yarn install
-     - yarn run make:hoppr
+
    artifacts:
      expose_as: 'Hoppr Docs Preview'
      paths:
@@ -195,6 +194,7 @@ pages:
    script:
      - !reference [".setup_pages", "script"]
      - !reference [".base-python", "before_script"]
+     - mv site public
    rules:
      - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
        when: never

@@ -2,6 +2,7 @@
 /reports
 /node_modules
 /public
+/site
 /dist
 #package-lock.json
 #package.json

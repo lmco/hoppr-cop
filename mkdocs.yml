@@ -1,6 +1,6 @@
 site_name: hoppr-cop
 repo_name: hoppr-cop
-site_dir: public
+site_dir: site
 repo_url: https://lmco.gitlab.io/hoppr/utilities/supply-chain-security/hoppr-cop
 copyright: "Copyright (c) 2022 Lockheed Martin Corporation"
 
