@@ -195,7 +195,6 @@ pages:
    script:
      - !reference [".setup_pages", "script"]
      - !reference [".base-python", "before_script"]
-     - cp -r docs/example-reports public
    rules:
      - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
        when: never
