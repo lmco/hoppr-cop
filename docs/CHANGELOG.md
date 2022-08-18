@@ -1,3 +1,10 @@
+## [1.0.4](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.3...v1.0.4) (2022-08-18)
+
+
+### Bug Fixes
+
+* added license to the project metadata file ([18fb87f](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/commit/18fb87f073996d3157cb12b8bcaf7c8cd734df91))
+
 ## [1.0.3](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.2...v1.0.3) (2022-08-18)
 
 ## [1.0.2](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.1...v1.0.2) (2022-08-17)
