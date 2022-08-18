@@ -1,11 +1,8 @@
 # Hoppr-Cop
-### For Policing Your SBOM Vulnerabilities
 
 Hoppr Cop is a cli and python library that generates high quality vulnerability information from a [cyclone-dx](https://cyclonedx.org/)
 Software Bill of Materials (SBOM) by aggregating data from multiple vulnerability databases.
 This project is offered as part of the [hoppr](https://hoppr.dev/) ecosystem, however it is fully functional as a standalone cli or python library. 
-
-For more information please see the [project documentation](https://lmco.gitlab.io/hoppr/utilities/supply-chain-security/hoppr-cop/)
 
 ## Project Status
 
@@ -33,15 +30,15 @@ The vex and html reports provide an ideal way to communicate vulnerability statu
 
 ### Why Use Multiple Scanners
 
-- Provides broad coverage of the upstream vulnerability data sources.  You can see the full details of the data-sources [here](docs/data-sources.md). Gitlab and Sonotype provide their own vulnerability reporting that you won't get elsewhere. 
+- Provides broad coverage of the upstream vulnerability data sources.  You can see the full details of the data-sources [here](data-sources.md). Gitlab and Sonotype provide their own vulnerability reporting that you won't get elsewhere. 
 - Provides much better coverage of a variety of package manager types.  Each bom scanner has package managers that it excels at scanning, and some that it does a poor job of.  Additionally, each product supports a different set of package ecosystems.
 - Seeing that multiple datasources agree on a finding, improves confidence that the finding is not a false positive. 
 - Combining information from multiple sources leads to more complete and accurate information for each vulnerability identified, leading to quicker resolutions. 
 
 ## Demo
-![](docs/example.png)
+![](example.png)
+[![asciicast](https://asciinema.org/a/sbQOjmD21IpewQEdg6DBVq7iR.svg)](https://asciinema.org/a/sbQOjmD21IpewQEdg6DBVq7iR)
 
 
 
-## Documentatio
-For more information please see the [project documentation](https://lmco.gitlab.io/hoppr/utilities/supply-chain-security/hoppr-cop/)
+

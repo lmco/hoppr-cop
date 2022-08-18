@@ -1,0 +1,47 @@
+site_name: hoppr-cop
+repo_name: hoppr-cop
+site_dir: public
+repo_url: https://lmco.gitlab.io/hoppr/utilities/supply-chain-security/hoppr-cop
+copyright: "Copyright (c) 2022 Lockheed Martin Corporation"
+
+nav:
+    - Home: index.md
+#    - eFOSS CLI:
+#      - Download Files: cli/download-files.md
+#      - Get: cli/get.md
+#      - Report: cli/report.md
+#      - Request: cli/request.md
+#    - Requesting Packages with CLI: efoss-container-requests.md
+    - Install: install.md
+    - Python Library: python-module.md
+    - Contributing: contributing.md
+    - Development:  development.md
+    - License: LICENSE.md
+
+#markdown_extensions:
+#  - pymdownx.superfences:
+#      custom_fences:
+#        - name: mermaid
+#          class: mermaid
+#          format: !!python/name:mermaid2.fence_mermaid
+#  - pymdownx.tabbed:
+#      alternate_style: true
+#  - attr_list
+
+theme:
+  name: material
+
+extra_css:
+    - 'docs/css/termynal.css'
+    - 'docs/css/custom.css'
+
+extra_javascript:
+#    - https://unpkg.com/mermaid/dist/mermaid.min.js
+    - 'docs/js/termynal.js'
+    - 'docs/js/custom.js'
+
+
+#plugins:
+#    - mermaid2:
+#        arguments:
+#          theme: 'dark'

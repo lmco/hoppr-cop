@@ -69,16 +69,16 @@ stages:
 ###########
 # test
 ###########
-#mkdocs:
-#  stage: test
-#  needs: []
-#  # Always test build mkdocs to ensure no issues with the documentation.
-#  extends: .base-python
-#  script:
-#  - poetry run mkdocs build --strict --verbose
-#  artifacts:
-#    paths:
-#    - "public"
+mkdocs:
+  stage: test
+  needs: []
+  # Always test build mkdocs to ensure no issues with the documentation.
+  extends: .base-python
+  script:
+  - poetry run mkdocs build --strict --verbose
+  artifacts:
+    paths:
+    - "public"
 
 sast:
   stage: test
@@ -143,40 +143,40 @@ build-dist:
       - hopprcop/__init__.py
       - pyproject.toml
 
-###########
-# docs
-###########
-# pages-review:
-#   cache:
-#     paths:
-#     - apt-cache/
-#   image: "ubuntu:jammy-20220428"
-#   stage: docs
-#   needs:
-#     - job: semantic-release:dry-run
-#       artifacts: true
-#   variables:
-#     PUBLIC_URL: "/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/public"
-#   environment:
-#     name: review/$CI_COMMIT_REF_SLUG
-#     url: "https://lmco.gitlab.io/-/hoppr/hoppr/-/jobs/$CI_JOB_ID/artifacts/public/index.html"
-#     auto_stop_in: 1 week
-#   script:
-#     - !reference [".setup_pages", "script"]
-#     - !reference [".base-python", "before_script"]
-#     - /bin/yq eval ".extra.hoppr.version = \"$RELEASE_VERSION\"" -i mkdocs.yml
-#     - yarn install
-#     - yarn run make:hoppr
-#   artifacts:
-#     expose_as: 'Hoppr Docs Preview'
-#     paths:
-#     - "public"
-#   rules:
-#     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-#       when: never
-#     - if: '$CI_PIPELINE_SOURCE == "schedule"'
-#       when: never
-#     - if: $CI_COMMIT_REF_NAME != "main"
+##########
+ docs
+##########
+ pages-review:
+   cache:
+     paths:
+     - apt-cache/
+   image: "ubuntu:jammy-20220428"
+   stage: docs
+   needs:
+     - job: semantic-release:dry-run
+       artifacts: true
+   variables:
+     PUBLIC_URL: "/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/public"
+   environment:
+     name: review/$CI_COMMIT_REF_SLUG
+     url: "https://lmco.gitlab.io/hoppr/utilities/supply-chain-security/hoppr-cop/-/jobs/$CI_JOB_ID/artifacts/public/index.html"
+     auto_stop_in: 1 week
+   script:
+     - !reference [".setup_pages", "script"]
+     - !reference [".base-python", "before_script"]
+     - /bin/yq eval ".extra.hoppr.version = \"$RELEASE_VERSION\"" -i mkdocs.yml
+     - yarn install
+     - yarn run make:hoppr
+   artifacts:
+     expose_as: 'Hoppr Docs Preview'
+     paths:
+     - "public"
+   rules:
+     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+       when: never
+     - if: '$CI_PIPELINE_SOURCE == "schedule"'
+       when: never
+     - if: $CI_COMMIT_REF_NAME != "main"
 
 pages:
    # Only build the documentation and push to GitLab Pages on
