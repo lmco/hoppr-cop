@@ -1,3 +1,10 @@
+## [1.0.7](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.6...v1.0.7) (2022-08-18)
+
+
+### Bug Fixes
+
+* fixed documentation ([75b12c7](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/commit/75b12c736979fd84c91ecf459dcf4d6f0bf03199))
+
 ## [1.0.6](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.5...v1.0.6) (2022-08-18)
 
 ## [1.0.5](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.4...v1.0.5) (2022-08-18)
