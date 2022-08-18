@@ -144,9 +144,9 @@ build-dist:
       - pyproject.toml
 
 ##########
- docs
+# docs
 ##########
- pages-review:
+pages-review:
    cache:
      paths:
      - apt-cache/
