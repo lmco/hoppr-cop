@@ -69,7 +69,7 @@ See the [Contribution Guidelines](docs/contributing.md)
 
 ## Use as Python Library
 
-This library can also be used programmatically, here is an example of interacting with the combined scanner from pyton code. 
+This library can also be used programmatically, here is an example of interacting with the combined scanner from python code. 
 ```python
 from pathlib import Path
 
