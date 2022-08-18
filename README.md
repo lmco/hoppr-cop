@@ -43,5 +43,5 @@ The vex and html reports provide an ideal way to communicate vulnerability statu
 
 
 
-## Documentatio
+## Documentation
 For more information please see the [project documentation](https://lmco.gitlab.io/hoppr/utilities/supply-chain-security/hoppr-cop/)
