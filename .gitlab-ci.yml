@@ -147,10 +147,7 @@ build-dist:
 # docs
 ##########
 pages-review:
-   cache:
-     paths:
-     - apt-cache/
-   image: "ubuntu:jammy-20220428"
+   extends: .base-python
    stage: docs
    needs:
      - job: semantic-release:dry-run
@@ -162,12 +159,11 @@ pages-review:
      url: "https://lmco.gitlab.io/hoppr/utilities/supply-chain-security/hoppr-cop/-/jobs/$CI_JOB_ID/artifacts/public/index.html"
      auto_stop_in: 1 week
    script:
-     - !reference [".setup_pages", "script"]
-     - !reference [".base-python", "before_script"]
-     - /bin/yq eval ".extra.hoppr.version = \"$RELEASE_VERSION\"" -i mkdocs.yml
+     - poetry run mkdocs build --strict --verbose
+     - mv site public
 
    artifacts:
-     expose_as: 'Hoppr Docs Preview'
+     expose_as: 'Hoppr Cop Docs Preview'
      paths:
      - "public"
    rules:
@@ -180,21 +176,17 @@ pages-review:
 pages:
    # Only build the documentation and push to GitLab Pages on
    # main.
-   cache:
-     paths:
-     - apt-cache/
-   image: "ubuntu:jammy-20220428"
-   stage: docs
-   needs:
-     - job: semantic-release:dry-run
-       artifacts: true
-   artifacts:
-     paths:
-     - public
-   script:
-     - !reference [".setup_pages", "script"]
-     - !reference [".base-python", "before_script"]
-     - mv site public
+  mkdocs:
+    stage: docs
+    needs: [ ]
+    # Always test build mkdocs to ensure no issues with the documentation.
+    extends: .base-python
+    script:
+      - poetry run mkdocs build --strict --verbose
+      - mv site public
+    artifacts:
+      paths:
+        - "public"
    rules:
      - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
        when: never
