@@ -1,3 +1,5 @@
+## [1.0.11](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.10...v1.0.11) (2022-08-27)
+
 ## [1.0.10](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.9...v1.0.10) (2022-08-18)
 
 ## [1.0.9](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.8...v1.0.9) (2022-08-18)
