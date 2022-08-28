@@ -1,3 +1,10 @@
+## [1.0.13](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.12...v1.0.13) (2022-08-28)
+
+
+### Bug Fixes
+
+* trying to get release artifacts working ([cfbf1cd](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/commit/cfbf1cd6b50190bac8d096a66a8c985f7c223892))
+
 ## [1.0.12](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.11...v1.0.12) (2022-08-28)
 
 
