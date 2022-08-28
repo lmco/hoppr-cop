@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hoppr-cop"
-version = "1.0.11"
+version = "1.0.12"
 description = ""
 authors = ["kganger <keith.e.ganger@lmco.com>"]
 license = "MIT"
