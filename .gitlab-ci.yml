@@ -66,6 +66,16 @@ stages:
     - npm install -g yarn
 
 
+sbom: 
+  stage: docs 
+  image: $PYTHON_IMAGE:$PYTHON_TAG
+  script:
+    - pip install cyclonedx-bom
+    - cyclonedx-py --poetry -o sbom.json --format json
+  artifacts:
+    paths:
+      - sbom.json
+
 ###########
 # test
 ###########
