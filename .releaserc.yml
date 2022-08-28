@@ -55,8 +55,6 @@ plugins:
   - gitlabUrl: https://gitlab.com
     gitlabApiPathPrefix: "/api/v4"
     assets:
-    - path: sbom.json
-      label: SBOM
-    - path: LICENSE.md
-      label: LICENSE
+    - sbom.json
+    - LICENSE.md
 
