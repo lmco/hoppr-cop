@@ -51,6 +51,8 @@ plugins:
     - hopprcop/__init__.py
     - pyproject.toml
     - yarn.lock
+    - sbom.json
+    - LICENSE.md
 - - "@semantic-release/gitlab"
   - gitlabUrl: https://gitlab.com
     gitlabApiPathPrefix: "/api/v4"

@@ -37,6 +37,7 @@ variables:
       echo $var
     - jq --slurpfile temp temp.json '.plugins += $temp' release.json | yq eval -P - > $var
     - cat .releaserc.yml
+    - cat release.json
 
 
 semantic-release:dry-run:
@@ -83,7 +84,7 @@ semantic-release:
     entrypoint: [""]
   script:
     - !reference ['.semantic-base', 'script']
-    - semantic-release
+    - semantic-release --debug
   rules:
     - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH && $ENABLE_SEMANTIC_RELEASE == "true" && $CI_PROJECT_NAMESPACE =~ /^lmco/'
       when: on_success
