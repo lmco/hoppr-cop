@@ -1,3 +1,10 @@
+## [1.0.14](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.13...v1.0.14) (2022-08-29)
+
+
+### Bug Fixes
+
+* updating gitlab semantic release version ([a1b4685](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/commit/a1b4685907c450502fa826df99b4a87e10f3b147))
+
 ## [1.0.13](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.12...v1.0.13) (2022-08-28)
 
 
