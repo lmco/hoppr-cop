@@ -71,6 +71,7 @@ sbom:
   image: $PYTHON_IMAGE:$PYTHON_TAG
   script:
     - pip install cyclonedx-bom
+    - rm sbom.json
     - cyclonedx-py --poetry -o sbom.json --format json
   artifacts:
     paths:
