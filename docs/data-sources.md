@@ -10,7 +10,6 @@
 * gem - gemnasium, trivy, grype, oss-index (tested but got no results using a small bom)
 * rpm - grype, oss-index (oss-index coverage seems quite poor, trivy has rpm in their database but blows up on rpm purls)
 * deb - grype (trivy has deb in their database but blows up on rpm purls)
-* raw - fnci via efoss data.
 
 ## Gemnasium
 

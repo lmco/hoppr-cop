@@ -11,15 +11,15 @@ Please merge any contributed templates, to the `contrib/templates` subdirectory.
 The general flow of contributing to `hoppr-cop` is:
 
 1. Ensure you have a gitlab issue associated with your changes
-    - [Bug Issue](https://gitlab.global.lmco.com/software-factory/applications/hoppr/internal-plugins/hoppr-cop/-/issues/new?issuable_template=Bug)
-    - [Feature Request Issue](https://gitlab.global.lmco.com/software-factory/applications/hoppr/internal-plugins/hoppr-cop/-/issues/new?issuable_template=Feature%20Request)
+    - [Bug Issue](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/-/issues/new?issuable_template=Bug)
+    - [Feature Request Issue](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/-/issues/new?issuable_template=Feature%20Request)
 1. Discuss the changes via the issue with project maintainers before starting
-1. [Create a fork](https://gitlab.global.lmco.com/software-factory/applications/hoppr/internal-plugins/hoppr-cop/-/forks/new) of `hoppr-cop`
+1. [Create a fork](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/-/forks/new) of `hoppr-cop`
 1. Follow the [development documentation](development.md) to make changes in your fork
 1. When committing use the [Conventional Commits Convention](https://www.conventionalcommits.org/en/v1.0.0/) to document what changed
     - [Commit messages that follow Conventional Commits Convention](https://www.conventionalcommits.org/en/v1.0.0/) will be
       included in the [Changelog](CHANGELOG.md)
-1. When you're ready, create a [new merge request](https://gitlab.global.lmco.com/software-factory/applications/hoppr/internal-plugins/hoppr-cop/-/merge_requests/new). In the merge request's description:
+1. When you're ready, create a [new merge request](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/-/merge_requests/new). In the merge request's description:
     - Ensure you provide complete and accurate information.
     - Review the provided checklist.
 1. Assign the merge request (if possible) to, or mention, one of the code owners for 
