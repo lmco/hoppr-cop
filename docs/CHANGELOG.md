@@ -1,3 +1,10 @@
+## [1.0.16](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.15...v1.0.16) (2022-10-19)
+
+
+### Bug Fixes
+
+* fixed an issue where get_vulnerabilities_by_purl was calling get_vulnerabilities_by_sbom on the underlying scanners ([e5ae0d6](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/commit/e5ae0d600a0b9f8910ff360320eb64143b3b9ab9))
+
 ## [1.0.15](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.14...v1.0.15) (2022-10-19)
 
 
