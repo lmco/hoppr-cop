@@ -91,7 +91,7 @@ class CombinedScanner(VulnerabilitySuper):
         """
 
         def submit_to_scanner_purl(scanner: VulnerabilitySuper):
-            return scanner.get_vulnerabilities_by_sbom(purls)
+            return scanner.get_vulnerabilities_by_purl(purls)
 
         return self.___scan_concurrently(submit_to_scanner_purl)
 
