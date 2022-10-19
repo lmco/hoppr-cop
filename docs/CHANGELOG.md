@@ -1,3 +1,11 @@
+## [1.0.15](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.14...v1.0.15) (2022-10-19)
+
+
+### Bug Fixes
+
+* remove sbom before regenerating it ([4ed0470](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/commit/4ed0470620db9ae01e5c4b081a0427e67444d951))
+* removing references to internal LM resources ([31e112e](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/commit/31e112ebc38139f1b74ae392a29c49acf5f91454))
+
 ## [1.0.14](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.13...v1.0.14) (2022-08-29)
 
 
