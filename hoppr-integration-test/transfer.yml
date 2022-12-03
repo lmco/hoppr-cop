@@ -1,0 +1,13 @@
+schemaVersion: v1
+kind: Transfer
+
+stages:
+  Vulnerability Check:
+    plugins:
+    - name: "hopprcop.hoppr_plugin.hopprcop_plugin"
+      config:
+        scanners: 
+          - hopprcop.gemnasium.gemnasium_scanner.GemnasiumScanner
+          - hopprcop.grype.grype_scanner.GrypeScanner
+
+max_processes: 3
