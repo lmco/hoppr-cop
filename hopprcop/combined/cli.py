@@ -27,9 +27,9 @@ def vulnerability_report(
     ),
     base_report_name: str = typer.Option(
         None, help="The base name supplied for the generated reports"
-    )
+    ),
 ):
-
+    """Runs hoppr cop from cli"""
     if base_report_name is None:
         if bom.endswith(".json"):
             base_report_name = bom.removesuffix(".json")
@@ -40,21 +40,23 @@ def vulnerability_report(
 
     run_hoppr_cop(bom, base_report_name, formats, get_scanners(), output_dir)
 
+
 def get_scanners() -> List[str]:
+    """Defines scanners to use for hoppr cop"""
     return [
         "hopprcop.gemnasium.gemnasium_scanner.GemnasiumScanner",
         "hopprcop.grype.grype_scanner.GrypeScanner",
         "hopprcop.ossindex.oss_index_scanner.OSSIndexScanner",
     ]
 
+
 def run_hoppr_cop(
     bom: str,
     base_report_name: str,
     formats: List[ReportFormat],
     scanners: List[str],
-    output_dir: Path = Path.cwd()
+    output_dir: Path = Path.cwd(),
 ):
-
     """generates vulnerability reports based on the specified BOM and formats"""
     reporting = Reporting(output_dir, base_report_name)
     combined = CombinedScanner()

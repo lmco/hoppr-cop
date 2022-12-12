@@ -8,6 +8,7 @@ from security_commons.common.reporting.models import ReportFormat
 from hopprcop.combined.cli import run_hoppr_cop, get_scanners
 from hopprcop import __version__
 
+
 class HopprCopPlugin(HopprPlugin):
     """
     hoppr plugin wrapper for hopprcop integration
@@ -26,14 +27,22 @@ class HopprCopPlugin(HopprPlugin):
         """
         Supply sbom to hoppr cop to perform vulnerabilty check
         """
-        self.get_logger().info('[ Executing hopprcop vulnerability check ]')
+        self.get_logger().info("[ Executing hopprcop vulnerability check ]")
         self.get_logger().flush()
 
-        output_dir = self.config.get('output_dir', Path.cwd())
-        base_report_name = self.config.get('base_report_name', 'hopprcop-vulnerability-results')
-        scanners = self.config.get('scanners', get_scanners())
-        formats = self.config.get('result_formats', [ ReportFormat.CYCLONE_DX ])
+        output_dir = self.config.get("output_dir", Path.cwd())
+        base_report_name = self.config.get(
+            "base_report_name", "hopprcop-vulnerability-results"
+        )
+        scanners = self.config.get("scanners", get_scanners())
+        formats = self.config.get("result_formats", [ReportFormat.CYCLONE_DX])
 
-        run_hoppr_cop(self.context.delivered_sbom.json(), base_report_name, formats, scanners, output_dir)
+        run_hoppr_cop(
+            self.context.delivered_sbom.json(),
+            base_report_name,
+            formats,
+            scanners,
+            output_dir,
+        )
 
         return Result.success()
