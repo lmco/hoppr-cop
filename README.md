@@ -5,7 +5,7 @@ Hoppr Cop is a cli and python library that generates high quality vulnerability 
 Software Bill of Materials (SBOM) by aggregating data from multiple vulnerability databases.
 This project is offered as part of the [hoppr](https://hoppr.dev/) ecosystem, however it is fully functional as a standalone cli or python library. 
 
-For more information please see the [project documentation](https://lmco.gitlab.io/hoppr/utilities/supply-chain-security/hoppr-cop/)
+For more information please see the [project documentation](https://hoppr.gitlab.io/hoppr-cop/)
 
 ## Project Status
 
