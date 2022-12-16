@@ -21,7 +21,7 @@ Alpha
 * Combines information from these sources in a way that reduces duplicates and ensures complete information for each vulnerability. 
 * Generates reports in multiple formats
   * [cyclone-dx vex](https://cyclonedx.org/capabilities/vex/) either embedded in the existing bom or as a standalone file.  
-  * [html](https://hoppr.gitlab.io/hoppr/hoppr-cop/example-reports/npm-vulnerabilities.html) - detailed vulnerability information that can be viewed in disconnected networks. 
+  * [html](https://hoppr.gitlab.io/hoppr-cop/example-reports/npm-vulnerabilities.html) - detailed vulnerability information that can be viewed in disconnected networks. 
   * Gitlab Dependency Scanning - Which enables  [Vulnerability Reports](https://docs.gitlab.com/ee/user/application_security/vulnerability_report/),
   [Dependency List](https://docs.gitlab.com/ee/user/application_security/dependency_list/), and [Security Dashboard](https://docs.gitlab.com/ee/user/application_security/security_dashboard/)
   
@@ -44,4 +44,4 @@ The vex and html reports provide an ideal way to communicate vulnerability statu
 
 
 ## Documentation
-For more information please see the [project documentation](https://hoppr.gitlab.io/hoppr/hoppr-cop/)
+For more information please see the [project documentation](https://hoppr.gitlab.io/hoppr-cop/)
