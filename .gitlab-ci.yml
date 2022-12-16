@@ -167,7 +167,7 @@ pages-review:
     PUBLIC_URL: "/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/public"
   environment:
     name: review/$CI_COMMIT_REF_SLUG
-    url: "https://lmco.gitlab.io/hoppr/utilities/supply-chain-security/hoppr-cop/-/jobs/$CI_JOB_ID/artifacts/public/index.html"
+    url: "https://hoppr.gitlab.io/hoppr/hoppr-cop/-/jobs/$CI_JOB_ID/artifacts/public/index.html"
     auto_stop_in: 1 week
   script:
     - poetry run mkdocs build --strict --verbose
