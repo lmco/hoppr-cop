@@ -21,8 +21,9 @@ include:
   - template: Security/Secret-Detection.gitlab-ci.yml
   # - template: Security/Container-Scanning.gitlab-ci.yml
 
+  - local: ci/build-images.yml
+  - local: ci/check.yml
   - local: 'ci/semantic-release.yml'
-  - local: 'ci/check.yml'
 
 # Global SAST Variables
 
