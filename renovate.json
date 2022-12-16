@@ -10,6 +10,7 @@
   ],
   "gitLabAutomerge": true,
   "gitLabIgnoreApprovals": true,
+  "labels": ["Bot"],
   "packageRules": [
     {
       "matchManagers": ["regex"],
