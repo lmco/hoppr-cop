@@ -101,7 +101,7 @@
     "sharp": "^0.30.6",
     "stylelint": "^14.9.1",
     "stylelint-config-rational-order": "^0.1.2",
-    "stylelint-config-recommended": "^8.0.0",
+    "stylelint-config-recommended": "^9.0.0",
     "stylelint-config-standard-scss": "^4.0.0",
     "stylelint-scss": "^4.2.0",
     "svgo": "^2.8.0",
