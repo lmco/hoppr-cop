@@ -225,7 +225,7 @@ publish-whl:
       - hopprcop/__init__.py
       - pyproject.toml
   rules:
-    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH && $ENABLE_SEMANTIC_RELEASE == "true" && $CI_PROJECT_NAMESPACE =~ /^lmco/'
+    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH && $ENABLE_SEMANTIC_RELEASE == "true" && $CI_PROJECT_NAMESPACE =~ /^hoppr/'
       when: on_success
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
