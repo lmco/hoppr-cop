@@ -142,7 +142,6 @@ check-lint:
 
 build-dist:
   extends: .base-python
-  stage: build
   needs: [ "semantic-release:dry-run" ]
   script:
     - sed -i -e "s/^__version__ = \".*\"/__version__ = \"$RELEASE_VERSION\"/" hopprcop/__init__.py
