@@ -103,7 +103,7 @@ unit-tests:
   stage: test
   needs: []
   script:
-    - poetry run coverage run --source=hoppr/ -m pytest --junit-xml=test.xml
+    - poetry run coverage run --source=hopprcop/ -m pytest --junit-xml=test.xml
     - poetry run coverage report -m
     - poetry run coverage xml --fail-under=95
   coverage: "/TOTAL.+ ([0-9]{1,3}%)/"
