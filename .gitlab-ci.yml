@@ -22,6 +22,7 @@ include:
   # - template: Security/Container-Scanning.gitlab-ci.yml
 
   - local: 'ci/semantic-release.yml'
+  - local: 'ci/check.yml'
 
 # Global SAST Variables
 
