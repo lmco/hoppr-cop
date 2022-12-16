@@ -39,7 +39,6 @@ variables:
 stages:
   - test
   - build
-  - check
   - docs
   - deploy
   - publish

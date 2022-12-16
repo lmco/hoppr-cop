@@ -25,8 +25,14 @@ class TestHopprCopPlugin(TestCase):
     def test_get_version(self):
         assert HopprCopPlugin.get_version(self) == __version__
 
-    def test_pre_stage_process(self):
+    def test_pre_stage_process_success(self):
         Hoppr50 = HopprCopPlugin(self.simple_test_context, self.simple_config)
         result = Hoppr50.pre_stage_process()
 
         assert result.is_success()
+
+    def test_pre_stage_process_fail(self):
+        Hoppr50 = HopprCopPlugin(self.simple_test_context, "CONFIG")
+        result = Hoppr50.pre_stage_process()
+
+        assert result.is_fail()
