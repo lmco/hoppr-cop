@@ -21,8 +21,6 @@ include:
   - template: Security/Secret-Detection.gitlab-ci.yml
   # - template: Security/Container-Scanning.gitlab-ci.yml
 
-  - local: ci/build-images.yml
-  - local: ci/check.yml
   - local: 'ci/semantic-release.yml'
 
 # Global SAST Variables
@@ -101,22 +99,22 @@ sast:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
 
-# unit-tests:
-#   extends: .base-python
-#   stage: test
-#   needs: []
-#   script:
-#     - poetry run coverage run --source=hoppr/ -m pytest --junit-xml=test.xml
-#     - poetry run coverage report -m
-#     - poetry run coverage xml --fail-under=95
-#   coverage: "/TOTAL.+ ([0-9]{1,3}%)/"
-#   artifacts:
-#     reports:
-#       junit:
-#         - test.xml
-#       coverage_report:
-#         coverage_format: cobertura
-#         path: coverage.xml
+unit-tests:
+  extends: .base-python
+  stage: test
+  needs: []
+  script:
+    - poetry run coverage run --source=hoppr/ -m pytest --junit-xml=test.xml
+    - poetry run coverage report -m
+    - poetry run coverage xml --fail-under=95
+  coverage: "/TOTAL.+ ([0-9]{1,3}%)/"
+  artifacts:
+    reports:
+      junit:
+        - test.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
 
 check-format:
   extends: .base-python
