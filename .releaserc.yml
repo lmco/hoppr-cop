@@ -1,62 +1,61 @@
 ---
 branches:
-- main
-publish:
-  - "@semantic-release/gitlab"
+  - main
+
 plugins:
-- - "@semantic-release/commit-analyzer"
-  - preset: conventionalcommits
-    releaseRules:
-    - type: docs
-      release: patch
-    - type: refactor
-      release: patch
-    - type: style
-      release: patch
-    - type: bug
-      release: patch
-    parserOpts:
-      noteKeywords:
-      - BREAKING CHANGE
-      - BREAKING CHANGES
-- - "@semantic-release/release-notes-generator"
-  - preset: conventionalcommits
-- - "@semantic-release/exec"
-  - "generateNotesCmd": "echo RELEASE_VERSION=v${nextRelease.version} > release.env"
-- - "@semantic-release/changelog"
-  - changelogFile: docs/CHANGELOG.md
-- - "@google/semantic-release-replace-plugin"
-  - replacements:
-    - files: ["hopprcop/__init__.py"]
-      from: "^__version__ = \".*\""
-      to: "__version__ = \"${nextRelease.version}\""
-      results:
-        - file: "hopprcop/__init__.py"
-          hasChanged: true
-          numMatches: 1
-          numReplacements: 1
-      countMatches: true
-    - files: ["pyproject.toml"]
-      from: "^version = \".*\""
-      to: "version = \"${nextRelease.version}\""
-      results:
-        - file: "pyproject.toml"
-          hasChanged: true
-          numMatches: 1
-          numReplacements: 1
-      countMatches: true
-- - "@semantic-release/git"
-  - assets:
-    - docs/CHANGELOG.md
-    - hopprcop/__init__.py
-    - pyproject.toml
-    - yarn.lock
-    - sbom.json
-    - LICENSE.md
-- - "@semantic-release/gitlab"
-  - gitlabUrl: https://gitlab.com
-    gitlabApiPathPrefix: "/api/v4"
-    assets:
-    - sbom.json
-    - LICENSE.md
+  - - "@semantic-release/commit-analyzer"
+    - preset: conventionalcommits
+      releaseRules:
+      - type: docs
+        release: patch
+      - type: refactor
+        release: patch
+      - type: style
+        release: patch
+      - type: bug
+        release: patch
+      parserOpts:
+        noteKeywords:
+        - BREAKING CHANGE
+        - BREAKING CHANGES
+
+  - - "@semantic-release/release-notes-generator"
+    - preset: conventionalcommits
+    
+  - - "@semantic-release/exec"
+    - "generateNotesCmd": "echo RELEASE_VERSION=v${nextRelease.version} > release.env"
+    
+  - - "@semantic-release/changelog"
+    - changelogFile: docs/CHANGELOG.md
+
+  - - "@semantic-release/exec"
+    - prepareCmd: |
+        sed --in-place 's/__version__ = ".*"/__version__ = "${nextRelease.version}"/' hopprcop/__init__.py
+        poetry lock --no-update
+        poetry version ${nextRelease.version}
+
+  - - semantic-release-python
+    - setupPy: pyproject.toml
+      repoUrl: https://gitlab.com/api/v4/projects/38643089/packages/pypi
+      distDir: dist
+
+  - - "@semantic-release/git"
+    - message: |-
+        chore(release): ${nextRelease.version}
+
+        ${nextRelease.notes}
+      assets:
+        - docs/CHANGELOG.md
+        - hopprcop/__init__.py
+        - pyproject.toml
+        - yarn.lock
+        - sbom.json
+        - LICENSE.md
+
+  - - "@semantic-release/gitlab"
+    - gitlabUrl: https://gitlab.com
+      gitlabApiPathPrefix: "/api/v4"
+      assets:
+      - sbom.json
+      - LICENSE.md
 

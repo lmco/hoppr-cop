@@ -1,8 +1,7 @@
 ---
-
 variables:
-  SEMANTIC_RELEASE_IMAGE: "gtramontina/semantic-release"
-  SEMANTIC_RELEASE_TAG: "17.4.3"
+  SEMANTIC_RELEASE_IMAGE: hoppr/semantic-release
+  SEMANTIC_RELEASE_TAG: "0.0.15"
   GIT_AUTHOR_NAME: $GITLAB_USER_LOGIN
   GIT_AUTHOR_EMAIL: $GITLAB_USER_EMAIL
   GIT_COMMITTER_NAME: $GITLAB_USER_LOGIN
@@ -13,86 +12,69 @@ variables:
   SEMANTIC_RELEASE_BRANCH: main
 
 .semantic-base:
-  script:
-    - |
-      echo "GIT_AUTHOR_NAME: $GIT_AUTHOR_NAME"
-      echo "GIT_AUTHOR_EMAIL: $GIT_AUTHOR_EMAIL"
-      echo "GIT_COMMITTER_NAME: $GIT_COMMITTER_NAME"
-      echo "GIT_COMMITTER_EMAIL: $GIT_COMMITTER_EMAIL"
-
-    - |
-      # apk update && \
-      echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories && \
-      echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
-      apk update --no-cache --allow-untrusted && \
-      apk --no-cache --allow-untrusted add curl yq jq && \
-    - yarn install
-
-    - yq --version
-    - yq e .releaserc.yml -o json > release.json
-    - jq --arg BRANCHNAME "$CI_COMMIT_REF_NAME" '.branches += [$BRANCHNAME]' release.json > temp.json
-    - cp release.json release2.json
-    - cp -f temp.json release.json
-    - export var=$(find . -maxdepth 1 -type f -name ".releaserc.yml")
-      echo $var
-    - jq --slurpfile temp temp.json '.plugins += $temp' release.json | yq eval -P - > $var
-    - cat .releaserc.yml
-    - cat release.json
-
-
-semantic-release:dry-run:
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - node_modules/
-    policy: pull-push
   image:
     name: $SEMANTIC_RELEASE_IMAGE:$SEMANTIC_RELEASE_TAG
     entrypoint: [""]
+  before_script:
+    - |
+      echo "GIT_AUTHOR_NAME:     $GIT_AUTHOR_NAME"
+      echo "GIT_AUTHOR_EMAIL:    $GIT_AUTHOR_EMAIL"
+      echo "GIT_COMMITTER_NAME:  $GIT_COMMITTER_NAME"
+      echo "GIT_COMMITTER_EMAIL: $GIT_COMMITTER_EMAIL"
+    - yq --version
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    policy: pull-push
+    paths:
+      - node_modules
+
+semantic-release:dry-run:
+  extends: .semantic-base
+  needs: []
+  resource_group: release
+  environment: release
   variables:
     ADDITIONAL_NPM_PKGS: ""
   script:
-    - !reference ['.semantic-base', 'script']
-    - semantic-release --ci false --dryRun
+    - | # Update .releaserc.yml to generate dev release version if not running on main/dev
+      if ! [[ "$CI_COMMIT_REF_NAME" =~ "^(main|dev)$" ]]; then
+        filter="$(printf '.branches += {"name": "%s", "channel": "dev"}' "$CI_COMMIT_REF_NAME")"
+        yq eval --inplace --prettyPrint "$filter" .releaserc.yml
+      fi
+
+    - semantic-release --dry-run --no-ci
     - cat release.env || echo "No release was created, check your commit message."
   rules:
-    - if: '$ENABLE_SEMANTIC_RELEASE_DRY_RUN == "true"'
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: $ENABLE_SEMANTIC_RELEASE_DRY_RUN == "true"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
-  allow_failure: true
+  allow_failure: false
   artifacts:
     reports:
       dotenv: release.env
     paths:
-      - hoppr/__init__.py
-      - pyproject.toml
-      - docs
       - release.env
-      - release.json
-      - .releaserc*
-      - yarn.lock
-      - release2.json
 
 semantic-release:
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - node_modules/
-    policy: pull-push
-  image:
-    name: $SEMANTIC_RELEASE_IMAGE:$SEMANTIC_RELEASE_TAG
-    entrypoint: [""]
+  extends: .semantic-base
+  needs:
+    - job: check-format
+      artifacts: false
+    - job: check-lint
+      artifacts: false
+    - job: build-dist
+      artifacts: false
+    - job: semantic-release:dry-run
+      artifacts: false
   script:
-    - !reference ['.semantic-base', 'script']
-    - semantic-release --debug
+    - semantic-release
   rules:
-    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH && $ENABLE_SEMANTIC_RELEASE == "true" && $CI_PROJECT_NAMESPACE =~ /^hoppr/'
-      when: on_success
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: $CI_COMMIT_REF_NAME =~ /^main|dev$/
+      when: on_success
   artifacts:
     paths:
-      - hoppr/__init__.py
+      - hopprcop/__init__.py
       - pyproject.toml
       - docs
-
