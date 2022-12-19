@@ -8128,10 +8128,10 @@ semantic-release-docker@2.2.0:
     "@semantic-release/error" "^2.1.0"
     execa "^0.10.0"
 
-semantic-release-helm@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/semantic-release-helm/-/semantic-release-helm-2.1.0.tgz#689e60d481e2bfa24dc11251a1b0323a32c7ec42"
-  integrity sha512-BvuxTXcnukdozfLXee2IXdHG1evNoB5cFAZ9xG6cnO6I8PPEkcYfeav7NGPCh2qDt8qP2rHPD0M9EuKbZ/SrNQ==
+semantic-release-helm@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/semantic-release-helm/-/semantic-release-helm-2.2.0.tgz#3b65b3e881e68be820891b143c383b47c08b5aa5"
+  integrity sha512-JJl0quUQtIGIWxMj+BURlwY1mfvsUxq4fVLqbiFx+SrhA0JfQ00TPeUX5fIOFIm82Vu/2+bsgguWUtCkh32BFg==
   dependencies:
     aggregate-error "^3.1.0"
     execa "^5.0.0"
