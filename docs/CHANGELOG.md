@@ -1,3 +1,13 @@
+## [1.0.17](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.16...v1.0.17) (2022-12-16)
+
+
+### Bug Fixes
+
+* Bot label for renovate ([3b835f5](https://gitlab.com/hoppr/hoppr-cop/commit/3b835f59e33b267b5070cbb3ccf506d6a5885c41))
+* hoppr-security-commons deps ([8feeff6](https://gitlab.com/hoppr/hoppr-cop/commit/8feeff66b3b2622b9de3bb22f5a8ee6150a1e7a1))
+* Set renovate config ([fa0de59](https://gitlab.com/hoppr/hoppr-cop/commit/fa0de594f06652c98a4efe238542941bf35c8848))
+* updated gitlab namespace ([18968a5](https://gitlab.com/hoppr/hoppr-cop/commit/18968a525cf7559fc8bcf146c9886ebdbc6a2e27))
+
 ## [1.0.16](https://gitlab.com/lmco/hoppr/utilities/supply-chain-security/hoppr-cop/compare/v1.0.15...v1.0.16) (2022-10-19)
 
 
