@@ -118,11 +118,14 @@ unit-tests:
 integration-test:
   extends: .base-python
   stage: test
-  needs: []
+  needs: 
+  - job: build-dist
+    artifacts: true
   variables:
     TEST_DIR: hoppr-integration-test
   script:
     - pip install hoppr
+    - python -m pip install --find-links=dist hoppr_cop
     - hopctl bundle $TEST_DIR/manifest.yml
         --transfer $TEST_DIR/transfer.yml
         --log hopprcop_log.txt
