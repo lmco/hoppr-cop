@@ -122,6 +122,7 @@ integration-test:
   variables:
     TEST_DIR: hoppr-integration-test
   script:
+    - pip install hoppr
     - hopctl bundle $TEST_DIR/manifest.yml
         --transfer $TEST_DIR/transfer.yml
         --log hopprcop_log.txt
