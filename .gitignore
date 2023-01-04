@@ -32,6 +32,8 @@ pip-log.txt
 .coverage
 .tox
 .pytest_cache
+hopprcop_log.txt
+hopprcop-vulnerability-results-enhanced.json
 
 .DS_Store
 .idea/*
@@ -50,6 +52,7 @@ MANIFEST.in
 .mypy_cache
 
 .venv
+env/
 /releases/*
 pip-wheel-metadata
 /poetry.toml

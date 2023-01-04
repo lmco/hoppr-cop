@@ -115,6 +115,23 @@ unit-tests:
         coverage_format: cobertura
         path: coverage.xml
 
+integration-test:
+  extends: .base-python
+  stage: test
+  needs: []
+  variables:
+    TEST_DIR: hoppr-integration-test
+  script:
+    - hopctl bundle $TEST_DIR/manifest.yml
+        --transfer $TEST_DIR/transfer.yml
+        --log hopprcop_log.txt
+        --verbose
+  artifacts:
+    when: always
+    paths:
+      - hopprcop_log.txt
+      - hopprcop-vulnerability-results-enhanced.json
+
 check-format:
   extends: .base-python
   stage: test
@@ -203,6 +220,7 @@ pages:
   script:
     - poetry run mkdocs build --strict --verbose
     - mv site public
+
 ###########
 # deploy
 ###########
