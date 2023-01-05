@@ -124,12 +124,19 @@ integration-test:
   variables:
     TEST_DIR: hoppr-integration-test
   script:
+    - curl -kL --output cyclonedx-cli https://github.com/CycloneDX/cyclonedx-cli/releases/download/v0.24.2/cyclonedx-linux-x64
+    - chmod 777 ./cyclonedx-cli
     - pip install hoppr
     - python -m pip install --find-links=dist hoppr_cop
     - hopctl bundle $TEST_DIR/manifest.yml
-        --transfer $TEST_DIR/transfer.yml
-        --log hopprcop_log.txt
-        --verbose
+      --transfer $TEST_DIR/transfer.yml
+      --log hopprcop_log.txt
+      --verbose
+    - cyclonedx-cli validate 
+      --input-format json
+      --input-file hopprcop-vulnerability-results-enhanced.json 
+      --input-version v1_4 
+      --fail-on-errors
   artifacts:
     when: always
     paths:
