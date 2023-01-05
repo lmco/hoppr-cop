@@ -132,7 +132,7 @@ integration-test:
       --transfer $TEST_DIR/transfer.yml
       --log hopprcop_log.txt
       --verbose
-    - cyclonedx-cli validate 
+    - ./cyclonedx-cli validate 
       --input-format json
       --input-file hopprcop-vulnerability-results-enhanced.json 
       --input-version v1_4 
