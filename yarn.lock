@@ -2632,7 +2632,7 @@ cosmiconfig@^5.0.0:
     js-yaml "^3.13.1"
     parse-json "^4.0.0"
 
-cosmiconfig@^7.0.0, cosmiconfig@^7.0.1:
+cosmiconfig@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-7.0.1.tgz#714d756522cace867867ccb4474c5d01bbae5d6d"
   integrity sha512-a1YWNUV2HwGimB7dU2s1wUMurNKjpx60HxBB6xUM8Re+2s1g1IIfJvFR0/iCF+XHdE0GMTKTuLR32UQff4TEyQ==
@@ -2642,6 +2642,16 @@ cosmiconfig@^7.0.0, cosmiconfig@^7.0.1:
     parse-json "^5.0.0"
     path-type "^4.0.0"
     yaml "^1.10.0"
+
+cosmiconfig@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-8.0.0.tgz#e9feae014eab580f858f8a0288f38997a7bebe97"
+  integrity sha512-da1EafcpH6b/TD8vDRaWV7xFINlHlF6zKsGwS1TsuVJTZRkquaS5HTMq7uq6h31619QjbsYl21gVDOm32KM1vQ==
+  dependencies:
+    import-fresh "^3.2.1"
+    js-yaml "^4.1.0"
+    parse-json "^5.0.0"
+    path-type "^4.0.0"
 
 create-require@^1.1.0:
   version "1.1.1"
@@ -8657,10 +8667,10 @@ semantic-release-slack-bot@3.5.3:
     node-fetch "^2.3.0"
     slackify-markdown "^4.3.0"
 
-semantic-release@20.0.0:
-  version "20.0.0"
-  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-20.0.0.tgz#7edede34e088ab0aa4c3948d9909c716ab37dc99"
-  integrity sha512-FAgxTY2Ri7RQebCUTIjrNzyJcK6Fn73vkYbKLVGnneNoW488/qb8JDgzJ7wdK8gsguBTui2qdwe6jHiD5YVmxg==
+semantic-release@20.0.1:
+  version "20.0.1"
+  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-20.0.1.tgz#247a4098ffc99cb69725bf3638e30550f2644118"
+  integrity sha512-v3EYBMn3nGjpRrEiPrYMMwMD7iCqCqwG1F+g2MOpawFwbc/X4kNDbDDnZgHY8F6iU+o8KwW2uvF8/BdMFKzrYw==
   dependencies:
     "@semantic-release/commit-analyzer" "^9.0.2"
     "@semantic-release/error" "^3.0.0"
@@ -8668,7 +8678,7 @@ semantic-release@20.0.0:
     "@semantic-release/npm" "^9.0.0"
     "@semantic-release/release-notes-generator" "^10.0.0"
     aggregate-error "^4.0.1"
-    cosmiconfig "^7.0.0"
+    cosmiconfig "^8.0.0"
     debug "^4.0.0"
     env-ci "^8.0.0"
     execa "^6.1.0"
@@ -8677,7 +8687,7 @@ semantic-release@20.0.0:
     get-stream "^6.0.0"
     git-log-parser "^1.2.0"
     hook-std "^3.0.0"
-    hosted-git-info "^5.1.0"
+    hosted-git-info "^6.0.0"
     lodash-es "^4.17.21"
     marked "^4.1.0"
     marked-terminal "^5.1.1"
