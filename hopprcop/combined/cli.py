@@ -20,7 +20,7 @@ def vulnerability_report(
     formats: List[ReportFormat] = typer.Option(
         ["table"],
         "--format",
-        help="The report formats to generate ",
+        help="The report formats to generate",
     ),
     output_dir: Path = typer.Option(
         Path.cwd(), help="The directory where reports will be writen"
