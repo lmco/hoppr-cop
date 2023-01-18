@@ -1,3 +1,12 @@
+## [1.0.18](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.17...v1.0.18) (2023-01-18)
+
+
+### Bug Fixes
+
+* add integration test job ([c5dea95](https://gitlab.com/hoppr/hoppr-cop/commit/c5dea95f921126a899dba513a594b8cdd15f99af))
+* add plugin unit tests ([55d4625](https://gitlab.com/hoppr/hoppr-cop/commit/55d4625d36c29cc2af8e03f733d8800a412298e2))
+* **plugin:** added hoppr plugin ([ec3105f](https://gitlab.com/hoppr/hoppr-cop/commit/ec3105f8943e5b499e6db36fc64b47d22036819b))
+
 ## [1.0.17](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.16...v1.0.17) (2022-12-16)
 
 
