@@ -1,0 +1,12 @@
+schemaVersion: v1
+kind: manifest
+metadata:
+  name: HopprCopPluginTest
+  version: v1.0.0
+  description: Manifest for HopprCop Plugin Test
+sboms:
+- local: ./sbom.json
+includes: []
+repositories:
+  maven:
+    - url: https://repo.maven.apache.org/maven2
