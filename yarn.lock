@@ -7634,10 +7634,12 @@ postcss-less@^3.1.0:
   dependencies:
     postcss "^7.0.14"
 
-postcss-logical@^5.0.4:
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/postcss-logical/-/postcss-logical-5.0.4.tgz#ec75b1ee54421acc04d5921576b7d8db6b0e6f73"
-  integrity sha512-RHXxplCeLh9VjinvMrZONq7im4wjWGlRJAqmAVLXyZaXwfDWP73/oq4NdIp+OZwhQUMj0zjqDfM5Fj7qby+B4g==
+postcss-logical@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-logical/-/postcss-logical-6.0.0.tgz#065b196c0935f4124996748a2382ec0c880615d2"
+  integrity sha512-pn50jY5c+PmpYiTZ7KfYQ4aKXAVaFfZgNevtUwXglD22TxfLrrYD5d8m7UDQkT9CAfYvBgSkzPSBWTyE0WuQmA==
+  dependencies:
+    postcss-value-parser "^4.2.0"
 
 postcss-markdown@^0.36.0:
   version "0.36.0"
