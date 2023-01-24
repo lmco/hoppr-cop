@@ -7576,10 +7576,10 @@ postcss-convert-values@^5.1.3:
     browserslist "^4.21.4"
     postcss-value-parser "^4.2.0"
 
-postcss-dir-pseudo-class@^6.0.4:
-  version "6.0.5"
-  resolved "https://registry.yarnpkg.com/postcss-dir-pseudo-class/-/postcss-dir-pseudo-class-6.0.5.tgz#2bf31de5de76added44e0a25ecf60ae9f7c7c26c"
-  integrity sha512-eqn4m70P031PF7ZQIvSgy9RSJ5uI2171O/OO/zcRNYpJbvaeKFUlar1aJ7rmgiQtbm0FSPsRewjpdS0Oew7MPA==
+postcss-dir-pseudo-class@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-dir-pseudo-class/-/postcss-dir-pseudo-class-7.0.0.tgz#15ddf8df823baae8f00c5ac575f90a5e2c69828c"
+  integrity sha512-i8I6vqB0T0fpanLBjFoMPp3iTgKPccZCyZ149Q1RuRVlnKD00DbRFSkbp4/XDJaNzKJeto/DM/Uj62icEtVh9A==
   dependencies:
     postcss-selector-parser "^6.0.10"
 
