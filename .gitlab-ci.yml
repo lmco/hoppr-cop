@@ -47,6 +47,7 @@ stages:
   image: $PYTHON_IMAGE:$PYTHON_TAG
   before_script:
     - pip install poetry
+    - poetry lock --no-update
     - poetry install
 
 .setup_pages:
