@@ -1,3 +1,10 @@
+## [1.0.19](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.18...v1.0.19) (2023-01-25)
+
+
+### Bug Fixes
+
+* **deps:** updating commons version to include gitlab reporting fix ([c6c1c31](https://gitlab.com/hoppr/hoppr-cop/commit/c6c1c31f713509ae85a2aa5ae80a4bddd49ccf29))
+
 ## [1.0.18](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.17...v1.0.18) (2023-01-18)
 
 
