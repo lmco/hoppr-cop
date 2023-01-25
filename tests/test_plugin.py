@@ -1,3 +1,4 @@
+import multiprocessing
 from pathlib import Path
 from unittest import TestCase
 from unittest.mock import patch
@@ -17,7 +18,8 @@ class TestHopprCopPlugin(TestCase):
         consolidated_sbom="BOM",
         delivered_sbom=Bom.parse_file("hoppr-integration-test/sbom.json"),
         retry_wait_seconds=1,
-        max_processes=3
+        max_processes=3,
+        logfile_lock=multiprocessing.Manager().RLock()
     )
     simple_config = {}
 
