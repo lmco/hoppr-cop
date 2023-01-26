@@ -1,3 +1,12 @@
+## [1.0.20](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.19...v1.0.20) (2023-01-26)
+
+
+### Bug Fixes
+
+* adding `poetry lock --no-update` to support renovate MRs. ([9ff7498](https://gitlab.com/hoppr/hoppr-cop/commit/9ff7498e9fb7be643920ac1089366cb8e43267d5))
+* update unit test ([0145ba7](https://gitlab.com/hoppr/hoppr-cop/commit/0145ba7170a6c048388a9ced9f57cdeba6f0b7fd))
+* updated hoppr version ([020ec43](https://gitlab.com/hoppr/hoppr-cop/commit/020ec4396a64f59b5c912a5b6e19a069a1c87492))
+
 ## [1.0.19](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.18...v1.0.19) (2023-01-25)
 
 
