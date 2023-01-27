@@ -999,10 +999,10 @@
     p-retry "^4.0.0"
     url-join "^4.0.0"
 
-"@semantic-release/gitlab@9.5.1":
-  version "9.5.1"
-  resolved "https://registry.yarnpkg.com/@semantic-release/gitlab/-/gitlab-9.5.1.tgz#da69fdc2e840857bbc9bc383dc589d266a4a3cb8"
-  integrity sha512-QQvIgB/uOUi/cGi0bUndaOki+E1n4XWdRK4WtYIYsPE6AM9r9L7kb5jHzxihHwMvfVA38xSWal4IgLnBX9V7AQ==
+"@semantic-release/gitlab@10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@semantic-release/gitlab/-/gitlab-10.0.0.tgz#dddcb3fdbf36dd1449bf78e798e9e7cd6bc93ed4"
+  integrity sha512-GPF8lpuhvQNP5lrHNT0CQCmsDguJ5DzNn4ytO+mool9AGYVhNag9TjbrXc0ayKmXQ+bEWUHxkMtDx9ZYE8Q0OA==
   dependencies:
     "@semantic-release/error" "^3.0.0"
     aggregate-error "^3.0.0"
@@ -1014,8 +1014,9 @@
     globby "^11.0.0"
     got "^11.0.0"
     hpagent "^1.0.0"
-    lodash "^4.17.11"
+    lodash-es "^4.17.21"
     parse-url "^8.0.0"
+    prettier "^2.8.2"
     url-join "^4.0.0"
 
 "@semantic-release/npm@9.0.2":
@@ -7941,6 +7942,11 @@ prepend-http@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha512-ravE6m9Atw9Z/jjttRUZ+clIXogdghyZAuWJ3qEzjT+jI/dL1ifAqhZeC5VHzQp1MSt1+jxKkFNemj/iO7tVUA==
+
+prettier@^2.8.2:
+  version "2.8.3"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.3.tgz#ab697b1d3dd46fb4626fbe2f543afe0cc98d8632"
+  integrity sha512-tJ/oJ4amDihPoufT5sM0Z1SKEuKay8LfVAMlbbhnnkvt6BUserZylqo2PN+p9KeljLr0OHa2rXHU1T8reeoTrw==
 
 pretty-format@^26.6.2:
   version "26.6.2"
