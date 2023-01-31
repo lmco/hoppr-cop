@@ -999,13 +999,13 @@
     p-retry "^4.0.0"
     url-join "^4.0.0"
 
-"@semantic-release/gitlab@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@semantic-release/gitlab/-/gitlab-10.1.1.tgz#50abb820e9d9d335784f63732f34dbc637ac977d"
-  integrity sha512-AcggXeKhB2sYLguDQ9kCYB2pVEi46GVNfcXrSdWN4l7QEcx6q7G61oQ2ejbONQ31pdGn/PJrElOfAnbnTS1VEQ==
+"@semantic-release/gitlab@10.1.2":
+  version "10.1.2"
+  resolved "https://registry.yarnpkg.com/@semantic-release/gitlab/-/gitlab-10.1.2.tgz#4f4b50e98bab8b138312dc377896316bf8a2c0de"
+  integrity sha512-le1QgmJHQWVOEhmE4o1mx66ENvpZ+kYRVQxn9EAQnZDYsc7hpNtxjogtwUFwhq+/8F0sX/UgRYlw+HMxYBRQVA==
   dependencies:
     "@semantic-release/error" "^3.0.0"
-    aggregate-error "^3.0.0"
+    aggregate-error "^4.0.0"
     debug "^4.0.0"
     dir-glob "^3.0.0"
     escape-string-regexp "^5.0.0"
@@ -1489,7 +1489,7 @@ aggregate-error@^3.0.0, aggregate-error@^3.1.0:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
 
-aggregate-error@^4.0.1:
+aggregate-error@^4.0.0, aggregate-error@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/aggregate-error/-/aggregate-error-4.0.1.tgz#25091fe1573b9e0be892aeda15c7c66a545f758e"
   integrity sha512-0poP0T7el6Vq3rstR8Mn4V/IQrpBLO6POkUSrN7RhyY+GF/InCFShQzsQ39T25gkHhLgSLByyAz+Kjb+c2L98w==
