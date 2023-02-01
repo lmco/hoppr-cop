@@ -27,7 +27,7 @@ from .model import OssIndexComponent, Vulnerability
 def pythonify_key_names(d: Dict[str, Any]) -> Dict[Any, Any]:
     named_d: Dict[Any, Any] = {}
     # Covert Key Names
-    for (k, v) in d.items():
+    for k, v in d.items():
         new_k = re.sub(r"(?<!^)(?=[A-Z])", "_", k).lower()
 
         if k == "id":

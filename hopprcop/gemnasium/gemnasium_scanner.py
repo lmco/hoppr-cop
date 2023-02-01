@@ -109,7 +109,6 @@ class GemnasiumScanner(VulnerabilitySuper):
         :return:
         """
         try:
-
             output = subprocess.run(
                 [
                     self.semver_path,
