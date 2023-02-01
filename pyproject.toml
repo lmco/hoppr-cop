@@ -32,7 +32,7 @@ hoppr-cop = "hopprcop.combined.cli:app"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0.1"
-black = "^22.6.0"
+black = "^23.0.0"
 pylint = "^2.14.4"
 
 [build-system]
