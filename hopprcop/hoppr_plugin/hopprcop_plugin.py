@@ -1,7 +1,7 @@
 import uuid
 from copy import deepcopy
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 from hoppr.base_plugins.hoppr import HopprPlugin, hoppr_process
 from hoppr.result import Result
@@ -96,7 +96,7 @@ class HopprCopPlugin(HopprPlugin):
                 reporting, bom_ref_to_results
             )
             Reporting.add_vulnerabilities_to_bom(hoppr_delivered_bom, flattened_results)
-        elif self.LINKED_VEX in formats:
+        elif self.LINKED_VEX in formats and self.EMBEDDED_VEX not in formats:
             flattened_results = self.add_bom_ref_and_flatten(
                 reporting, bom_ref_to_results, True
             )
