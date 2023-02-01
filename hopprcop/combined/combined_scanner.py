@@ -46,7 +46,6 @@ class CombinedScanner(VulnerabilitySuper):
          instance. For example ["vuln.gemnasium.gemnasium_scanner.GemnasiumScanner"]
         """
         for scanner in scanners:
-
             if isinstance(scanner, str):
                 modname, _, clsname = scanner.rpartition(".")
                 mod = importlib.import_module(modname)
@@ -74,7 +73,6 @@ class CombinedScanner(VulnerabilitySuper):
             for future in concurrent.futures.as_completed(futures):
                 scanner = futures[future]
                 try:
-
                     scanner_results = future.result()
                     results.append(scanner_results)
                     # if not found:
