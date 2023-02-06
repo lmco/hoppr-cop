@@ -133,9 +133,10 @@ integration-test:
       --transfer $TEST_DIR/transfer.yml
       --log hopprcop_log.txt
       --verbose
+    - tar -xvf hoppr-integration-test.tar.gz
     - ./cyclonedx-cli validate 
       --input-format json
-      --input-file hopprcop-vulnerability-results-enhanced.json 
+      --input-file generic/_delivered_bom.json
       --input-version v1_4 
       --fail-on-errors
   artifacts:

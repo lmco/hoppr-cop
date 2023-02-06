@@ -53,7 +53,9 @@ class HopprCopPlugin(HopprPlugin):
             "base_report_name", "hopprcop-vulnerability-results"
         )
         scanners = self.config.get("scanners", get_scanners())
-        formats = self.config.get("result_formats", [self.EMBEDDED_VEX, "cyclone_dx"])
+        formats = self.config.get("result_formats", [self.EMBEDDED_VEX])
+
+        output_dir.mkdir(parents=True, exist_ok=True)
 
         reporting = Reporting(output_dir, base_report_name)
         combined = CombinedScanner()
