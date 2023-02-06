@@ -8,11 +8,14 @@ from hoppr.result import Result
 from hoppr.hoppr_types.bom_access import BomAccess
 from hoppr_cyclonedx_models.cyclonedx_1_4 import (
     Component,
+    CyclonedxSoftwareBillOfMaterialsStandard as Bom_1_4,
     Vulnerability,
     Affect,
 )
+
 from security_commons.common.reporting.reporting import Reporting
 from security_commons.common.reporting.models import ReportFormat
+from security_commons.common.vulnerability_combiner import combine_vulnerabilities
 from hopprcop.combined.combined_scanner import CombinedScanner
 
 from hopprcop.combined.cli import get_scanners
@@ -49,11 +52,10 @@ class HopprCopPlugin(HopprPlugin):
         base_report_name = self.config.get(
             "base_report_name", "hopprcop-vulnerability-results"
         )
+        scanners = self.config.get("scanners", get_scanners())
+        formats = self.config.get("result_formats", [self.EMBEDDED_VEX, "cyclone_dx"])
 
         reporting = Reporting(output_dir, base_report_name)
-        scanners = self.config.get("scanners", get_scanners())
-        formats = self.config.get("result_formats", [self.EMBEDDED_VEX])
-
         combined = CombinedScanner()
         combined.set_scanners(scanners)
         parsed_bom = self.context.delivered_sbom
@@ -79,51 +81,40 @@ class HopprCopPlugin(HopprPlugin):
         )
 
         parsed_bom.serialNumber = f"urn:uuid:{bom_serial_number}"
-        hoppr_delivered_bom = deepcopy(parsed_bom)
-        hoppr_vuln_results = deepcopy(results)
+        parsed_bom.vulnerabilities = (
+            [] if parsed_bom.vulnerabilities is None else parsed_bom.vulnerabilities
+        )
 
         # Build dictionary to go from bom-ref to vulnerabilities
-        for purl in hoppr_vuln_results:
+        for purl in results:
             component = purl_to_component[purl]
             bom_ref = component.bom_ref.__root__
+
+            if len(parsed_bom.vulnerabilities) > 0:
+                # Account for existing vulnerabilites on bom
+                for existing_vulnerability in parsed_bom.vulnerabilities:
+                    for affect in existing_vulnerability.affects:
+                        print(affect.ref)
+                        if affect.ref == bom_ref:
+                            results[purl].append(existing_vulnerability)
+
+                results[purl] = combine_vulnerabilities([{purl: results[purl]}])[0]
+
+            updated_results = deepcopy(results[purl])
+
             wrapper = self.ComponentVulnerabilityWrapper(
-                bom_serial_number, bom_version, hoppr_vuln_results[purl]
+                bom_serial_number, bom_version, updated_results
             )
             bom_ref_to_results[bom_ref] = wrapper
 
-        if self.EMBEDDED_VEX in formats:
-            flattened_results = self.add_bom_ref_and_flatten(
-                reporting, bom_ref_to_results
-            )
-            Reporting.add_vulnerabilities_to_bom(hoppr_delivered_bom, flattened_results)
-        elif self.LINKED_VEX in formats and self.EMBEDDED_VEX not in formats:
-            flattened_results = self.add_bom_ref_and_flatten(
-                reporting, bom_ref_to_results, True
-            )
-            vex_bom = Reporting.link_vulnerabilities_to_bom(flattened_results)
-            with open(
-                output_dir.joinpath(f"{base_report_name}-vex.json"),
-                "w",
-                encoding="UTF-8",
-            ) as file:
-                file.write(vex_bom.json(exclude_none=True, by_alias=True))
-                file.close()
-
-        filtered_formats = list(
-            filter(lambda x: x != self.LINKED_VEX and x != self.EMBEDDED_VEX, formats)
+        hoppr_delivered_bom = self.__perform_hoppr_bom_updates(
+            reporting, deepcopy(parsed_bom), bom_ref_to_results, formats
         )
-
-        if len(filtered_formats) > 0:
-            filtered_formats = [
-                ReportFormat[format.upper()] for format in filtered_formats
-            ]
-            reporting.generate_vulnerability_reports(
-                filtered_formats, results, parsed_bom
-            )
+        self.__perform_hopprcop_reporting(reporting, parsed_bom, results, formats)
 
         return Result.success(return_obj=hoppr_delivered_bom)
 
-    def add_bom_ref_and_flatten(
+    def __add_bom_ref_and_flatten(
         self,
         reporting: Reporting,
         bom_ref_to_component: dict[str, List[Component]],
@@ -148,6 +139,56 @@ class HopprCopPlugin(HopprPlugin):
 
         flattened_vulnerabilities.sort(key=reporting.get_score, reverse=True)
         return flattened_vulnerabilities
+
+    def __perform_hoppr_bom_updates(
+        self,
+        reporting: Reporting,
+        parsed_bom: Bom_1_4,
+        bom_ref_to_results: dict[str, any],
+        formats,
+    ):
+        if self.EMBEDDED_VEX in formats:
+            flattened_results = self.__add_bom_ref_and_flatten(
+                reporting, bom_ref_to_results
+            )
+            # Existing vulnerabilities were accounted for
+            parsed_bom.vulnerabilities = []
+            Reporting.add_vulnerabilities_to_bom(parsed_bom, flattened_results)
+        elif self.LINKED_VEX in formats and self.EMBEDDED_VEX not in formats:
+            flattened_results = self.__add_bom_ref_and_flatten(
+                reporting, bom_ref_to_results, True
+            )
+            # Existing vulnerabilities were accounted for
+            parsed_bom.vulnerabilities = []
+            vex_bom = Reporting.link_vulnerabilities_to_bom(flattened_results)
+            with open(
+                reporting.output_dir.joinpath(f"{reporting.base_name}-vex.json"),
+                "w",
+                encoding="UTF-8",
+            ) as file:
+                file.write(vex_bom.json(exclude_none=True, by_alias=True))
+                file.close()
+
+        return parsed_bom
+
+    def __perform_hopprcop_reporting(
+        self,
+        reporting: Reporting,
+        parsed_bom: Bom_1_4,
+        results: dict[str, List[Vulnerability]],
+        formats: List[str],
+    ):
+        filtered_formats = list(
+            filter(lambda x: x != self.LINKED_VEX and x != self.EMBEDDED_VEX, formats)
+        )
+
+        if len(filtered_formats) > 0:
+            filtered_formats = [
+                ReportFormat[format.upper()] for format in filtered_formats
+            ]
+            reporting.generate_vulnerability_reports(
+                filtered_formats, results, parsed_bom
+            )
 
     class ComponentVulnerabilityWrapper:
         def __init__(self, serial_number=None, version=None, vulnerabilities=None):
