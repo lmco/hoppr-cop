@@ -64,7 +64,7 @@ class HopprCopPlugin(HopprPlugin):
 
         results = combined.get_vulnerabilities_by_sbom(parsed_bom)
 
-        # Map bom ref to results to adhere to bom spec for affects references - uses bom-ref
+        # Map bom ref to results - uses purl as ref
         bom_ref_to_results = dict[str, self.ComponentVulnerabilityWrapper]()
 
         # Map purls to components
@@ -90,13 +90,12 @@ class HopprCopPlugin(HopprPlugin):
         # Build dictionary to go from bom-ref to vulnerabilities
         for purl in results:
             component = purl_to_component[purl]
-            bom_ref = component.bom_ref.__root__
+            bom_ref = component.purl #component.bom_ref.__root__
 
             if len(parsed_bom.vulnerabilities) > 0:
                 # Account for existing vulnerabilites on bom
                 for existing_vulnerability in parsed_bom.vulnerabilities:
                     for affect in existing_vulnerability.affects:
-                        print(affect.ref)
                         if affect.ref == bom_ref:
                             results[purl].append(existing_vulnerability)
 
