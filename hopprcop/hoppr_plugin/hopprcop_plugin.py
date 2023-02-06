@@ -90,7 +90,7 @@ class HopprCopPlugin(HopprPlugin):
         # Build dictionary to go from bom-ref to vulnerabilities
         for purl in results:
             component = purl_to_component[purl]
-            bom_ref = component.purl #component.bom_ref.__root__
+            bom_ref = component.purl  # component.bom_ref.__root__
 
             if len(parsed_bom.vulnerabilities) > 0:
                 # Account for existing vulnerabilites on bom
