@@ -96,7 +96,10 @@ class HopprCopPlugin(HopprPlugin):
                 # Account for existing vulnerabilites on bom
                 for existing_vulnerability in parsed_bom.vulnerabilities:
                     for affect in existing_vulnerability.affects:
-                        if affect.ref == bom_ref:
+                        if (
+                            affect.ref == bom_ref
+                            or affect.ref == component.bom_ref.__root__
+                        ):
                             results[purl].append(existing_vulnerability)
 
                 results[purl] = combine_vulnerabilities([{purl: results[purl]}])[0]
