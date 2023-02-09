@@ -1,3 +1,11 @@
+## [1.0.21](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.20...v1.0.21) (2023-02-09)
+
+
+### Bug Fixes
+
+* cleaned up pre stage process method and accounting for existing vex ([0b077e5](https://gitlab.com/hoppr/hoppr-cop/commit/0b077e5f7e22e2b594820f58fe476c6585d6ea0b))
+* updated plugin to update delivered bom ([5de6f52](https://gitlab.com/hoppr/hoppr-cop/commit/5de6f52422deae7d460b11269f42866d9a6e53f8))
+
 ## [1.0.20](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.19...v1.0.20) (2023-01-26)
 
 
