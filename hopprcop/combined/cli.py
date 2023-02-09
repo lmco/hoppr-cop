@@ -29,7 +29,8 @@ def vulnerability_report(
         None, help="The base name supplied for the generated reports"
     ),
 ):
-    """Runs hoppr cop from cli"""
+    """Generates vulnerability reports based on the specified BOM and formats"""
+
     if base_report_name is None:
         if bom.endswith(".json"):
             base_report_name = bom.removesuffix(".json")
@@ -38,7 +39,19 @@ def vulnerability_report(
         else:
             base_report_name = "hoppr-cop-report"
 
-    run_hoppr_cop(bom, base_report_name, formats, get_scanners(), output_dir)
+    reporting = Reporting(output_dir, base_report_name)
+    combined = CombinedScanner()
+    combined.set_scanners(get_scanners())
+
+    parsed_bom = None
+
+    if bom.endswith(".json") or bom.endswith(".xml"):
+        parsed_bom = parse_sbom(Path(bom))
+    else:
+        parsed_bom = parse_sbom_json_string(bom, "The json provided sbom")
+
+    results = combined.get_vulnerabilities_by_sbom(parsed_bom)
+    reporting.generate_vulnerability_reports(formats, results, parsed_bom)
 
 
 def get_scanners() -> List[str]:
@@ -48,26 +61,3 @@ def get_scanners() -> List[str]:
         "hopprcop.grype.grype_scanner.GrypeScanner",
         "hopprcop.ossindex.oss_index_scanner.OSSIndexScanner",
     ]
-
-
-def run_hoppr_cop(
-    bom: str,
-    base_report_name: str,
-    formats: List[ReportFormat],
-    scanners: List[str],
-    output_dir: Path = Path.cwd(),
-):
-    """generates vulnerability reports based on the specified BOM and formats"""
-    reporting = Reporting(output_dir, base_report_name)
-    combined = CombinedScanner()
-    combined.set_scanners(scanners)
-
-    parsed_bom = None
-
-    if bom.endswith(".json") or bom.endswith(".xml"):
-        parsed_bom = parse_sbom(Path(bom))
-    else:
-        parsed_bom = parse_sbom_json_string(bom, "The json provided sbom")
-
-    result = combined.get_vulnerabilities_by_sbom(parsed_bom)
-    reporting.generate_vulnerability_reports(formats, result, parsed_bom)

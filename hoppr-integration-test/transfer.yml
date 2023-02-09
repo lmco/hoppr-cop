@@ -9,5 +9,11 @@ stages:
         scanners: 
           - hopprcop.gemnasium.gemnasium_scanner.GemnasiumScanner
           - hopprcop.grype.grype_scanner.GrypeScanner
+  Bundle:
+    plugins:
+    - name: hoppr.core_plugins.bundle_tar
+      config:
+        tarfile_name: hoppr-integration-test.tar.gz
+
 
 max_processes: 3
