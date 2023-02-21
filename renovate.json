@@ -1,6 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "enabled": true,
+  "prConcurrentLimit": 10,
+  "rebaseWhen": "behind-base-branch",
   "extends": [
     "config:base",
     ":automergeAll",
@@ -8,6 +10,7 @@
     ":dependencyDashboard",
     ":semanticCommitTypeAll(chore)"
   ],
+  "platformAutomerge": true,
   "gitLabAutomerge": true,
   "gitLabIgnoreApprovals": true,
   "labels": ["Bot"],
