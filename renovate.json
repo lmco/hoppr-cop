@@ -11,21 +11,14 @@
     ":semanticCommitTypeAll(chore)"
   ],
   "platformAutomerge": true,
-  "gitLabAutomerge": true,
   "gitLabIgnoreApprovals": true,
   "labels": ["Bot"],
   "packageRules": [
-    {
-      "matchManagers": ["regex"],
-      "semanticCommitType": "fix"
-    },
+    {"matchManagers": ["regex"], "semanticCommitType": "fix"},
     {
       "registryUrls": ["https://gitlab.com"],
       "matchDatasources": ["gitlab-tags"]
     },
-    {
-      "matchDatasources": ["docker"],
-      "groupName": "image-tag updates"
-    }
+    {"matchDatasources": ["docker"], "groupName": "image-tag updates"}
   ]
 }
