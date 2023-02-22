@@ -1,3 +1,12 @@
+## [1.0.22](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.21...v1.0.22) (2023-02-22)
+
+
+### Bug Fixes
+
+* Update everything in pyproject.toml to work with upstream dependencies ([fa594c3](https://gitlab.com/hoppr/hoppr-cop/commit/fa594c31b015f56ecc68d132721b605d337726c9))
+* Update renovate ([1bec628](https://gitlab.com/hoppr/hoppr-cop/commit/1bec6285fddb69e4e108374482c42d527bf7db8d))
+* Update renovate json per linter ([106df54](https://gitlab.com/hoppr/hoppr-cop/commit/106df5416fed3af5638f7b5f7a85830dbd843371))
+
 ## [1.0.21](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.20...v1.0.21) (2023-02-09)
 
 
