@@ -235,7 +235,7 @@ pages:
     - mv site public
 
 validate-renovate-config:
-  image: renovate/renovate:34.124.3
+  image: renovate/renovate:34.150.0
   needs: []
   variables:
     RENOVATE_CONFIG_FILE: "renovate.json"
