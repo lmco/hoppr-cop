@@ -1,6 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "enabled": true,
+  "prConcurrentLimit": 10,
+  "rebaseWhen": "behind-base-branch",
   "extends": [
     "config:base",
     ":automergeAll",
@@ -8,21 +10,15 @@
     ":dependencyDashboard",
     ":semanticCommitTypeAll(chore)"
   ],
-  "gitLabAutomerge": true,
+  "platformAutomerge": true,
   "gitLabIgnoreApprovals": true,
   "labels": ["Bot"],
   "packageRules": [
-    {
-      "matchManagers": ["regex"],
-      "semanticCommitType": "fix"
-    },
+    {"matchManagers": ["regex"], "semanticCommitType": "fix"},
     {
       "registryUrls": ["https://gitlab.com"],
       "matchDatasources": ["gitlab-tags"]
     },
-    {
-      "matchDatasources": ["docker"],
-      "groupName": "image-tag updates"
-    }
+    {"matchDatasources": ["docker"], "groupName": "image-tag updates"}
   ]
 }
