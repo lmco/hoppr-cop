@@ -705,14 +705,14 @@ reference = "hoppr-security-commons"
 
 [[package]]
 name = "hoppr-security-commons"
-version = "0.0.12"
+version = "0.0.13"
 description = "Common Library For hoppr-cop"
 category = "main"
 optional = false
 python-versions = ">=3.10,<4.0"
 files = [
-    {file = "hoppr_security_commons-0.0.12-py3-none-any.whl", hash = "sha256:5b6425be72ebb8f97b181158dfe8323f3ff438158f74d60b27e70bb8985f3ec0"},
-    {file = "hoppr_security_commons-0.0.12.tar.gz", hash = "sha256:1822da6d8d00be2d6ca307be3e083ac3278e3abe4341d557fbec1671099f01e4"},
+    {file = "hoppr_security_commons-0.0.13-py3-none-any.whl", hash = "sha256:3366fa4734d42381ad40be23cd08a3c60f86f192eda658588cfb35dc5ded9020"},
+    {file = "hoppr_security_commons-0.0.13.tar.gz", hash = "sha256:9106e3eacc4f200b6f5a9ff7f268cdf508171323ec1ebdc4c099ea82897e96d0"},
 ]
 
 [package.dependencies]
@@ -2387,4 +2387,4 @@ reference = "hoppr-security-commons"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10 "
-content-hash = "1296ce61ed33d93bcacb142807ee6af0dc9991ef8e182d30fd431758fac75e39"
+content-hash = "838c6814b84927e89f799e2dd1aa3199ec3772e0157d6071d3d90456e64963ea"
