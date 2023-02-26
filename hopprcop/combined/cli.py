@@ -20,7 +20,7 @@ app = Typer()
 
 @app.command()
 def vulnerability_report(
-    bom: str = typer.Argument(None, help="the path to a cyclone-dx bom or json value"),
+    bom: str = typer.Argument(None, help="the path to a cyclone-dx BOM"),
     formats: List[ReportFormat] = typer.Option(
         ["table"],
         "--format",
