@@ -68,8 +68,6 @@ class GrypeScanner(VulnerabilitySuper):
         args = ["grype", "--output", "json"]
         if self.grype_os_distro is not None:
             args = args + ["--distro", self.grype_os_distro]
-        print(args)
-        print(self.grype_os_distro)
         with Popen(args, stdout=PIPE, stdin=PIPE, stderr=PIPE) as process:
             stdout_data = process.communicate(input=(bytes(bom.json(), "utf-8")))[0]
             result = GrypeResult(**json.loads(stdout_data))
