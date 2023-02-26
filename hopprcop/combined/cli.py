@@ -35,9 +35,9 @@ def vulnerability_report(
     os_distro: str = typer.Option(
         None,
         help=(
-            "The operating system distribution this is important "
+            "The operating system distribution; this is important "
             "to ensure accurate reporting of OS vulnerabilities from grype. "
-            "examples include rhel:8.6 or rocky:9 "
+            "Examples include rhel:8.6 or rocky:9 "
         ),
         envvar="OS_DISTRIBUTION",
     ),
