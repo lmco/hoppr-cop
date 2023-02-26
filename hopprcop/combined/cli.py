@@ -4,12 +4,16 @@ from pathlib import Path
 from typing import List
 
 import typer
-from typer import Typer
-
 from security_commons.common.reporting.models import ReportFormat
 from security_commons.common.reporting.reporting import Reporting
 from security_commons.common.utils import parse_sbom, parse_sbom_json_string
+from typer import Typer
+
 from hopprcop.combined.combined_scanner import CombinedScanner
+from hopprcop.gemnasium.gemnasium_scanner import GemnasiumScanner
+from hopprcop.grype.grype_scanner import GrypeScanner
+from hopprcop.ossindex.oss_index_scanner import OSSIndexScanner
+from hopprcop.trivy.trivy_scanner import TrivyScanner
 
 app = Typer()
 
@@ -28,6 +32,15 @@ def vulnerability_report(
     base_report_name: str = typer.Option(
         None, help="The base name supplied for the generated reports"
     ),
+    os_distro: str = typer.Option(
+        None,
+        help=(
+            "The operating system distribution this is important "
+            "to ensure accurate reporting of OS vulnerabilities from grype. "
+            "examples include rhel:8.6 or rocky:9 "
+        ),
+        envvar="OS_DISTRIBUTION",
+    ),
 ):
     """Generates vulnerability reports based on the specified BOM and formats"""
 
@@ -41,7 +54,11 @@ def vulnerability_report(
 
     reporting = Reporting(output_dir, base_report_name)
     combined = CombinedScanner()
-    combined.set_scanners(get_scanners())
+    grype_scanner = GrypeScanner()
+    grype_scanner.grype_os_distro = os_distro
+    combined.set_scanners(
+        [grype_scanner, TrivyScanner(), OSSIndexScanner(), GemnasiumScanner()]
+    )
 
     parsed_bom = None
 
@@ -52,12 +69,3 @@ def vulnerability_report(
 
     results = combined.get_vulnerabilities_by_sbom(parsed_bom)
     reporting.generate_vulnerability_reports(formats, results, parsed_bom)
-
-
-def get_scanners() -> List[str]:
-    """Defines scanners to use for hoppr cop"""
-    return [
-        "hopprcop.gemnasium.gemnasium_scanner.GemnasiumScanner",
-        "hopprcop.grype.grype_scanner.GrypeScanner",
-        "hopprcop.ossindex.oss_index_scanner.OSSIndexScanner",
-    ]

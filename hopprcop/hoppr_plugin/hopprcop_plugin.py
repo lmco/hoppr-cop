@@ -18,7 +18,6 @@ from security_commons.common.reporting.models import ReportFormat
 from security_commons.common.vulnerability_combiner import combine_vulnerabilities
 from hopprcop.combined.combined_scanner import CombinedScanner
 
-from hopprcop.combined.cli import get_scanners
 from hopprcop import __version__
 
 
@@ -199,3 +198,13 @@ class HopprCopPlugin(HopprPlugin):
             self.serial_number = serial_number
             self.version = version
             self.vulnerabilities = vulnerabilities
+
+
+def get_scanners() -> List[str]:
+    """Defines scanners to use for hoppr cop"""
+    return [
+        "hopprcop.gemnasium.gemnasium_scanner.GemnasiumScanner",
+        "hopprcop.grype.grype_scanner.GrypeScanner",
+        "hopprcop.trivy.trivy_scanner.TrivyScanner",
+        "hopprcop.ossindex.oss_index_scanner.OSSIndexScanner",
+    ]
