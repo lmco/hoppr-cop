@@ -4,11 +4,11 @@ from pathlib import Path
 from typing import List
 
 import typer
-from typer import Typer
-
 from security_commons.common.reporting.models import ReportFormat
 from security_commons.common.reporting.reporting import Reporting
 from security_commons.common.utils import parse_sbom, parse_sbom_json_string
+from typer import Typer
+
 from hopprcop.combined.combined_scanner import CombinedScanner
 
 app = Typer()
@@ -22,12 +22,8 @@ def vulnerability_report(
         "--format",
         help="The report formats to generate",
     ),
-    output_dir: Path = typer.Option(
-        Path.cwd(), help="The directory where reports will be writen"
-    ),
-    base_report_name: str = typer.Option(
-        None, help="The base name supplied for the generated reports"
-    ),
+    output_dir: Path = typer.Option(Path.cwd(), help="The directory where reports will be writen"),
+    base_report_name: str = typer.Option(None, help="The base name supplied for the generated reports"),
 ):
     """Generates vulnerability reports based on the specified BOM and formats"""
 
@@ -59,5 +55,6 @@ def get_scanners() -> List[str]:
     return [
         "hopprcop.gemnasium.gemnasium_scanner.GemnasiumScanner",
         "hopprcop.grype.grype_scanner.GrypeScanner",
+        "hopprcop.trivy.trivy_scanner.TrivyScanner",
         "hopprcop.ossindex.oss_index_scanner.OSSIndexScanner",
     ]
