@@ -22,8 +22,12 @@ def vulnerability_report(
         "--format",
         help="The report formats to generate",
     ),
-    output_dir: Path = typer.Option(Path.cwd(), help="The directory where reports will be writen"),
-    base_report_name: str = typer.Option(None, help="The base name supplied for the generated reports"),
+    output_dir: Path = typer.Option(
+        Path.cwd(), help="The directory where reports will be writen"
+    ),
+    base_report_name: str = typer.Option(
+        None, help="The base name supplied for the generated reports"
+    ),
 ):
     """Generates vulnerability reports based on the specified BOM and formats"""
 
