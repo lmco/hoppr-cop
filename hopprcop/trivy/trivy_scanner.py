@@ -27,7 +27,7 @@ from hoppr_cyclonedx_models.cyclonedx_1_4 import Vulnerability, Tool
 from packageurl import PackageURL
 
 from security_commons.common.utils import (
-    build_bom_from_purls,
+    build_bom_dict_from_purls,
 )
 from security_commons.common.vulnerability_scanner import VulnerabilitySuper
 
@@ -50,10 +50,10 @@ class TrivyScanner(VulnerabilitySuper):
 
         purls = list(filter(lambda x: x.type in self.supported_types, purls))
         if len(purls) > 0:
-            bom = build_bom_from_purls(purls)
+            bom = build_bom_dict_from_purls(purls)
 
             with tempfile.NamedTemporaryFile(mode="w") as bom_file:
-                bom_file.write(bom.json())
+                bom_file.write(json.dumps(bom))
 
                 with Popen(
                     ["trivy", "sbom", "--format", "cyclonedx", str(bom_file.name)],
