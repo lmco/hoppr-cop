@@ -263,8 +263,7 @@ validate-renovate-config:
   before_script:
     - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - cd docker
-    - docker build -t
+    - docker build -t $IMAGE_NAME:$IMAGE_TAG .
   after_script:
     - docker push $IMAGE_NAME:$IMAGE_TAG
 
