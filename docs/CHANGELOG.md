@@ -1,3 +1,17 @@
+## [1.0.24](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.23...v1.0.24) (2023-02-28)
+
+
+### Bug Fixes
+
+* exposed the ability to specify os distro via the cli or environment variable. This impacts grype's ability to identify vulnerabilities for OS components. ([5f71fc2](https://gitlab.com/hoppr/hoppr-cop/commit/5f71fc2581813bd6638179f56b2bb90d41f954de))
+
+## [1.0.23](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.22...v1.0.23) (2023-02-28)
+
+
+### Bug Fixes
+
+* the bom generation for trivy was using pydantic and bom-ref was converted to bom_ref. This caused trivy to not report vulnerabilities. This updates the bom generation to just directly go from the dictionary to json. ([c82851a](https://gitlab.com/hoppr/hoppr-cop/commit/c82851a11c7a6ef311b5ad4474edd5fbc1fc8740))
+
 ## [1.0.22](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.21...v1.0.22) (2023-02-22)
 
 

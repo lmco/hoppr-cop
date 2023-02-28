@@ -17,6 +17,7 @@
 # Copyright (c) 2022 Lockheed Martin Corporation
 # pylint: disable=duplicate-code
 import json
+import os
 from subprocess import PIPE, Popen
 from typing import Optional, Union
 
@@ -44,6 +45,7 @@ class GrypeScanner(VulnerabilitySuper):
     """This scanner utilizes the anchore grype command line to gather vulnerabilities"""
 
     required_tools_on_path = ["grype"]
+    grype_os_distro = os.getenv("OS_DISTRIBUTION", None)
 
     def __init__(self):
         super()
@@ -63,9 +65,10 @@ class GrypeScanner(VulnerabilitySuper):
         """Parse a cyclone dx 1.4 compatible BOM and return a list of vulnerabilities "
         This function will return a dictionary of package URL to vulnerabilities or none if no vulnerabilities are found
         """
-        with Popen(
-            ["grype", "--output", "json"], stdout=PIPE, stdin=PIPE, stderr=PIPE
-        ) as process:
+        args = ["grype", "--output", "json"]
+        if self.grype_os_distro is not None:
+            args = args + ["--distro", self.grype_os_distro]
+        with Popen(args, stdout=PIPE, stdin=PIPE, stderr=PIPE) as process:
             stdout_data = process.communicate(input=(bytes(bom.json(), "utf-8")))[0]
             result = GrypeResult(**json.loads(stdout_data))
             results = {}
