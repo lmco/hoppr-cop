@@ -281,11 +281,11 @@ build-test-image:
     IMAGE_NAME: $CI_REGISTRY_IMAGE/hoppr-cop-test
     IMAGE_TAG: $CI_COMMIT_REF_SLUG
 
-integration--test-docker-image:
+integration-test-docker-image:
   image: $CI_REGISTRY_IMAGE/hoppr-cop-test:$CI_COMMIT_REF_SLUG
   needs:
     - job: build-test-image
-  stage: test
+  stage: build
   script:
     - echo "hi"
 
