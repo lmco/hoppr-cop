@@ -1,3 +1,10 @@
+## [1.0.24](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.23...v1.0.24) (2023-02-28)
+
+
+### Bug Fixes
+
+* exposed the ability to specify os distro via the cli or environment variable. This impacts grype's ability to identify vulnerabilities for OS components. ([5f71fc2](https://gitlab.com/hoppr/hoppr-cop/commit/5f71fc2581813bd6638179f56b2bb90d41f954de))
+
 ## [1.0.23](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.22...v1.0.23) (2023-02-28)
 
 
