@@ -1,0 +1,61 @@
+.build-image:
+  image: $DOCKER_IMAGE:$DOCKER_TAG
+  stage: build
+  needs: []
+  services:
+    - name: $DOCKER_IMAGE:$DOCKER_TAG-dind
+      alias: docker
+  # These variables must be overridden in jobs that extend this job
+  variables:
+    DOCKER_BUILD_DIR: ""
+    IMAGE_NAME: ""
+    IMAGE_TAG: ""
+  before_script:
+    - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build -t $IMAGE_NAME:$IMAGE_TAG .
+  after_script:
+    - docker push $IMAGE_NAME:$IMAGE_TAG
+
+build-test-image:
+  extends: .build-image
+  needs:
+    - job: build-dist
+  before_script:
+    - !reference [.build-image, before_script]
+    - if [[ -d dist ]]; then mv dist $DOCKER_BUILD_DIR; fi
+  variables:
+    DOCKER_BUILD_DIR: $CI_PROJECT_DIR/
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/hoppr-cop-test
+    IMAGE_TAG: $CI_COMMIT_REF_SLUG
+
+integration-test-docker-image:
+  image:
+    name:  $CI_REGISTRY_IMAGE/hoppr-cop-test:$CI_COMMIT_REF_SLUG
+    entrypoint: [""]
+  needs:
+    - job: build-test-image
+  stage: build
+  script:
+    - cd ci/tests
+    - python3 docker-integration-test.py
+
+
+build-image:release:
+  image:
+    name: quay.io/skopeo/stable:latest
+    entrypoint: [""]
+  stage: deploy
+  needs:
+    - job: integration-test-docker-image
+    - job: semantic-release:dry-run
+  script:
+    - cat release.env
+    - cat release.env | cut -d "=" -f2
+    - cat release.env | cut -d "=" -f2 > AUTO_SEMVER_TAG
+    - cat AUTO_SEMVER_TAG
+    - export DOCKER_TAG=$(cat ./AUTO_SEMVER_TAG)
+
+    - skopeo login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - skopeo copy docker://$CI_REGISTRY_IMAGE/hoppr-cop-test:$CI_COMMIT_REF_SLUG docker://$CI_REGISTRY_IMAGE/hoppr-cop:$DOCKER_TAG
+    - skopeo copy docker://$CI_REGISTRY_IMAGE/hoppr-cop-test:$CI_COMMIT_REF_SLUG docker://$CI_REGISTRY_IMAGE/hoppr-cop:latest
