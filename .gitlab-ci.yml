@@ -280,8 +280,9 @@ build-test-image:
     IMAGE_TAG: $CI_COMMIT_REF_SLUG
 
 integration-test-docker-image:
-  image: $CI_REGISTRY_IMAGE/hoppr-cop-test:$CI_COMMIT_REF_SLUG
-  entrypoint: [""]
+  image: 
+    name:  $CI_REGISTRY_IMAGE/hoppr-cop-test:$CI_COMMIT_REF_SLUG
+    entrypoint: [""]
   needs:
     - job: build-test-image
   stage: build
