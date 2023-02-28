@@ -7,6 +7,7 @@ copyright: "Copyright (c) 2022 Lockheed Martin Corporation"
 nav:
     - Home: index.md
     - Install: install.md
+    - Usage: usage.md
     - Python Library: python-module.md
     - Contributing: contributing.md
     - Development:  development.md

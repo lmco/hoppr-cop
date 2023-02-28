@@ -6,7 +6,7 @@ This project is offered as part of the [hoppr](https://hoppr.dev/) ecosystem, ho
 
 ## Project Status
 
-Alpha 
+Initial Release 
 
 ## Features
 
