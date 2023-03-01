@@ -10,7 +10,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ARG APT_PKGS="curl python3 python3-apt python3-pip ruby-full"
 
 # renovate: datasource=github-releases depName=anchore/grype/ versioning=semver
-ARG GRYPE_VERSION="v0.53.1"
+ARG GRYPE_VERSION="v0.56.0"
 
 # renovate: datasource=github-releases depName=aquasecurity/trivy/ versioning=semver
 ARG TRIVY_VERSION="v0.31.3"
@@ -25,7 +25,7 @@ RUN apt-get update \
   && export PIP_TRUSTED_HOST="pypi.org pypi.python.org files.pythonhosted.org" \
   && python3 -m pip install --no-cache-dir /tmp/hoppr_cop-*-py3-none-any.whl \
   && rm /tmp/hoppr_cop-*-py3-none-any.whl \
-  && curl -sSfL https://raw.githubusercontent.com/anchore/grype/$GRYPE_VERSION/install.sh | sh -s -- -b /usr/local/bin \
+  && curl -sSfL https://raw.githubusercontent.com/anchore/grype/$GRYPE_VERSION/install.sh | sh -s -- -b /usr/local/bin $GRYPE_VERSION \
   && curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/$TRIVY_VERSION/contrib/install.sh | sh -s -- -b /usr/local/bin $TRIVY_VERSION \
   && apt-get autoremove --yes curl
 
