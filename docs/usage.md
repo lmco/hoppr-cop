@@ -4,7 +4,7 @@
 
 Note the first time you run the command each day can be quite slow as it downloads the databases.  Subsequent runs should be much more performant.
 
-![](usage.png)
+[![](usage.png)](usage.png)
 
 ## Hoppr Plugin Configuration
 

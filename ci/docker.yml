@@ -41,7 +41,7 @@ integration-test-docker-image:
     - python3 docker-integration-test.py
 
 
-build-image:release:
+promote-image:
   image:
     name: quay.io/skopeo/stable:latest
     entrypoint: [""]
@@ -49,6 +49,11 @@ build-image:release:
   needs:
     - job: integration-test-docker-image
     - job: semantic-release:dry-run
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME =~ /^main$/
+      when: on_success
   script:
     - cat release.env
     - cat release.env | cut -d "=" -f2
