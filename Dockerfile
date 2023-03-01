@@ -27,6 +27,7 @@ RUN apt-get update \
   && rm /tmp/hoppr_cop-*-py3-none-any.whl \
   && curl -sSfL https://raw.githubusercontent.com/anchore/grype/$GRYPE_VERSION/install.sh | sh -s -- -b /usr/local/bin $GRYPE_VERSION \
   && curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/$TRIVY_VERSION/contrib/install.sh | sh -s -- -b /usr/local/bin $TRIVY_VERSION \
+  && gem install semver_dialects \
   && apt-get autoremove --yes curl
 
 

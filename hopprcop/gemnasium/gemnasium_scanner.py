@@ -58,11 +58,8 @@ class GemnasiumScanner(VulnerabilitySuper):
     required_tools_on_path = ["ruby"]
 
     def __init__(self):
-        cache = os.getenv("CACHE_DIR")
-        if cache is None:
-            self.database_path = Path(tempfile.gettempdir()) / "gemnasium"
-        else:
-            self.database_path = Path(cache) / "gemnasium"
+        self.database_path = Path(self.__get_cache_dir()) / "gemnasium"
+
         if self.should_activate():
             if not Path(self.semver_path).exists():
                 self.__extract_semver_to_local()
@@ -84,7 +81,7 @@ class GemnasiumScanner(VulnerabilitySuper):
         """Downloads the gymnasium database"""
         url = urlparse(self.url)
 
-        path_to_zip_file = Path(tempfile.gettempdir()) / os.path.basename(url.path)
+        path_to_zip_file = Path(self.__get_cache_dir()) / os.path.basename(url.path)
 
         def do_download_and_unpack():
             typer.echo(f"Updating Gemnasium database to {self.database_path}")
@@ -210,6 +207,14 @@ class GemnasiumScanner(VulnerabilitySuper):
             )
         cyclone_vuln.tools = [Tool(vendor="Gitlab", name="Gemnasium")]
         return cyclone_vuln
+
+    @staticmethod
+    def __get_cache_dir() -> Path:
+        cache = os.getenv("CACHE_DIR")
+        if cache is not None:
+            return Path(cache)
+
+        return Path(tempfile.gettempdir())
 
     def __get_path(self, purl: PackageURL):
         """build a path to the gemnasium path"""
