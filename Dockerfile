@@ -7,7 +7,7 @@ ARG BASE_TAG=kinetic
 FROM $BASE_IMAGE:$BASE_TAG AS builder
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ARG APT_PKGS="curl python3 python3-apt python3-pip"
+ARG APT_PKGS="curl python3 python3-apt python3-pip ruby"
 
 # renovate: datasource=github-releases depName=anchore/grype/ versioning=semver
 ARG GRYPE_VERSION="v 0.53.1"
@@ -38,6 +38,7 @@ FROM $BASE_IMAGE:$BASE_TAG
 # Flatten build layers into single layer
 COPY --from=builder / /
 ENV XDG_CACHE_HOME=/cache
+ENV CACHE_DIR=/cache
 VOLUME /cache
 VOLUME /hoppr
 WORKDIR /hoppr

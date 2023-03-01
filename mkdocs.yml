@@ -25,6 +25,7 @@ nav:
 
 theme:
   name: material
+  logo: logo_200.png
 
 extra_css:
     - 'docs/css/termynal.css'

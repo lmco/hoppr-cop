@@ -16,6 +16,7 @@
 
 # Copyright (c) 2022 Lockheed Martin Corporation
 import json
+import os
 import tempfile
 from subprocess import PIPE, Popen
 from typing import Optional
@@ -36,7 +37,16 @@ class TrivyScanner(VulnerabilitySuper):
     """ "Interacts with the trivy cli to scan an sbom"""
 
     required_tools_on_path = ["trivy"]
-    supported_types = ["npm", "maven", "pypi", "gem", "golang", "nuget", "connan"]
+    supported_types = [
+        "npm",
+        "maven",
+        "pypi",
+        "gem",
+        "golang",
+        "nuget",
+        "connan",
+        "rpm",
+    ]
 
     def get_vulnerabilities_by_purl(
         self, purls: list[PackageURL]
@@ -54,9 +64,12 @@ class TrivyScanner(VulnerabilitySuper):
 
             with tempfile.NamedTemporaryFile(mode="w") as bom_file:
                 bom_file.write(json.dumps(bom))
-
+                args = ["trivy", "sbom", "--format", "cyclonedx", str(bom_file.name)]
+                cache = os.getenv("CACHE_DIR")
+                if cache is not None:
+                    args = args + ["--cache-dir", cache]
                 with Popen(
-                    ["trivy", "sbom", "--format", "cyclonedx", str(bom_file.name)],
+                    args,
                     stdout=PIPE,
                     stdin=PIPE,
                     stderr=PIPE,

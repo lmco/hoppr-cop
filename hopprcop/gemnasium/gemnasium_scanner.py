@@ -46,7 +46,8 @@ class GemnasiumScanner(VulnerabilitySuper):
     """A Vulnerability Scanner for Gitlab's Gemnasiumm Database"""
 
     supported_formats = ["npm", "maven", "pypi", "gem", "golang", "connan"]
-    database_path = Path(tempfile.gettempdir()) / "gemnasium"
+
+    database_path = None
     # url = "https://gitlab.com/gitlab-org/security-products/gemnasium-db/-/archive/master/gemnasium-db-master.zip"
     url = os.getenv(
         "GEMNASIUM_DATABASE_ZIP",
@@ -57,9 +58,15 @@ class GemnasiumScanner(VulnerabilitySuper):
     required_tools_on_path = ["ruby"]
 
     def __init__(self):
-        if not Path(self.semver_path).exists():
-            self.__extract_semver_to_local()
-        self.__download_and_extract_database()
+        cache = os.getenv("CACHE_DIR")
+        if cache is None:
+            self.database_path = Path(tempfile.gettempdir()) / "gemnasium"
+        else:
+            self.database_path = Path(cache) / "gemnasium"
+        if self.should_activate():
+            if not Path(self.semver_path).exists():
+                self.__extract_semver_to_local()
+            self.__download_and_extract_database()
 
     def __extract_semver_to_local(self):
         """If the ruby semver command isn't installed then extract from this package"""
