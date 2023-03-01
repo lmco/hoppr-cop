@@ -912,10 +912,10 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
-"@primer/octicons@^17.3.0":
-  version "17.4.1"
-  resolved "https://registry.yarnpkg.com/@primer/octicons/-/octicons-17.4.1.tgz#278dd5d9c24e503746ab94856622820b8a1c5bf6"
-  integrity sha512-DPlnpsARphzx9+kQexKsfLafOa+3FL3MKxaIPxz/isXiiZWgOuNTV8awHZ2Mm1M45mPqsBerucrFE8z2zVCbrg==
+"@primer/octicons@^18.0.0":
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/@primer/octicons/-/octicons-18.0.0.tgz#529426573c921a2f347af4076032f61cb81c6f08"
+  integrity sha512-EC2T95Xl9FCt84pVROjGmwfBvDWxnvWxL+RGsWYNxr1qY7UO58WgLScgi7K8p4gSK5V/k9vHi/k1EhunIyRGRw==
   dependencies:
     object-assign "^4.1.1"
 
