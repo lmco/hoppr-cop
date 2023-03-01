@@ -10,7 +10,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ARG APT_PKGS="curl python3 python3-apt python3-pip ruby-full"
 
 # renovate: datasource=github-releases depName=anchore/grype/ versioning=semver
-ARG GRYPE_VERSION="v 0.53.1"
+ARG GRYPE_VERSION="v0.53.1"
 
 # renovate: datasource=github-releases depName=aquasecurity/trivy/ versioning=semver
 ARG TRIVY_VERSION="v0.31.3"
