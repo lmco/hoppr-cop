@@ -5,13 +5,13 @@ repo_url: https://gitlab.com/hoppr/hoppr-cop
 copyright: "Copyright (c) 2022 Lockheed Martin Corporation"
 
 nav:
-    - Home: index.md
-    - Install: install.md
-    - Usage: usage.md
-    - Python Library: python-module.md
-    - Contributing: contributing.md
-    - Development:  development.md
-    - License: LICENSE.md
+  - Home: index.md
+  - Install: install.md
+  - Usage: usage.md
+  - Python Library: python-module.md
+  - Contributing: contributing.md
+  - Development: development.md
+  - License: LICENSE.md
 
 #markdown_extensions:
 #  - pymdownx.superfences:
@@ -26,17 +26,32 @@ nav:
 theme:
   name: material
   logo: logo_200.png
+  features:
+    - content.code.copy
 
 extra_css:
-    - 'docs/css/termynal.css'
-    - 'docs/css/custom.css'
+  - 'docs/css/termynal.css'
+  - 'docs/css/custom.css'
 
 extra_javascript:
-#    - https://unpkg.com/mermaid/dist/mermaid.min.js
-    - 'docs/js/termynal.js'
-    - 'docs/js/custom.js'
+  #    - https://unpkg.com/mermaid/dist/mermaid.min.js
+  - 'docs/js/termynal.js'
+  - 'docs/js/custom.js'
+  -
+markdown_extensions:
+  - attr_list
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 
 
+
+plugins:
+  - glightbox
 #plugins:
 #    - mermaid2:
 #        arguments:

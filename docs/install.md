@@ -35,7 +35,7 @@ hoppr-cop:
     entrypoint: [""]
   stage: build
   script:
-     - hoppr-cop --format table  --format html --format gilab --output-dir ./vuln-reports  $SBOM_FILE 
+     - hoppr-cop --format table  --format html --format gitlab --output-dir ./vuln-reports  $SBOM_FILE 
 - artifacts:
     paths:
       - vuln-reports/*
