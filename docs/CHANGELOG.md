@@ -1,3 +1,15 @@
+## [1.1.0](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.24...v1.1.0) (2023-03-02)
+
+
+### Features
+
+* adding docker image ([291cca6](https://gitlab.com/hoppr/hoppr-cop/commit/291cca6e734cd371db8c135ac15e250cee8dd9d9))
+
+
+### Bug Fixes
+
+* updated docker file to include gem install, got gemnasium caching working, added broad catch to cli ([8fbe34a](https://gitlab.com/hoppr/hoppr-cop/commit/8fbe34a791980a509083d93e0bd003eacddeee6c))
+
 ## [1.0.24](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.23...v1.0.24) (2023-02-28)
 
 
