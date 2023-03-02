@@ -97,7 +97,7 @@
     "semantic-release-helm": "2.2.0",
     "semantic-release-license": "1.0.3",
     "semantic-release-rubygem": "1.2.0",
-    "semantic-release-slack-bot": "3.5.3",
+    "semantic-release-slack-bot": "4.0.0",
     "sharp": "^0.31.0",
     "stylelint": "^15.0.0",
     "stylelint-config-rational-order": "^0.1.2",
