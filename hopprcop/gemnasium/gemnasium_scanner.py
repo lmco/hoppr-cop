@@ -46,7 +46,8 @@ class GemnasiumScanner(VulnerabilitySuper):
     """A Vulnerability Scanner for Gitlab's Gemnasiumm Database"""
 
     supported_formats = ["npm", "maven", "pypi", "gem", "golang", "connan"]
-    database_path = Path(tempfile.gettempdir()) / "gemnasium"
+
+    database_path = None
     # url = "https://gitlab.com/gitlab-org/security-products/gemnasium-db/-/archive/master/gemnasium-db-master.zip"
     url = os.getenv(
         "GEMNASIUM_DATABASE_ZIP",
@@ -57,9 +58,12 @@ class GemnasiumScanner(VulnerabilitySuper):
     required_tools_on_path = ["ruby"]
 
     def __init__(self):
-        if not Path(self.semver_path).exists():
-            self.__extract_semver_to_local()
-        self.__download_and_extract_database()
+        self.database_path = Path(self.__get_cache_dir()) / "gemnasium"
+
+        if self.should_activate():
+            if not Path(self.semver_path).exists():
+                self.__extract_semver_to_local()
+            self.__download_and_extract_database()
 
     def __extract_semver_to_local(self):
         """If the ruby semver command isn't installed then extract from this package"""
@@ -77,7 +81,7 @@ class GemnasiumScanner(VulnerabilitySuper):
         """Downloads the gymnasium database"""
         url = urlparse(self.url)
 
-        path_to_zip_file = Path(tempfile.gettempdir()) / os.path.basename(url.path)
+        path_to_zip_file = Path(self.__get_cache_dir()) / os.path.basename(url.path)
 
         def do_download_and_unpack():
             typer.echo(f"Updating Gemnasium database to {self.database_path}")
@@ -203,6 +207,14 @@ class GemnasiumScanner(VulnerabilitySuper):
             )
         cyclone_vuln.tools = [Tool(vendor="Gitlab", name="Gemnasium")]
         return cyclone_vuln
+
+    @staticmethod
+    def __get_cache_dir() -> Path:
+        cache = os.getenv("CACHE_DIR")
+        if cache is not None:
+            return Path(cache)
+
+        return Path(tempfile.gettempdir())
 
     def __get_path(self, purl: PackageURL):
         """build a path to the gemnasium path"""

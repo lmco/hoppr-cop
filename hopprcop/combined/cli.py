@@ -43,29 +43,31 @@ def vulnerability_report(
     ),
 ):
     """Generates vulnerability reports based on the specified BOM and formats"""
+    try:
+        if base_report_name is None:
+            if bom.endswith(".json"):
+                base_report_name = bom.removesuffix(".json")
+            elif bom.endswith(".xml"):
+                base_report_name = bom.removesuffix(".xml")
+            else:
+                base_report_name = "hoppr-cop-report"
 
-    if base_report_name is None:
-        if bom.endswith(".json"):
-            base_report_name = bom.removesuffix(".json")
-        elif bom.endswith(".xml"):
-            base_report_name = bom.removesuffix(".xml")
+        reporting = Reporting(output_dir, base_report_name)
+        combined = CombinedScanner()
+        grype_scanner = GrypeScanner()
+        grype_scanner.grype_os_distro = os_distro
+        combined.set_scanners(
+            [grype_scanner, TrivyScanner(), OSSIndexScanner(), GemnasiumScanner()]
+        )
+
+        parsed_bom = None
+
+        if bom.endswith(".json") or bom.endswith(".xml"):
+            parsed_bom = parse_sbom(Path(bom))
         else:
-            base_report_name = "hoppr-cop-report"
+            parsed_bom = parse_sbom_json_string(bom, "The json provided sbom")
 
-    reporting = Reporting(output_dir, base_report_name)
-    combined = CombinedScanner()
-    grype_scanner = GrypeScanner()
-    grype_scanner.grype_os_distro = os_distro
-    combined.set_scanners(
-        [grype_scanner, TrivyScanner(), OSSIndexScanner(), GemnasiumScanner()]
-    )
-
-    parsed_bom = None
-
-    if bom.endswith(".json") or bom.endswith(".xml"):
-        parsed_bom = parse_sbom(Path(bom))
-    else:
-        parsed_bom = parse_sbom_json_string(bom, "The json provided sbom")
-
-    results = combined.get_vulnerabilities_by_sbom(parsed_bom)
-    reporting.generate_vulnerability_reports(formats, results, parsed_bom)
+        results = combined.get_vulnerabilities_by_sbom(parsed_bom)
+        reporting.generate_vulnerability_reports(formats, results, parsed_bom)
+    except Exception as exc:  # pylint: disable=broad-except
+        print(f"unexpected error: {exc}")

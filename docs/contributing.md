@@ -4,8 +4,7 @@ When contributing to `hoppr-cop`, please first discuss the change you wish to ma
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
-## Custom Templates
-Please merge any contributed templates, to the `contrib/templates` subdirectory. In doing so, you agree to license your template under the terms of the `hoppr-cop` project [License](LICENSE.md) itself. 
+In contributing to this project, you agree to license your contributions under the terms of the `hoppr-cop` project [License](LICENSE.md) itself. 
 
 ## Contribution Flow
 The general flow of contributing to `hoppr-cop` is:

@@ -1,0 +1,67 @@
+##########
+# docs
+##########
+
+.setup_pages:
+  script:
+    - apt-get update && apt-get install curl -y
+    - curl -ksL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o /bin/yq
+    - chmod a+x /bin/yq
+    - curl -kfsSL https://deb.nodesource.com/setup_16.x | bash -
+    - apt-get update && apt install -y nodejs
+    - |
+      apt-get -o dir::cache::archives="apt-cache" install \
+      python3.10 \
+      python3.10-venv \
+      python3-pip \
+      git \
+      jq -y
+    - npm install -g yarn
+
+pages-review:
+  extends: .base-python
+  stage: docs
+  needs:
+    - job: semantic-release:dry-run
+      artifacts: true
+  variables:
+    PUBLIC_URL: "/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/public"
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    url: "https://hoppr.gitlab.io/hoppr-cop/-/jobs/$CI_JOB_ID/artifacts/public/index.html"
+    auto_stop_in: 1 week
+  script:
+    - poetry run mkdocs build --strict --verbose
+    - mv site public
+
+  artifacts:
+    expose_as: 'Hoppr Docs Preview'
+    paths:
+      - "public"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: $CI_COMMIT_REF_NAME != "main"
+
+pages:
+  # Only build the documentation and push to GitLab Pages on
+  # main.
+  stage: docs
+  needs: [ ]
+  # Always test build mkdocs to ensure no issues with the documentation.
+  extends: .base-python
+  artifacts:
+    paths:
+      - public
+
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "main"
+  script:
+    - poetry run mkdocs build --strict --verbose
+    - mv site public
