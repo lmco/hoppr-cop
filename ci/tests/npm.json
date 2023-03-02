@@ -12,6 +12,15 @@
         "version": "3.7.0"
       }
     ],
+    "component": {
+      "type": "library",
+      "bom-ref": "pkg:npm/enterprise-web-site@0.0.0",
+      "name": "enterprise-web-site",
+      "version": "0.0.0",
+      "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.",
+      "purl": "pkg:npm/enterprise-web-site@0.0.0"
+    }
+  },
   "components": [
     {
       "type": "library",
