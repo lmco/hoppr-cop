@@ -91,4 +91,3 @@ def vulnerability_report(
             fg=typer.colors.RED,
         )
         typer.echo(msg)
-        print()
