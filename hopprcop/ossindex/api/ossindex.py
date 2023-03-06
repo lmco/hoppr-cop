@@ -31,7 +31,7 @@ from packageurl import PackageURL  # type: ignore
 from tinydb import TinyDB, Query
 from tinydb.table import Document
 
-from .exception import AccessDeniedException
+from .exception import AccessDeniedException, RateLimitException
 from .model import OssIndexComponent
 from .serializer import json_decoder, OssIndexJsonEncoder
 
@@ -223,8 +223,7 @@ class OssIndex:
         if not response.status_code == 200:
             print(response.status_code)
             if response.status_code == 429:
-                time.sleep(90)
-            raise AccessDeniedException()
+                raise RateLimitException()
 
         results: List[OssIndexComponent] = []
         for oic in response.json(object_hook=json_decoder):

@@ -1,5 +1,6 @@
 """A Vulnerability Scanner that combines results from all configured scanners"""
 # pylint: disable=duplicate-code
+import traceback
 from pathlib import Path
 from typing import List
 
@@ -41,31 +42,53 @@ def vulnerability_report(
         ),
         envvar="OS_DISTRIBUTION",
     ),
+    trace: bool = typer.Option(
+        False, help="Print traceback information on unhandled error"
+    ),
 ):
     """Generates vulnerability reports based on the specified BOM and formats"""
+    print(trace)
+    try:
+        if base_report_name is None:
+            if bom.endswith(".json"):
+                base_report_name = bom.removesuffix(".json")
+            elif bom.endswith(".xml"):
+                base_report_name = bom.removesuffix(".xml")
+            else:
+                base_report_name = "hoppr-cop-report"
 
-    if base_report_name is None:
-        if bom.endswith(".json"):
-            base_report_name = bom.removesuffix(".json")
-        elif bom.endswith(".xml"):
-            base_report_name = bom.removesuffix(".xml")
+        reporting = Reporting(output_dir, base_report_name)
+        combined = CombinedScanner()
+        grype_scanner = GrypeScanner()
+        trivy_scanner = TrivyScanner()
+        grype_scanner.grype_os_distro = os_distro
+        trivy_scanner.trivy_os_distro = os_distro
+        combined.set_scanners(
+            [grype_scanner, trivy_scanner, OSSIndexScanner(), GemnasiumScanner()]
+        )
+
+        parsed_bom = None
+
+        if bom.endswith(".json") or bom.endswith(".xml"):
+            if not Path(bom).exists():
+                msg = typer.style(
+                    bom + " does not exist",
+                    fg=typer.colors.RED,
+                )
+                typer.echo(msg)
+                raise typer.Exit(code=1)
+            parsed_bom = parse_sbom(Path(bom))
         else:
-            base_report_name = "hoppr-cop-report"
+            parsed_bom = parse_sbom_json_string(bom, "The json provided sbom")
 
-    reporting = Reporting(output_dir, base_report_name)
-    combined = CombinedScanner()
-    grype_scanner = GrypeScanner()
-    grype_scanner.grype_os_distro = os_distro
-    combined.set_scanners(
-        [grype_scanner, TrivyScanner(), OSSIndexScanner(), GemnasiumScanner()]
-    )
-
-    parsed_bom = None
-
-    if bom.endswith(".json") or bom.endswith(".xml"):
-        parsed_bom = parse_sbom(Path(bom))
-    else:
-        parsed_bom = parse_sbom_json_string(bom, "The json provided sbom")
-
-    results = combined.get_vulnerabilities_by_sbom(parsed_bom)
-    reporting.generate_vulnerability_reports(formats, results, parsed_bom)
+        results = combined.get_vulnerabilities_by_sbom(parsed_bom)
+        reporting.generate_vulnerability_reports(formats, results, parsed_bom)
+    except Exception as exc:  # pylint: disable=broad-except
+        if trace:
+            print(traceback.format_exc())
+        msg = typer.style(
+            f"unexpected error: {exc}",
+            fg=typer.colors.RED,
+        )
+        typer.echo(msg)
+        print()

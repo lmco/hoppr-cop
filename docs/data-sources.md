@@ -8,8 +8,8 @@
 * pypi - gemnasium, trivy, grype, oss-index (confirmed results from all 4)
 * nuget - gemnasium, trivy, oss-index, grype ( no testing)
 * gem - gemnasium, trivy, grype, oss-index (tested but got no results using a small bom)
-* rpm - grype, oss-index (oss-index coverage seems quite poor, trivy has rpm in their database but blows up on rpm purls)
-* deb - grype (trivy has deb in their database but blows up on rpm purls)
+* rpm - grype,trivy, oss-index (oss-index coverage seems quite poor)([see operating system distros](os-distro.md) for important information)
+* deb - grype, trivy ([see operating system distros](os-distro.md) for important information)
 
 ## Gemnasium
 

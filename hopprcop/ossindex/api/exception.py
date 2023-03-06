@@ -26,3 +26,9 @@ class AccessDeniedException(OssIndexException):
     """
     Raised if supplied credentials for Oss Index are invalid.
     """
+
+
+class RateLimitException(OssIndexException):
+    """
+    Raised if oss index returns a 429 too many requests exception.
+    """
