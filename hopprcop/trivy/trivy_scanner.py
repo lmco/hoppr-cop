@@ -82,9 +82,12 @@ class TrivyScanner(VulnerabilitySuper):
 
             with tempfile.NamedTemporaryFile(mode="w") as bom_file:
                 bom_file.write(json.dumps(bom))
-
+                args = ["trivy", "sbom", "--format", "cyclonedx", str(bom_file.name)]
+                cache = os.getenv("CACHE_DIR")
+                if cache is not None:
+                    args = args + ["--cache-dir", cache]
                 with Popen(
-                    ["trivy", "sbom", "--format", "cyclonedx", str(bom_file.name)],
+                    args,
                     stdout=PIPE,
                     stdin=PIPE,
                     stderr=PIPE,

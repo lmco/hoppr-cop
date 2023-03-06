@@ -9,7 +9,7 @@ For more information please see the [project documentation](https://hoppr.gitlab
 
 ## Project Status
 
-Alpha 
+Initial Release
 
 ## Features
 

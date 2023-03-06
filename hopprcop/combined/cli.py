@@ -47,7 +47,7 @@ def vulnerability_report(
     ),
 ):
     """Generates vulnerability reports based on the specified BOM and formats"""
-    print(trace)
+
     try:
         if base_report_name is None:
             if bom.endswith(".json"):
