@@ -13,6 +13,7 @@ from hoppr_cyclonedx_models.cyclonedx_1_4 import (
     Affect,
 )
 
+from packageurl import PackageURL
 from security_commons.common.reporting.reporting import Reporting
 from security_commons.common.reporting.models import ReportFormat
 from security_commons.common.vulnerability_combiner import combine_vulnerabilities
@@ -31,6 +32,17 @@ class HopprCopPlugin(HopprPlugin):
 
     bom_access = BomAccess.FULL_ACCESS
 
+    supported_purl_types = [
+        "golang",
+        "npm",
+        "maven",
+        "pypi",
+        "nuget",
+        "gem",
+        "rpm",
+        "deb",
+    ]
+
     def get_version(self) -> str:
         """
         __version__ required for all HopprPlugin implementations
@@ -43,7 +55,6 @@ class HopprCopPlugin(HopprPlugin):
         Supply sbom to hoppr cop to perform vulnerabilty check
         """
         self.get_logger().info("[ Executing hopprcop vulnerability check ]")
-        self.get_logger().flush()
 
         output_dir = self.config.get(
             "output_dir", Path(self.context.collect_root_dir, "generic")
@@ -61,14 +72,22 @@ class HopprCopPlugin(HopprPlugin):
         combined.set_scanners(scanners)
         parsed_bom = self.context.delivered_sbom
 
+        parsed_bom.components = list(
+            filter(
+                lambda x: PackageURL.from_string(x.purl).type
+                in self.supported_purl_types,
+                parsed_bom.components,
+            )
+        )
+
         results = combined.get_vulnerabilities_by_sbom(parsed_bom)
 
         # Map bom ref to results - uses purl as ref
         bom_ref_to_results = dict[str, self.ComponentVulnerabilityWrapper]()
 
-        # Map purls to components
+        # Map purls to components, try to normalize purls to lowercase
         purl_to_component = {
-            component.purl: component for component in parsed_bom.components
+            component.purl.lower(): component for component in parsed_bom.components
         }
 
         # Delivered Bom version
@@ -88,32 +107,60 @@ class HopprCopPlugin(HopprPlugin):
 
         # Build dictionary to go from bom-ref to vulnerabilities
         for purl in results:
-            component = purl_to_component[purl]
-            bom_ref = component.purl  # component.bom_ref.__root__
+            # Different purl values being returned from different scanners, attempt to normalize the data
+            # by making it lower case and if not found, reversing pypi expectations with - to _.
+            adjusted_purl = purl.lower()
+            if adjusted_purl not in purl_to_component and "pypi" in adjusted_purl:
+                adjusted_purl = adjusted_purl.replace("-", "_")
 
-            if len(parsed_bom.vulnerabilities) > 0:
-                # Account for existing vulnerabilites on bom
-                for existing_vulnerability in parsed_bom.vulnerabilities:
-                    for affect in existing_vulnerability.affects:
-                        if (
-                            affect.ref == bom_ref
-                            or affect.ref == component.bom_ref.__root__
-                        ):
-                            results[purl].append(existing_vulnerability)
+            if adjusted_purl in purl_to_component:
+                component = purl_to_component[adjusted_purl]
+                bom_ref = component.purl  # component.bom_ref.__root__
+                if (
+                    len(parsed_bom.vulnerabilities) > 0
+                    and bom_ref not in bom_ref_to_results
+                ):
+                    # Account for existing vulnerabilites on bom
+                    for existing_vulnerability in parsed_bom.vulnerabilities:
+                        for affect in existing_vulnerability.affects:
+                            if (
+                                affect.ref == bom_ref
+                                or affect.ref == component.bom_ref.__root__
+                            ):
+                                results[purl].append(existing_vulnerability)
 
-                results[purl] = combine_vulnerabilities([{purl: results[purl]}])[0]
+                    results[purl] = combine_vulnerabilities([{purl: results[purl]}])[0]
 
-            updated_results = deepcopy(results[purl])
+                updated_results = deepcopy(results[purl])
 
-            wrapper = self.ComponentVulnerabilityWrapper(
-                bom_serial_number, bom_version, updated_results
-            )
-            bom_ref_to_results[bom_ref] = wrapper
+                if bom_ref not in bom_ref_to_results:
+                    wrapper = self.ComponentVulnerabilityWrapper(
+                        bom_serial_number, bom_version, updated_results
+                    )
+                    bom_ref_to_results[bom_ref] = wrapper
+                elif (
+                    len(bom_ref_to_results[bom_ref].vulnerabilities) > 0
+                    and len(updated_results) > 0
+                ):
+                    existing_vulnerabilities: List[Vulnerability] = bom_ref_to_results[
+                        bom_ref
+                    ].vulnerabilities
+                    bom_ref_to_results[
+                        bom_ref
+                    ].vulnerabilities = combine_vulnerabilities(
+                        [{purl: updated_results + existing_vulnerabilities}]
+                    )[
+                        0
+                    ]
+            else:
+                self.get_logger().info(f"Could not find purl ({purl}) in component map")
 
         hoppr_delivered_bom = self.__perform_hoppr_bom_updates(
             reporting, deepcopy(parsed_bom), bom_ref_to_results, formats
         )
         self.__perform_hopprcop_reporting(reporting, parsed_bom, results, formats)
+
+        self.get_logger().flush()
 
         return Result.success(return_obj=hoppr_delivered_bom)
 
@@ -124,11 +171,18 @@ class HopprCopPlugin(HopprPlugin):
         external_ref: bool = False,
     ) -> List[Vulnerability]:
         flattened_vulnerabilities: List[Vulnerability] = []
+        # Capture vulnerability id to vulnerability to account multiple components affected by the same vulnerability
+        vuln_id_to_vuln = {}
         for bom_ref in bom_ref_to_component:
             for vuln in bom_ref_to_component[bom_ref].vulnerabilities:
-                vuln.affects = [] if vuln.affects is None else vuln.affects
+                existing_vuln = vuln
+                if existing_vuln.id not in vuln_id_to_vuln:
+                    existing_vuln.affects = []
+                else:
+                    existing_vuln = vuln_id_to_vuln[vuln.id]
+
                 if external_ref:
-                    vuln.affects.append(
+                    existing_vuln.affects.append(
                         Affect(
                             **{
                                 "ref": f"urn:cdx:{bom_ref_to_component[bom_ref].serial_number}/{bom_ref_to_component[bom_ref].version}#{bom_ref}"
@@ -136,11 +190,13 @@ class HopprCopPlugin(HopprPlugin):
                         )
                     )
                 else:
-                    vuln.affects.append(Affect(**{"ref": bom_ref}))
+                    existing_vuln.affects.append(Affect(**{"ref": bom_ref}))
 
-                flattened_vulnerabilities.append(vuln)
+                vuln_id_to_vuln[vuln.id] = existing_vuln
 
+        flattened_vulnerabilities = list(vuln_id_to_vuln.values())
         flattened_vulnerabilities.sort(key=reporting.get_score, reverse=True)
+
         return flattened_vulnerabilities
 
     def __perform_hoppr_bom_updates(
