@@ -1,3 +1,10 @@
+## [1.1.1](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.0...v1.1.1) (2023-03-09)
+
+
+### Bug Fixes
+
+* normalized purl mapping ([7a3d449](https://gitlab.com/hoppr/hoppr-cop/commit/7a3d449920f541df810942f826d872dce244e45c))
+
 ## [1.1.0](https://gitlab.com/hoppr/hoppr-cop/compare/v1.0.24...v1.1.0) (2023-03-02)
 
 
