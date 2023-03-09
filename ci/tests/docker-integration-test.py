@@ -13,18 +13,14 @@ combined = CombinedScanner()
 combined.set_scanners([GemnasiumScanner(), GrypeScanner(), TrivyScanner()])
 parsed_bom = parse_sbom(bom)
 result = combined.get_vulnerabilities_by_sbom(parsed_bom)
-counts={
-    "Gemnasium":0,
-    "Grype": 0,
-    "Trivy":0
-}
+counts = {"Gemnasium": 0, "Grype": 0, "Trivy": 0}
 for r in result:
     for v in result[r]:
         for t in v.tools:
             counts[t.name] = counts[t.name] + 1
 
 
-print (counts)
+print(counts)
 
 for tool in counts:
     assert counts[tool] > 0, tool + " vulnerability count should be greater than zero"
