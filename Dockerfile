@@ -18,10 +18,9 @@ ARG TRIVY_VERSION="v0.31.3"
 COPY dist/hoppr_cop-*-py3-none-any.whl /tmp
 
 # hadolint ignore=DL3008
-RUN apt-get update \
+RUN apt-get update && rm -rf /var/lib/apt/lists/* \
   && apt-get install --yes --no-install-recommends ${APT_PKGS} \
   && apt-get clean \
-  && rm -r /var/lib/apt/lists/* \
   && export PIP_TRUSTED_HOST="pypi.org pypi.python.org files.pythonhosted.org" \
   && python3 -m pip install --no-cache-dir /tmp/hoppr_cop-*-py3-none-any.whl \
   && rm /tmp/hoppr_cop-*-py3-none-any.whl \
