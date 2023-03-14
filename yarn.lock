@@ -4581,9 +4581,9 @@ ieee754@^1.1.13:
   integrity sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==
 
 iframe-worker@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/iframe-worker/-/iframe-worker-1.0.2.tgz#5f6a0c6a246e5bf47debb3859b210cee0f5ba80d"
-  integrity sha512-cZk5ipm+PxI9IATsqt1ZgNKTtYtWURQjCbr14NsehgmiFjKG90NZ3qlv1HH7Kelg97pIvR0BXKBLErhzeZycJQ==
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/iframe-worker/-/iframe-worker-1.0.3.tgz#f81ad8a0fa436aa53133b8825bf9c01c4aed405e"
+  integrity sha512-bzOpLcy1R4vBFGsx2fQ4iMI0ikyUWwt9YKjp6/8KZcpk+FSvZavxWD0gA6hqKksjdsn3u59E2TT7qJlTq4Gn4A==
 
 ignore-walk@^5.0.1:
   version "5.0.1"
