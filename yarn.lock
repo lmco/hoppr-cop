@@ -913,9 +913,9 @@
     config-chain "^1.1.11"
 
 "@primer/octicons@^18.0.0":
-  version "18.0.0"
-  resolved "https://registry.yarnpkg.com/@primer/octicons/-/octicons-18.0.0.tgz#529426573c921a2f347af4076032f61cb81c6f08"
-  integrity sha512-EC2T95Xl9FCt84pVROjGmwfBvDWxnvWxL+RGsWYNxr1qY7UO58WgLScgi7K8p4gSK5V/k9vHi/k1EhunIyRGRw==
+  version "18.2.0"
+  resolved "https://registry.yarnpkg.com/@primer/octicons/-/octicons-18.2.0.tgz#14efe3304536f8e3ef0c5202f9f2fece81708781"
+  integrity sha512-Bx7PkGZUgbo/xbZSdufxKefg5JzvGPkIu/x93TAiWit+FoPBmLammqfHQe1Y5gmT2AWAuxJUksYN05hi7w6VnA==
   dependencies:
     object-assign "^4.1.1"
 
