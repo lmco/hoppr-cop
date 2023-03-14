@@ -7711,9 +7711,9 @@ postcss-less@^3.1.0:
     postcss "^7.0.14"
 
 postcss-logical@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-logical/-/postcss-logical-6.0.0.tgz#065b196c0935f4124996748a2382ec0c880615d2"
-  integrity sha512-pn50jY5c+PmpYiTZ7KfYQ4aKXAVaFfZgNevtUwXglD22TxfLrrYD5d8m7UDQkT9CAfYvBgSkzPSBWTyE0WuQmA==
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/postcss-logical/-/postcss-logical-6.1.0.tgz#c33ae75d3edaea7eb821e76dc4e6d0ecedc3200d"
+  integrity sha512-qb1+LpClhYjxac8SfOcWotnY3unKZesDqIOm+jnGt8rTl7xaIWpE2bPGZHxflOip1E/4ETo79qlJyRL3yrHn1g==
   dependencies:
     postcss-value-parser "^4.2.0"
 
