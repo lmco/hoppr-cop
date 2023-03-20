@@ -1,3 +1,10 @@
+## [1.1.3](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.2...v1.1.3) (2023-03-20)
+
+
+### Bug Fixes
+
+* fixing grype model issues where required fields were sometimes blank in grype output. ([71b55a4](https://gitlab.com/hoppr/hoppr-cop/commit/71b55a43be2dc29aaebb68725bc065e02f0c5c4a))
+
 ## [1.1.2](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.1...v1.1.2) (2023-03-20)
 
 
