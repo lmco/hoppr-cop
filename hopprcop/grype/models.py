@@ -57,7 +57,7 @@ class RelatedVulnerability(BaseModel):
     id: str
     data_source: str = Field(..., alias="dataSource")
     namespace: str
-    severity: str
+    severity: Optional[str]
     urls: List[str]
     description: str
     cvss: List[Cvs]
@@ -180,7 +180,7 @@ class Configuration(BaseModel):
     fail_on_severity: str = Field(..., alias="fail-on-severity")
     registry: Registry
     log: Log
-    attestation: Attestation
+    attestation: Optional[Attestation]
 
 
 class Db1(BaseModel):
