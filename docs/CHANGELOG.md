@@ -1,3 +1,10 @@
+## [1.1.2](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.1...v1.1.2) (2023-03-20)
+
+
+### Bug Fixes
+
+* fixed debian and rpm reporting for trivy. ([4755549](https://gitlab.com/hoppr/hoppr-cop/commit/4755549d8b45d8348fabe17b79723b8d8a0a25f6))
+
 ## [1.1.1](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.0...v1.1.1) (2023-03-09)
 
 
