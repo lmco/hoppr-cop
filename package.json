@@ -50,7 +50,7 @@
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
     "@semantic-release/gitlab": "12.0.0",
-    "@semantic-release/npm": "9.0.2",
+    "@semantic-release/npm": "10.0.2",
     "@types/clipboard": "^2.0.7",
     "@types/css-modules": "^1.0.2",
     "@types/escape-html": "^1.0.2",
