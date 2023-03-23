@@ -1202,10 +1202,10 @@
     p-retry "^4.0.0"
     url-join "^4.0.0"
 
-"@semantic-release/gitlab@12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@semantic-release/gitlab/-/gitlab-12.0.0.tgz#f7ca561fedd32c1181ffb89c1d8b64f7b073f3f0"
-  integrity sha512-LzQoRZNh0kqzCF2lfU/5Wulngzp7qwDsuD4mfyvFmyOhVEpc37jxnbiB67bqkGwK/GGUaGtcpgFamP6Sp1yefA==
+"@semantic-release/gitlab@12.0.1":
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/@semantic-release/gitlab/-/gitlab-12.0.1.tgz#fa97ffd4cb30aa310771a945b1f54e35cac663da"
+  integrity sha512-UbvCzBu/I37+PLQYG/X1/wk7ZIs2Tom2BwaWxo4thHfkqtUMpzVapaoxCYyDLSpJFHQOT95/yapHW+ZKFZxNcQ==
   dependencies:
     "@semantic-release/error" "^3.0.0"
     aggregate-error "^4.0.0"
