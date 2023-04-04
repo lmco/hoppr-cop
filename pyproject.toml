@@ -28,9 +28,10 @@ mkdocs-glightbox = "^0.3.1"
 pygments = "^2.14.0"
 pymdown-extensions = "^9.9.2"
 
+# For testing until hoppr 1.8.0 release
 [tool.poetry.dependencies.hoppr]
 git = "https://gitlab.com/hoppr/hoppr.git"
-branch = "pydantic-integration"
+branch = "next"
 
 [tool.poetry.scripts]
 hoppr-cop = "hopprcop.combined.cli:app"

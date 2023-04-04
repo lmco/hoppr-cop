@@ -18,6 +18,7 @@ class TestHopprCopPlugin(TestCase):
         max_processes=3,
         sboms=list(Sbom.loaded_sboms.values()),
         stages=[],
+        logfile_lock=multiprocessing.Manager().RLock()
     )
 
     HopprContext.consolidated_sbom = Sbom.consolidated_sbom

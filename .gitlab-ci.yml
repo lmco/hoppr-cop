@@ -122,8 +122,11 @@ integration-test:
   script:
     - curl -kL --output cyclonedx-cli https://github.com/CycloneDX/cyclonedx-cli/releases/download/v0.24.2/cyclonedx-linux-x64
     - chmod 777 ./cyclonedx-cli
-    - pip install "hoppr @ git+https://gitlab.com/hoppr/hoppr.git@pydantic-integration"
-    - python -m pip install dist/hoppr_cop*.whl # --find-links=dist hoppr_cop
+    # For testing until hoppr 1.8.0 release
+    - pip install "hoppr @ git+https://gitlab.com/hoppr/hoppr.git@next"
+    - python -m pip install dist/hoppr_cop*.whl
+    # - pip install hoppr
+    # - python -m pip install --find-links=dist hoppr_cop
     - hopctl bundle $TEST_DIR/manifest.yml
       --transfer $TEST_DIR/transfer.yml
       --log hopprcop_log.txt
