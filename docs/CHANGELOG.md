@@ -1,3 +1,10 @@
+## [1.1.4](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.3...v1.1.4) (2023-04-04)
+
+
+### Reverts
+
+* add git to test image until 1.8.0 release ([d36b214](https://gitlab.com/hoppr/hoppr-cop/commit/d36b21459b0f6a288f86fcae944ea2534ebde73b))
+
 ## [1.1.3](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.2...v1.1.3) (2023-03-20)
 
 
