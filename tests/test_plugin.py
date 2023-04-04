@@ -1,26 +1,30 @@
 import multiprocessing
+
+from copy import deepcopy
 from pathlib import Path
 from unittest import TestCase
-from unittest.mock import patch
-from hoppr.context import Context
-from hoppr.configs.manifest import Manifest
-from hoppr_cyclonedx_models.cyclonedx_1_4 import (
-    CyclonedxSoftwareBillOfMaterialsStandard as Bom,
-)
+
+from hoppr import HopprContext, Manifest, Sbom
+
 from hopprcop import __version__
 from hopprcop.hoppr_plugin.hopprcop_plugin import HopprCopPlugin
 
 
 class TestHopprCopPlugin(TestCase):
-    simple_test_context = Context(
-        manifest=Manifest.load_file(Path("hoppr-integration-test/manifest.yml")),
+    manifest = Manifest.load(Path("hoppr-integration-test") / "manifest.yml")
+
+    simple_test_context = HopprContext(
+        repositories=manifest.repositories,
         collect_root_dir="COLLECTION_DIR",
-        consolidated_sbom="BOM",
-        delivered_sbom=Bom.parse_file("hoppr-integration-test/sbom.json"),
+        consolidated_sbom=Sbom.consolidated_sbom,
+        delivered_sbom = deepcopy(Sbom.consolidated_sbom),
         retry_wait_seconds=1,
         max_processes=3,
+        sboms=list(Sbom.loaded_sboms.values()),
+        stages=[],
         logfile_lock=multiprocessing.Manager().RLock()
     )
+
     simple_config = {}
 
 

@@ -1,25 +1,18 @@
 import uuid
+
 from copy import deepcopy
 from pathlib import Path
-from typing import List
 
-from hoppr.base_plugins.hoppr import HopprPlugin, hoppr_process
-from hoppr.result import Result
-from hoppr.hoppr_types.bom_access import BomAccess
-from hoppr_cyclonedx_models.cyclonedx_1_4 import (
-    Component,
-    CyclonedxSoftwareBillOfMaterialsStandard as Bom_1_4,
-    Vulnerability,
-    Affect,
-)
+from hoppr import BomAccess, Component, HopprPlugin, Result, Sbom, hoppr_process
 
+from hoppr_cyclonedx_models.cyclonedx_1_4 import Affect, Vulnerability
 from packageurl import PackageURL
-from security_commons.common.reporting.reporting import Reporting
 from security_commons.common.reporting.models import ReportFormat
+from security_commons.common.reporting.reporting import Reporting
 from security_commons.common.vulnerability_combiner import combine_vulnerabilities
-from hopprcop.combined.combined_scanner import CombinedScanner
 
 from hopprcop import __version__
+from hopprcop.combined.combined_scanner import CombinedScanner
 
 
 class HopprCopPlugin(HopprPlugin):
@@ -142,7 +135,7 @@ class HopprCopPlugin(HopprPlugin):
                     len(bom_ref_to_results[bom_ref].vulnerabilities) > 0
                     and len(updated_results) > 0
                 ):
-                    existing_vulnerabilities: List[Vulnerability] = bom_ref_to_results[
+                    existing_vulnerabilities: list[Vulnerability] = bom_ref_to_results[
                         bom_ref
                     ].vulnerabilities
                     bom_ref_to_results[
@@ -167,10 +160,10 @@ class HopprCopPlugin(HopprPlugin):
     def __add_bom_ref_and_flatten(
         self,
         reporting: Reporting,
-        bom_ref_to_component: dict[str, List[Component]],
+        bom_ref_to_component: dict[str, list[Component]],
         external_ref: bool = False,
-    ) -> List[Vulnerability]:
-        flattened_vulnerabilities: List[Vulnerability] = []
+    ) -> list[Vulnerability]:
+        flattened_vulnerabilities: list[Vulnerability] = []
         # Capture vulnerability id to vulnerability to account multiple components affected by the same vulnerability
         vuln_id_to_vuln = {}
         for bom_ref in bom_ref_to_component:
@@ -184,13 +177,11 @@ class HopprCopPlugin(HopprPlugin):
                 if external_ref:
                     existing_vuln.affects.append(
                         Affect(
-                            **{
-                                "ref": f"urn:cdx:{bom_ref_to_component[bom_ref].serial_number}/{bom_ref_to_component[bom_ref].version}#{bom_ref}"
-                            }
+                            ref=f"urn:cdx:{bom_ref_to_component[bom_ref].serial_number}/{bom_ref_to_component[bom_ref].version}#{bom_ref}"
                         )
                     )
                 else:
-                    existing_vuln.affects.append(Affect(**{"ref": bom_ref}))
+                    existing_vuln.affects.append(Affect(ref=bom_ref))
 
                 vuln_id_to_vuln[vuln.id] = existing_vuln
 
@@ -202,7 +193,7 @@ class HopprCopPlugin(HopprPlugin):
     def __perform_hoppr_bom_updates(
         self,
         reporting: Reporting,
-        parsed_bom: Bom_1_4,
+        parsed_bom: Sbom,
         bom_ref_to_results: dict[str, any],
         formats,
     ):
@@ -233,9 +224,9 @@ class HopprCopPlugin(HopprPlugin):
     def __perform_hopprcop_reporting(
         self,
         reporting: Reporting,
-        parsed_bom: Bom_1_4,
-        results: dict[str, List[Vulnerability]],
-        formats: List[str],
+        parsed_bom: Sbom,
+        results: dict[str, list[Vulnerability]],
+        formats: list[str],
     ):
         filtered_formats = list(
             filter(lambda x: x != self.LINKED_VEX and x != self.EMBEDDED_VEX, formats)
@@ -256,7 +247,7 @@ class HopprCopPlugin(HopprPlugin):
             self.vulnerabilities = vulnerabilities
 
 
-def get_scanners() -> List[str]:
+def get_scanners() -> list[str]:
     """Defines scanners to use for hoppr cop"""
     return [
         "hopprcop.gemnasium.gemnasium_scanner.GemnasiumScanner",
