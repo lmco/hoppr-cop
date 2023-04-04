@@ -176,7 +176,9 @@ class HopprCopPlugin(HopprPlugin):
 
                 if external_ref:
                     existing_vuln.affects.append(
-                        Affect(ref=f"urn:cdx:{bom_ref_to_component[bom_ref].serial_number}/{bom_ref_to_component[bom_ref].version}#{bom_ref}")
+                        Affect(
+                            ref=f"urn:cdx:{bom_ref_to_component[bom_ref].serial_number}/{bom_ref_to_component[bom_ref].version}#{bom_ref}"
+                        )
                     )
                 else:
                     existing_vuln.affects.append(Affect(ref=bom_ref))
