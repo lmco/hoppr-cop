@@ -16,12 +16,10 @@
 
 # Copyright (c) 2022 Lockheed Martin Corporation
 # pylint: disable=duplicate-code
-from __future__ import annotations
-
 import json
 import os
 from subprocess import PIPE, Popen
-
+from typing import Optional, Union
 
 from cvss import CVSS3, CVSS2
 from hoppr_cyclonedx_models.cyclonedx_1_3 import (
@@ -54,7 +52,7 @@ class GrypeScanner(VulnerabilitySuper):
 
     def get_vulnerabilities_by_purl(
         self, purls: list[PackageURL]
-    ) -> dict[str, list[Vulnerability] | None]:
+    ) -> dict[str, Optional[list[Vulnerability]]]:
         """Get the vulnerabilities for a list of package URLS (purls)
         This function will return a dictionary of package URL to vulnerabilities or none if no vulnerabilities are found
         """
@@ -62,8 +60,8 @@ class GrypeScanner(VulnerabilitySuper):
         return self.get_vulnerabilities_by_sbom(bom)
 
     def get_vulnerabilities_by_sbom(
-        self, bom: Bom_1_4 | Bom_1_3
-    ) -> dict[str, list[Vulnerability] | None]:
+        self, bom: [Union[Bom_1_4, Bom_1_3]]
+    ) -> dict[str, Optional[list[Vulnerability]]]:
         """Parse a cyclone dx 1.4 compatible BOM and return a list of vulnerabilities "
         This function will return a dictionary of package URL to vulnerabilities or none if no vulnerabilities are found
         """

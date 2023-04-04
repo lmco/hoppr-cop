@@ -3,9 +3,8 @@ import uuid
 from copy import deepcopy
 from pathlib import Path
 
-from hoppr import BomAccess, Component, Sbom
-from hoppr.base_plugins.hoppr import HopprPlugin, hoppr_process
-from hoppr.result import Result
+from hoppr import BomAccess, Component, HopprPlugin, Result, Sbom, hoppr_process
+
 from hoppr_cyclonedx_models.cyclonedx_1_4 import Affect, Vulnerability
 from packageurl import PackageURL
 from security_commons.common.reporting.models import ReportFormat
@@ -13,7 +12,6 @@ from security_commons.common.reporting.reporting import Reporting
 from security_commons.common.vulnerability_combiner import combine_vulnerabilities
 
 from hopprcop import __version__
-from hopprcop.combined.cli import get_scanners
 from hopprcop.combined.combined_scanner import CombinedScanner
 
 

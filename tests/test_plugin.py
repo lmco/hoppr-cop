@@ -14,15 +14,14 @@ class TestHopprCopPlugin(TestCase):
     simple_test_context = HopprContext(
         repositories=manifest.repositories,
         collect_root_dir="COLLECTION_DIR",
+        consolidated_sbom=Sbom.consolidated_sbom,
+        delivered_sbom = Sbom.parse_file("hoppr-integration-test/sbom.json"),
         retry_wait_seconds=1,
         max_processes=3,
         sboms=list(Sbom.loaded_sboms.values()),
         stages=[],
         logfile_lock=multiprocessing.Manager().RLock()
     )
-
-    HopprContext.consolidated_sbom = Sbom.consolidated_sbom
-    HopprContext.delivered_sbom = Sbom.parse_file("hoppr-integration-test/sbom.json")
 
     simple_config = {}
 

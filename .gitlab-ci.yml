@@ -62,8 +62,8 @@ stages:
 
 
 
-sbom:
-  stage: docs
+sbom: 
+  stage: docs 
   image: $PYTHON_IMAGE:$PYTHON_TAG
   script:
     - pip install cyclonedx-bom
