@@ -20,8 +20,6 @@ COPY dist/hoppr_cop-*-py3-none-any.whl /tmp
 # hadolint ignore=DL3008
 RUN apt-get update \
   && apt-get install --yes --no-install-recommends ${APT_PKGS} \
-  # For testing until hoppr 1.8.0 release
-  && apt-get install --yes --no-install-recommends git \
   && apt-get clean \
   && rm -r /var/lib/apt/lists/* \
   && export PIP_TRUSTED_HOST="pypi.org pypi.python.org files.pythonhosted.org" \
@@ -30,7 +28,7 @@ RUN apt-get update \
   && curl -sSfL https://raw.githubusercontent.com/anchore/grype/$GRYPE_VERSION/install.sh | sh -s -- -b /usr/local/bin $GRYPE_VERSION \
   && curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/$TRIVY_VERSION/contrib/install.sh | sh -s -- -b /usr/local/bin $TRIVY_VERSION \
   && gem install semver_dialects \
-  && apt-get autoremove --yes curl git
+  && apt-get autoremove --yes curl
 
 
 # ----------------------------------------

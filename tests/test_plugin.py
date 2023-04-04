@@ -1,4 +1,6 @@
 import multiprocessing
+
+from copy import deepcopy
 from pathlib import Path
 from unittest import TestCase
 
@@ -9,13 +11,13 @@ from hopprcop.hoppr_plugin.hopprcop_plugin import HopprCopPlugin
 
 
 class TestHopprCopPlugin(TestCase):
-    manifest = Manifest.load(Path("hoppr-integration-test/manifest.yml"))
+    manifest = Manifest.load(Path("hoppr-integration-test") / "manifest.yml")
 
     simple_test_context = HopprContext(
         repositories=manifest.repositories,
         collect_root_dir="COLLECTION_DIR",
         consolidated_sbom=Sbom.consolidated_sbom,
-        delivered_sbom = Sbom.parse_file("hoppr-integration-test/sbom.json"),
+        delivered_sbom = deepcopy(Sbom.consolidated_sbom),
         retry_wait_seconds=1,
         max_processes=3,
         sboms=list(Sbom.loaded_sboms.values()),
