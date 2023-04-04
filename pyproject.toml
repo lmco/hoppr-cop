@@ -9,7 +9,7 @@ license = "MIT"
 include = "hopprcop"
 
 [tool.poetry.dependencies]
-python = "^3.10 "
+python = "^3.10"
 hoppr-cyclonedx-models = ">=0.4.7"
 typer = "^0.7.0"
 PyYAML = "^6.0"
@@ -28,9 +28,12 @@ mkdocs-glightbox = "^0.3.1"
 pygments = "^2.14.0"
 pymdown-extensions = "^9.9.2"
 
+[tool.poetry.dependencies.hoppr]
+git = "https://gitlab.com/hoppr/hoppr.git"
+branch = "pydantic-integration"
+
 [tool.poetry.scripts]
 hoppr-cop = "hopprcop.combined.cli:app"
-
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0.1"
@@ -41,3 +44,6 @@ pylint = "^2.14.4"
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
+[[tool.poetry.source]]
+name = "hoppr-security-commons"
+url = "https://gitlab.com/api/v4/projects/38610490/packages/pypi/simple"
