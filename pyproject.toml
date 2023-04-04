@@ -39,7 +39,3 @@ pylint = "^2.14.4"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[[tool.poetry.source]]
-name = "hoppr-security-commons"
-url = "https://gitlab.com/api/v4/projects/38610490/packages/pypi/simple"
