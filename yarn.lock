@@ -6697,9 +6697,9 @@ npm-bundled@^3.0.0:
     npm-normalize-package-bin "^3.0.0"
 
 npm-check-updates@^16.0.0:
-  version "16.10.6"
-  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-16.10.6.tgz#d9b073c00d77755153cec415fced6058794756df"
-  integrity sha512-5pj7Q1boz6NaR/4700TWtzdU6g7++Ivbn5Y/NYHuHcx3K+3pMuH/03ZUUyEY/p/y+XPTCKe7q4iPvIxzub+7Zw==
+  version "16.10.7"
+  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-16.10.7.tgz#95c6fda0d5c8e5405bc26a29da748a185d6cbcfe"
+  integrity sha512-hVJCULf8AoVob9FDvoC7hrkQGuWhWctE9k3sNmR+M6hxZJnlb+03Ph4G1w/pHmI5BGHoo+ZPJtVEXkJsA+JwPQ==
   dependencies:
     chalk "^5.2.0"
     cli-table3 "^0.6.3"
@@ -6711,6 +6711,7 @@ npm-check-updates@^16.0.0:
     globby "^11.0.4"
     hosted-git-info "^5.1.0"
     ini "^4.0.0"
+    js-yaml "^4.1.0"
     json-parse-helpfulerror "^1.0.3"
     jsonlines "^0.1.1"
     lodash "^4.17.21"
@@ -6719,7 +6720,7 @@ npm-check-updates@^16.0.0:
     pacote "15.1.1"
     parse-github-url "^1.0.2"
     progress "^2.0.3"
-    prompts-ncu "^2.5.1"
+    prompts-ncu "^3.0.0"
     rc-config-loader "^4.1.2"
     remote-git-tags "^3.0.0"
     rimraf "^4.4.1"
@@ -6730,7 +6731,6 @@ npm-check-updates@^16.0.0:
     strip-json-comments "^5.0.0"
     untildify "^4.0.0"
     update-notifier "^6.0.2"
-    yaml "^2.2.1"
 
 npm-install-checks@^6.0.0:
   version "6.1.0"
@@ -7872,10 +7872,10 @@ promise-retry@^2.0.1:
     err-code "^2.0.2"
     retry "^0.12.0"
 
-prompts-ncu@^2.5.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/prompts-ncu/-/prompts-ncu-2.5.1.tgz#0a75702e0af1d1319261113aad9153fd7267122a"
-  integrity sha512-Hdd7GgV7b76Yh9FP9HL1D9xqtJCJdVPpiM2vDtuoc8W1KfweJe15gutFYmxkq83ViFaagFM8K0UcPCQ/tZq8bA==
+prompts-ncu@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/prompts-ncu/-/prompts-ncu-3.0.0.tgz#716feb4874fca3dbe00af0f3de17a15d43d2228d"
+  integrity sha512-qyz9UxZ5MlPKWVhWrCmSZ1ahm2GVYdjLb8og2sg0IPth1KRuhcggHGuijz0e41dkx35p1t1q3GRISGH7QGALFA==
   dependencies:
     kleur "^4.0.1"
     sisteransi "^1.0.5"
@@ -10369,11 +10369,6 @@ yallist@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
-
-yaml@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.2.1.tgz#3014bf0482dcd15147aa8e56109ce8632cd60ce4"
-  integrity sha512-e0WHiYql7+9wr4cWMx3TVQrNwejKaEe7/rHNmQmqRjazfOP5W8PB6Jpebb5o6fIapbz9o9+2ipcaTM2ZwDI6lw==
 
 yargs-parser@^10.0.0:
   version "10.1.0"
