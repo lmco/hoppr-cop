@@ -8595,10 +8595,10 @@ semantic-release-rubygem@1.2.0:
     glob "^7.1.6"
     tempy "^0.5.0"
 
-semantic-release-slack-bot@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/semantic-release-slack-bot/-/semantic-release-slack-bot-4.0.0.tgz#f6c581a95fa5a5c98358da9ceca0613fe57e8349"
-  integrity sha512-A/R8vUEMpb/ZsuP4v+3BCC6K2uK/oC1keERpyaIntoNkOPLglxEuDRRt9EkCBAwQmMJXMafX3JwFVcNwPfWtuQ==
+semantic-release-slack-bot@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/semantic-release-slack-bot/-/semantic-release-slack-bot-4.0.1.tgz#3ed431364a839baff064e811559b66929f409c64"
+  integrity sha512-kV1xBhVTjIgm3osfeyPw7gF2UknkAZxPbqwd5+3i14l+ljpfQ/0KGNFklYVN8JN7ozVy4DbQnfDn9dB0mZpG1w==
   dependencies:
     "@semantic-release/error" "^2.2.0"
     micromatch "4.0.2"
