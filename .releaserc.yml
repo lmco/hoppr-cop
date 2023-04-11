@@ -50,6 +50,7 @@ plugins:
         - pyproject.toml
         - yarn.lock
         - sbom.json
+        - poetry.lock
         - LICENSE.md
 
   - - "@semantic-release/gitlab"
