@@ -1,3 +1,10 @@
+## [1.1.5](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.4...v1.1.5) (2023-04-11)
+
+
+### Bug Fixes
+
+* Add poetry lockfile back in ([1274cba](https://gitlab.com/hoppr/hoppr-cop/commit/1274cba1b5b050e70eeaec8b301087d6e708570d))
+
 ## [1.1.4](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.3...v1.1.4) (2023-04-04)
 
 
