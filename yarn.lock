@@ -1676,10 +1676,10 @@ archy@~1.0.0:
   resolved "https://registry.yarnpkg.com/archy/-/archy-1.0.0.tgz#f9c8c13757cc1dd7bc379ac77b2c62a5c2868c40"
   integrity sha512-Xg+9RwCg/0p32teKdGMPTPnVXKD0w3DfHnFTficozsAgsvq2XenPJq/MYpzzQ/v8zrOyJn6Ds39VA4JIDwFfqw==
 
-are-docs-informative@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/are-docs-informative/-/are-docs-informative-0.0.1.tgz#1102b35026f73e0564b4e291bfeaa8b7a304cefe"
-  integrity sha512-iBN6NxFQTEH0au0K8EOz6BoXXs9Pz6bGOPOgQpstabUHlX7fFx72TXB/wy7hSGZ8QcMI+XalPeM3p8IG5ncGIA==
+are-docs-informative@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/are-docs-informative/-/are-docs-informative-0.0.2.tgz#387f0e93f5d45280373d387a59d34c96db321963"
+  integrity sha512-ixiS0nLNNG5jNQzgZJNoUpBKdo9yTYZMGJ+QgT2jmjR7G7+QHRCc4v6LQ3NgE7EBJq+o0ams3waJwkrlBom8Ig==
 
 are-we-there-yet@^3.0.0:
   version "3.0.1"
@@ -3478,12 +3478,12 @@ eslint-plugin-import@^2.26.0:
     tsconfig-paths "^3.14.1"
 
 eslint-plugin-jsdoc@^41.0.0:
-  version "41.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-41.1.0.tgz#8891f79dcddca67e813e6b5ed1183f214492b41f"
-  integrity sha512-7nE0soOQfVhRNeV0pXTUz9IhdpBiAFNbRgs1W7TcPIOx+c4Qvy3vgI4848O9UmHrbrVUaYwpVHZvaXDeP0SBeg==
+  version "41.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-41.1.1.tgz#f5430aea369c4eb69c2fdc4030e09eb79d5f0518"
+  integrity sha512-dfH97DKLGtQ5dgEMzd+GSUuY+xX/yyAfjML3O0pEWmMMpylsG6Ro65s4ziYXKmixiENYK9CTQxCVRGqZUFN2Mw==
   dependencies:
     "@es-joy/jsdoccomment" "~0.37.0"
-    are-docs-informative "^0.0.1"
+    are-docs-informative "^0.0.2"
     comment-parser "1.3.1"
     debug "^4.3.4"
     escape-string-regexp "^4.0.0"
