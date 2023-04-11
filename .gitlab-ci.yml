@@ -56,7 +56,7 @@ stages:
   image: $PYTHON_IMAGE:$PYTHON_TAG
   before_script:
     - pip install poetry
-    - poetry lock --no-update
+    - poetry lock
     - poetry install
 
 
@@ -90,6 +90,7 @@ build-dist:
       - "dist/"
       - hopprcop/__init__.py
       - pyproject.toml
+      - poetry.lock
 
 
 

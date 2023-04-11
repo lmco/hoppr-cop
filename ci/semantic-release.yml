@@ -78,3 +78,4 @@ semantic-release:
       - hopprcop/__init__.py
       - pyproject.toml
       - docs
+      - poetry.lock
