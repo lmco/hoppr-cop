@@ -975,18 +975,15 @@ min-versions = ["babel (==2.9.0)", "click (==7.0)", "colorama (==0.4)", "ghp-imp
 
 [[package]]
 name = "mkdocs-glightbox"
-version = "0.3.2"
+version = "0.3.3"
 description = "MkDocs plugin supports image lightbox with GLightbox."
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "mkdocs-glightbox-0.3.2.tar.gz", hash = "sha256:aec32193fa367f83a5159a10ef0a0e501e595860f4399fb860ca1c5d95fd099d"},
-    {file = "mkdocs_glightbox-0.3.2-py3-none-any.whl", hash = "sha256:ef168717e0d6f5e3b33afa8a62837e9ea3b8754fbf073760db169650edbcb866"},
+    {file = "mkdocs-glightbox-0.3.3.tar.gz", hash = "sha256:f25944bd84702bbea429508edbcb949d712e85194744174aad6d412b3a1dccc0"},
+    {file = "mkdocs_glightbox-0.3.3-py3-none-any.whl", hash = "sha256:55e077a858da6f9f6ca384b737e0440c208392c9b61d7cdc2e6ea06e654cc26a"},
 ]
-
-[package.dependencies]
-beautifulsoup4 = ">=4.11.1"
 
 [[package]]
 name = "mkdocs-material"
