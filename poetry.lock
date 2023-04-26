@@ -543,14 +543,14 @@ dev = ["flake8", "markdown", "twine", "wheel"]
 
 [[package]]
 name = "hoppr"
-version = "1.8.3"
+version = "1.8.4"
 description = "A tool for defining, verifying, and transferring software dependencies between environments."
 category = "main"
 optional = false
 python-versions = ">=3.10,<4.0"
 files = [
-    {file = "hoppr-1.8.3-py3-none-any.whl", hash = "sha256:ce5d0b25af0c53780f7cdee3af13ec5c250f83748630efc97782d72231c8c26f"},
-    {file = "hoppr-1.8.3.tar.gz", hash = "sha256:91578837e5466a93e7f9e8562dbdf3d9750ba45b7abe686bf6dd6a97395cec55"},
+    {file = "hoppr-1.8.4-py3-none-any.whl", hash = "sha256:9f91cfaedfdd9bbd08394b9239c00c79ec84c160ff2461b166145131f1608d5c"},
+    {file = "hoppr-1.8.4.tar.gz", hash = "sha256:b9876389580915f4cfebebfd1678aebb3598fe5ea5fb92415c7d2d986d0be48e"},
 ]
 
 [package.dependencies]
