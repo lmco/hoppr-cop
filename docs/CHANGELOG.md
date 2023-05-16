@@ -1,3 +1,10 @@
+## [1.1.6](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.5...v1.1.6) (2023-05-16)
+
+
+### Bug Fixes
+
+* removing npm config that was causing issues. ([f33a66d](https://gitlab.com/hoppr/hoppr-cop/commit/f33a66d34282b60a8a6a67a7e8a1c529f90d8143))
+
 ## [1.1.5](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.4...v1.1.5) (2023-04-11)
 
 
