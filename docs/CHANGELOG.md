@@ -1,3 +1,10 @@
+## [1.1.7](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.6...v1.1.7) (2023-06-01)
+
+
+### Bug Fixes
+
+* added flush to write file contents to disk ([808d2df](https://gitlab.com/hoppr/hoppr-cop/commit/808d2df0f184839881d38ee3c159d01b425213a3))
+
 ## [1.1.6](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.5...v1.1.6) (2023-05-16)
 
 
