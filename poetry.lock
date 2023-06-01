@@ -718,7 +718,7 @@ testutils = ["gitpython (>3)"]
 
 [[package]]
 name = "pymdown-extensions"
-version = "9.11"
+version = "10.0.1"
 description = "Extension pack for Python Markdown."
 category = "main"
 optional = false
@@ -1023,7 +1023,7 @@ python-versions = ">=3.4"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "b0927e15204863f1aea5e97887859e5abf9a048cab11365892f97e875ed75681"
+content-hash = "14a1c659e88581d6c51b55da6389ff15ae8e376579b8b88eb418566a5faecad8"
 
 [metadata.files]
 astroid = [
@@ -1599,8 +1599,8 @@ pylint = [
     {file = "pylint-2.17.3.tar.gz", hash = "sha256:761907349e699f8afdcd56c4fe02f3021ab5b3a0fc26d19a9bfdc66c7d0d5cd5"},
 ]
 pymdown-extensions = [
-    {file = "pymdown_extensions-9.11-py3-none-any.whl", hash = "sha256:a499191d8d869f30339de86fcf072a787e86c42b6f16f280f5c2cf174182b7f3"},
-    {file = "pymdown_extensions-9.11.tar.gz", hash = "sha256:f7e86c1d3981f23d9dc43294488ecb54abadd05b0be4bf8f0e15efc90f7853ff"},
+    {file = "pymdown_extensions-10.0.1-py3-none-any.whl", hash = "sha256:ae66d84013c5d027ce055693e09a4628b67e9dec5bce05727e45b0918e36f274"},
+    {file = "pymdown_extensions-10.0.1.tar.gz", hash = "sha256:b44e1093a43b8a975eae17b03c3a77aad4681b3b56fce60ce746dbef1944c8cb"},
 ]
 pyrsistent = [
     {file = "pyrsistent-0.19.3-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:20460ac0ea439a3e79caa1dbd560344b64ed75e85d8703943e0b66c2a6150e4a"},
