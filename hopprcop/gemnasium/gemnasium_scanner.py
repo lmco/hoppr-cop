@@ -45,7 +45,7 @@ from hopprcop.gemnasium.models import GemnasiumVulnerability
 class GemnasiumScanner(VulnerabilitySuper):
     """A Vulnerability Scanner for Gitlab's Gemnasiumm Database"""
 
-    supported_formats = ["npm", "maven", "pypi", "gem", "golang", "connan"]
+    supported_formats = ["npm", "maven", "pypi", "gem", "golang", "conan"]
 
     database_path = None
     # url = "https://gitlab.com/gitlab-org/security-products/gemnasium-db/-/archive/master/gemnasium-db-master.zip"
