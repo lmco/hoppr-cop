@@ -46,6 +46,7 @@ class GemnasiumScanner(VulnerabilitySuper):
     """A Vulnerability Scanner for Gitlab's Gemnasiumm Database"""
 
     supported_formats = ["npm", "maven", "pypi", "gem", "golang", "conan"]
+    # TODO: supported_formats is not used; should get_vulnerabilities_by_purl be filtering purls by it?
 
     database_path = None
     # url = "https://gitlab.com/gitlab-org/security-products/gemnasium-db/-/archive/master/gemnasium-db-master.zip"

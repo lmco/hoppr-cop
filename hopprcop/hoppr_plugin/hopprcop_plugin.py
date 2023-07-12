@@ -25,17 +25,6 @@ class HopprCopPlugin(HopprPlugin):
 
     bom_access = BomAccess.FULL_ACCESS
 
-    supported_purl_types = [
-        "golang",
-        "npm",
-        "maven",
-        "pypi",
-        "nuget",
-        "gem",
-        "rpm",
-        "deb",
-    ]
-
     def get_version(self) -> str:
         """
         __version__ required for all HopprPlugin implementations
@@ -64,14 +53,6 @@ class HopprCopPlugin(HopprPlugin):
         combined = CombinedScanner()
         combined.set_scanners(scanners)
         parsed_bom = self.context.delivered_sbom
-
-        parsed_bom.components = list(
-            filter(
-                lambda x: PackageURL.from_string(x.purl).type
-                in self.supported_purl_types,
-                parsed_bom.components,
-            )
-        )
 
         results = combined.get_vulnerabilities_by_sbom(parsed_bom)
 
