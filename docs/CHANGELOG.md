@@ -1,3 +1,11 @@
+## [1.1.8](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.7...v1.1.8) (2023-07-13)
+
+
+### Bug Fixes
+
+* remove purl type filter from HopprCopPlugin (let scanners filter if they need to) ([cf84328](https://gitlab.com/hoppr/hoppr-cop/commit/cf84328f043dc315f4be9b6024c8c7d9f398a09e))
+* typos - pretty sure "connan" should be "conan" ([2b0fe21](https://gitlab.com/hoppr/hoppr-cop/commit/2b0fe21957338d3717a475332803d03add7b86ff))
+
 ## [1.1.7](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.6...v1.1.7) (2023-06-01)
 
 
