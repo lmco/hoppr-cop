@@ -1,3 +1,10 @@
+## [1.1.9](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.8...v1.1.9) (2023-07-13)
+
+
+### Bug Fixes
+
+* fixing hoppr plugin load issue with pyproject.toml and security commons dependency issue ([1e6e099](https://gitlab.com/hoppr/hoppr-cop/commit/1e6e0997b448a763f1a38f33f374f827bd7e0f1a))
+
 ## [1.1.8](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.7...v1.1.8) (2023-07-13)
 
 
