@@ -23,13 +23,16 @@ mkdocs-mermaid2-plugin = "^0.6.0"
 hoppr = "^1.8.0"
 pytest = "7.3.1"
 coverage = "^7.0.0"
-hoppr-security-commons = "^0.0.13"
+hoppr-security-commons = "0.*"
 mkdocs-glightbox = "^0.3.1"
 pygments = "^2.14.0"
 pymdown-extensions = "^10.0.0"
 
 [tool.poetry.scripts]
 hoppr-cop = "hopprcop.combined.cli:app"
+
+[tool.poetry.plugins."hoppr.plugin"]
+hopprcop_plugin = "hopprcop.hoppr_plugin.hopprcop_plugin:HopprCopPlugin"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0.1"
