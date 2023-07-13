@@ -60,7 +60,7 @@ class TrivyScanner(VulnerabilitySuper):
         "gem",
         "golang",
         "nuget",
-        "connan",
+        "conan",
         "rpm",
         "deb",
     ]

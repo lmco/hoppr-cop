@@ -37,7 +37,6 @@ extra_javascript:
   #    - https://unpkg.com/mermaid/dist/mermaid.min.js
   - 'docs/js/termynal.js'
   - 'docs/js/custom.js'
-  -
 markdown_extensions:
   - attr_list
   - pymdownx.highlight:

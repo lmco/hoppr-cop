@@ -51,7 +51,7 @@ class OSSIndexScanner(VulnerabilitySuper):
         "golang",
         "nuget",
         "rpm",
-        "connan",
+        "conan",
     ]
 
     def get_vulnerabilities_by_purl(
