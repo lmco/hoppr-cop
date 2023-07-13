@@ -241,7 +241,7 @@ dev = ["flake8", "markdown", "twine", "wheel"]
 
 [[package]]
 name = "hoppr"
-version = "1.8.6"
+version = "1.8.8"
 description = "A tool for defining, verifying, and transferring software dependencies between environments."
 category = "main"
 optional = false
@@ -1336,8 +1336,8 @@ ghp-import = [
     {file = "ghp_import-2.1.0-py3-none-any.whl", hash = "sha256:8337dd7b50877f163d4c0289bc1f1c7f127550241988d568c1db512c4324a619"},
 ]
 hoppr = [
-    {file = "hoppr-1.8.6-py3-none-any.whl", hash = "sha256:6baad8276714799c9dd55072ac08246a36110264413dd1acd855e7b01b35ee58"},
-    {file = "hoppr-1.8.6.tar.gz", hash = "sha256:d886ac839f59a360653647005e7e506cf62121e2661226ee978e3db133cbe35e"},
+    {file = "hoppr-1.8.8-py3-none-any.whl", hash = "sha256:5789b6cd6818d29c99ccda2a42103a647d3e69c3afa261469c67ba7d6bc707fd"},
+    {file = "hoppr-1.8.8.tar.gz", hash = "sha256:dfbd25ebb80ab7aab136ea4d898d7a690709fb2ba48ee66338c4b6c20883012e"},
 ]
 hoppr-cyclonedx-models = [
     {file = "hoppr_cyclonedx_models-0.4.7-py3-none-any.whl", hash = "sha256:2e8c618e941664ce03e25fe9c11dd3324c67da8d02d224da1fa9214872aa4987"},
