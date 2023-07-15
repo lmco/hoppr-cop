@@ -95,7 +95,7 @@ build-dist:
 
 
 validate-renovate-config:
-  image: renovate/renovate:36.8.6
+  image: renovate/renovate:36.8.7
   needs: []
   variables:
     RENOVATE_CONFIG_FILE: "renovate.json"
