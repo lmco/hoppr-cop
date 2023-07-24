@@ -275,20 +275,18 @@ pydantic = {version = ">=1.10.2,<2.0.0", extras = ["email"]}
 
 [[package]]
 name = "hoppr-security-commons"
-version = "0.0.13"
+version = "0.0.52"
 description = "Common Library For hoppr-cop"
 category = "main"
 optional = false
 python-versions = ">=3.10,<4.0"
 
 [package.dependencies]
-cvss = ">=2.5,<3.0"
 hoppr-cyclonedx-models = ">=0.4.0,<0.5.0"
-packageurl-python = ">=0.10.1,<0.11.0"
-PyYAML = ">=6.0,<7.0"
-rich = ">=13.0.0,<14.0.0"
+jinja2 = ">=3.1.2,<4.0.0"
+packageurl-python = ">=0.10.0,<0.11.0"
+requests = ">=2.29.0,<3.0.0"
 tabulate = ">=0.9.0,<0.10.0"
-tinydb = ">=4.7.0,<5.0.0"
 typer = ">=0.7.0,<0.8.0"
 
 [[package]]
@@ -795,17 +793,17 @@ python-versions = ">=3.8"
 
 [[package]]
 name = "requests"
-version = "2.28.2"
+version = "2.31.0"
 description = "Python HTTP for Humans."
 category = "main"
 optional = false
-python-versions = ">=3.7, <4"
+python-versions = ">=3.7"
 
 [package.dependencies]
 certifi = ">=2017.4.17"
 charset-normalizer = ">=2,<4"
 idna = ">=2.5,<4"
-urllib3 = ">=1.21.1,<1.27"
+urllib3 = ">=1.21.1,<3"
 
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
@@ -1341,8 +1339,8 @@ hoppr-cyclonedx-models = [
     {file = "hoppr_cyclonedx_models-0.4.7.tar.gz", hash = "sha256:69012ba12ac4b54cd8489241f9c40a3fa3bfe95a56a55902b73e95f43fea5707"},
 ]
 hoppr-security-commons = [
-    {file = "hoppr_security_commons-0.0.13-py3-none-any.whl", hash = "sha256:32c10a038ebcab6db4762a9570aedd952973532be26e9d7139660bbc5a867b4c"},
-    {file = "hoppr_security_commons-0.0.13.tar.gz", hash = "sha256:512f1dec51e800f00143c5ea4e380f86d7d45ed97bbb2e901320402616b7b5d3"},
+    {file = "hoppr_security_commons-0.0.52-py3-none-any.whl", hash = "sha256:6f619569a6fc977ca1ca6bb058dad8ad057b5aa48c2db43a30f8b13501b69e44"},
+    {file = "hoppr_security_commons-0.0.52.tar.gz", hash = "sha256:0aba139f8bc1648274888268a19fe217dd596dbd1b262b132226a66ce7aa5f08"},
 ]
 idna = [
     {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
@@ -1745,8 +1743,8 @@ regex = [
     {file = "regex-2023.3.23.tar.gz", hash = "sha256:dc80df325b43ffea5cdea2e3eaa97a44f3dd298262b1c7fe9dbb2a9522b956a7"},
 ]
 requests = [
-    {file = "requests-2.28.2-py3-none-any.whl", hash = "sha256:64299f4909223da747622c030b781c0d7811e359c37124b4bd368fb8c6518baa"},
-    {file = "requests-2.28.2.tar.gz", hash = "sha256:98b1b2782e3c6c4904938b84c0eb932721069dfdb9134313beff7c83c2df24bf"},
+    {file = "requests-2.31.0-py3-none-any.whl", hash = "sha256:58cd2187c01e70e6e26505bca751777aa9f2ee0b7f4300988b709f44e013003f"},
+    {file = "requests-2.31.0.tar.gz", hash = "sha256:942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"},
 ]
 rich = [
     {file = "rich-13.4.2-py3-none-any.whl", hash = "sha256:8f87bc7ee54675732fa66a05ebfe489e27264caeeff3728c945d25971b6485ec"},
