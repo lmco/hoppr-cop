@@ -1,6 +1,5 @@
 import multiprocessing
 
-from copy import deepcopy
 from pathlib import Path
 from unittest import TestCase
 
@@ -14,15 +13,15 @@ class TestHopprCopPlugin(TestCase):
     manifest = Manifest.load(Path("hoppr-integration-test") / "manifest.yml")
 
     simple_test_context = HopprContext(
-        repositories=manifest.repositories,
-        collect_root_dir="COLLECTION_DIR",
-        consolidated_sbom=Sbom.consolidated_sbom,
-        delivered_sbom = deepcopy(Sbom.consolidated_sbom),
-        retry_wait_seconds=1,
+        collect_root_dir=Path("COLLECTION_DIR"),
+        consolidated_sbom=manifest.consolidated_sbom.copy(deep=True),
+        credential_required_services=None,
+        delivered_sbom=manifest.consolidated_sbom.copy(deep=True),
+        logfile_lock=multiprocessing.Manager().RLock(),
         max_processes=3,
+        repositories=manifest.repositories,
         sboms=list(Sbom.loaded_sboms.values()),
         stages=[],
-        logfile_lock=multiprocessing.Manager().RLock()
     )
 
     simple_config = {}
@@ -38,7 +37,8 @@ class TestHopprCopPlugin(TestCase):
         assert result.is_success()
 
     def test_pre_stage_process_fail(self):
-        Hoppr50 = HopprCopPlugin(self.simple_test_context, "CONFIG")
+        Hoppr50 = HopprCopPlugin(self.simple_test_context, self.simple_config)
+        Hoppr50.config = "INVALID_CONFIG"
         result = Hoppr50.pre_stage_process()
 
         assert result.is_fail()
