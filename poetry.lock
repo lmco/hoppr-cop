@@ -1,6 +1,6 @@
 [[package]]
 name = "astroid"
-version = "2.15.4"
+version = "2.15.6"
 description = "An abstract syntax tree for Python with inference support."
 category = "dev"
 optional = false
@@ -691,14 +691,14 @@ plugins = ["importlib-metadata"]
 
 [[package]]
 name = "pylint"
-version = "2.17.4"
+version = "2.17.5"
 description = "python code static checker"
 category = "dev"
 optional = false
 python-versions = ">=3.7.2"
 
 [package.dependencies]
-astroid = ">=2.15.4,<=2.17.0-dev0"
+astroid = ">=2.15.6,<=2.17.0-dev0"
 colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
 dill = [
     {version = ">=0.2", markers = "python_version < \"3.11\""},
@@ -1025,8 +1025,8 @@ content-hash = "0f34cbfdcf7e69b39c10573dbf812a53bbc6bb9abb856806ad9aa22266f47bc0
 
 [metadata.files]
 astroid = [
-    {file = "astroid-2.15.4-py3-none-any.whl", hash = "sha256:a1b8543ef9d36ea777194bc9b17f5f8678d2c56ee6a45b2c2f17eec96f242347"},
-    {file = "astroid-2.15.4.tar.gz", hash = "sha256:c81e1c7fbac615037744d067a9bb5f9aeb655edf59b63ee8b59585475d6f80d8"},
+    {file = "astroid-2.15.6-py3-none-any.whl", hash = "sha256:389656ca57b6108f939cf5d2f9a2a825a3be50ba9d589670f393236e0a03b91c"},
+    {file = "astroid-2.15.6.tar.gz", hash = "sha256:903f024859b7c7687d7a7f3a3f73b17301f8e42dfd9cc9df9d4418172d3e2dbd"},
 ]
 attrs = [
     {file = "attrs-22.2.0-py3-none-any.whl", hash = "sha256:29e95c7f6778868dbd49170f98f8818f78f3dc5e0e37c0b1f474e3561b240836"},
@@ -1590,8 +1590,8 @@ pygments = [
     {file = "Pygments-2.15.1.tar.gz", hash = "sha256:8ace4d3c1dd481894b2005f560ead0f9f19ee64fe983366be1a21e171d12775c"},
 ]
 pylint = [
-    {file = "pylint-2.17.4-py3-none-any.whl", hash = "sha256:7a1145fb08c251bdb5cca11739722ce64a63db479283d10ce718b2460e54123c"},
-    {file = "pylint-2.17.4.tar.gz", hash = "sha256:5dcf1d9e19f41f38e4e85d10f511e5b9c35e1aa74251bf95cdd8cb23584e2db1"},
+    {file = "pylint-2.17.5-py3-none-any.whl", hash = "sha256:73995fb8216d3bed149c8d51bba25b2c52a8251a2c8ac846ec668ce38fab5413"},
+    {file = "pylint-2.17.5.tar.gz", hash = "sha256:f7b601cbc06fef7e62a754e2b41294c2aa31f1cb659624b9a85bcba29eaf8252"},
 ]
 pymdown-extensions = [
     {file = "pymdown_extensions-10.1-py3-none-any.whl", hash = "sha256:ef25dbbae530e8f67575d222b75ff0649b1e841e22c2ae9a20bad9472c2207dc"},
