@@ -1,5 +1,6 @@
 import multiprocessing
 
+from copy import deepcopy
 from pathlib import Path
 from unittest import TestCase
 
@@ -15,8 +16,8 @@ class TestHopprCopPlugin(TestCase):
     simple_test_context = HopprContext(
         repositories=manifest.repositories,
         collect_root_dir="COLLECTION_DIR",
-        consolidated_sbom=Sbom(),
-        delivered_sbom = Sbom(),
+        consolidated_sbom=Sbom.consolidated_sbom,
+        delivered_sbom = deepcopy(Sbom.consolidated_sbom),
         retry_wait_seconds=1,
         max_processes=3,
         sboms=list(Sbom.loaded_sboms.values()),
@@ -37,7 +38,7 @@ class TestHopprCopPlugin(TestCase):
         assert result.is_success()
 
     def test_pre_stage_process_fail(self):
-        Hoppr50 = HopprCopPlugin(self.simple_test_context, {})
+        Hoppr50 = HopprCopPlugin(self.simple_test_context, "CONFIG")
         result = Hoppr50.pre_stage_process()
 
         assert result.is_fail()
