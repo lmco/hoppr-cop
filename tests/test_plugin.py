@@ -1,6 +1,5 @@
 import multiprocessing
 
-from copy import deepcopy
 from pathlib import Path
 from unittest import TestCase
 
@@ -16,8 +15,8 @@ class TestHopprCopPlugin(TestCase):
     simple_test_context = HopprContext(
         repositories=manifest.repositories,
         collect_root_dir="COLLECTION_DIR",
-        consolidated_sbom=Manifest.consolidated_sbom,
-        delivered_sbom = deepcopy(Manifest.consolidated_sbom),
+        consolidated_sbom=Sbom(),
+        delivered_sbom = Sbom(),
         retry_wait_seconds=1,
         max_processes=3,
         sboms=list(Sbom.loaded_sboms.values()),
