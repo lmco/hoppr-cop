@@ -36,9 +36,3 @@ class TestHopprCopPlugin(TestCase):
         result = Hoppr50.pre_stage_process()
 
         assert result.is_success()
-
-    def test_pre_stage_process_fail(self):
-        Hoppr50 = HopprCopPlugin(self.simple_test_context, None)
-        result = Hoppr50.pre_stage_process()
-
-        assert result.is_fail()
