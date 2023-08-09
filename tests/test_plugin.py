@@ -14,7 +14,7 @@ class TestHopprCopPlugin(TestCase):
 
     simple_test_context = HopprContext(
         collect_root_dir=Path("COLLECTION_DIR"),
-        consolidated_sbom=manifest.consolidated_sbom.copy(deep=True),
+        consolidated_sbom=manifest.consolidated_sbom,
         credential_required_services=None,
         delivered_sbom=manifest.consolidated_sbom.copy(deep=True),
         logfile_lock=multiprocessing.Manager().RLock(),
