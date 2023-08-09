@@ -54,9 +54,7 @@ integration-test:
       --log hopprcop_log.txt
       --verbose
       $TEST_DIR/manifest.yml
-    - ls -al
     - tar -xvf hoppr-integration-test.tar.gz
-    - ls -al
     - ./cyclonedx-cli validate
       --input-format json
       --input-file generic/_metadata_/_delivered_bom.json
