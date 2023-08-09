@@ -20,10 +20,7 @@ class TestHopprCopPlugin(TestCase):
         logfile_lock=multiprocessing.Manager().RLock(),
         max_processes=3,
         repositories=manifest.repositories,
-        consolidated_sbom=manifest.consolidated_sbom,
-        delivered_sbom = deepcopy(manifest.consolidated_sbom),
         retry_wait_seconds=1,
-        max_processes=3,
         sboms=list(Sbom.loaded_sboms.values()),
         stages=[],
     )
