@@ -23,7 +23,6 @@ class TestHopprCopPlugin(TestCase):
         sboms=list(Sbom.loaded_sboms.values()),
         stages=[],
         logfile_lock=multiprocessing.Manager().RLock()
-
     )
 
     simple_config = {}
