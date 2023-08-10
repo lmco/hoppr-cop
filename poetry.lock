@@ -559,13 +559,13 @@ types-PyYAML = ">=6.0.5,<7.0.0"
 
 [[package]]
 name = "hoppr-cyclonedx-models"
-version = "0.5.2"
+version = "0.5.3"
 description = "CycloneDX Pydantic models for easy use in your Python project."
 optional = false
 python-versions = ">=3.7.2,<4.0.0"
 files = [
-    {file = "hoppr_cyclonedx_models-0.5.2-py3-none-any.whl", hash = "sha256:7ee347a7a8e00b4876dbef33e368558e9ea65dea3bb1c2f57b0a47fb83a44c09"},
-    {file = "hoppr_cyclonedx_models-0.5.2.tar.gz", hash = "sha256:a83bab3bf14824e2a47b026180b0b334c9508f9435028123550537ddb221966d"},
+    {file = "hoppr_cyclonedx_models-0.5.3-py3-none-any.whl", hash = "sha256:55774c422240aa50ddef5f2400bf17c9715192b8f6216a2c1f6e34dd9e3379f0"},
+    {file = "hoppr_cyclonedx_models-0.5.3.tar.gz", hash = "sha256:9c95eac374699f24c5034e367b928986ad778a0534ac7f58a28abf5f8f75699b"},
 ]
 
 [package.dependencies]
@@ -573,22 +573,22 @@ pydantic = {version = ">=1.10.2,<2.0.0", extras = ["email"]}
 
 [[package]]
 name = "hoppr-security-commons"
-version = "0.0.50"
+version = "0.0.53"
 description = "Common Library For hoppr-cop"
 optional = false
 python-versions = ">=3.10,<4.0"
 files = [
-    {file = "hoppr_security_commons-0.0.50-py3-none-any.whl", hash = "sha256:3cf96882e0e286a6be9f07eb39ad43e5d62bc31bdd1b25f1b8b55007833477da"},
-    {file = "hoppr_security_commons-0.0.50.tar.gz", hash = "sha256:f0222e92f76f17829cf5e780794107d854f5e34e6791a916bce8bfec2e854a2e"},
+    {file = "hoppr_security_commons-0.0.53-py3-none-any.whl", hash = "sha256:89ca56b17ed67d70b52945381ce627caf4830cf5242957b7a3d58f59da8814b1"},
+    {file = "hoppr_security_commons-0.0.53.tar.gz", hash = "sha256:46af8bce03afbf56603ca30460007ac7115579c0918481135e4bd23d3f176484"},
 ]
 
 [package.dependencies]
-hoppr-cyclonedx-models = ">=0.5.0,<0.6.0"
+hoppr-cyclonedx-models = "==0.*"
 jinja2 = ">=3.1.2,<4.0.0"
-packageurl-python = ">=0.11.0,<0.12.0"
+packageurl-python = "==0.*"
 requests = ">=2.29.0,<3.0.0"
-tabulate = ">=0.9.0,<0.10.0"
-typer = ">=0.9.0,<0.10.0"
+tabulate = "==0.*"
+typer = "==0.*"
 
 [[package]]
 name = "idna"
