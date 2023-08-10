@@ -36,105 +36,110 @@ class HopprCopPlugin(HopprPlugin):
         """
         Supply sbom to hoppr cop to perform vulnerabilty check
         """
-        self.get_logger().info("[ Executing hopprcop vulnerability check ]")
+        try:
+            self.get_logger().info("[ Executing hopprcop vulnerability check ]")
 
-        output_dir = self.config.get(
-            "output_dir", Path(self.context.collect_root_dir, "generic")
-        )
-        base_report_name = self.config.get(
-            "base_report_name", "hopprcop-vulnerability-results"
-        )
-        scanners = self.config.get("scanners", get_scanners())
-        formats = self.config.get("result_formats", [self.EMBEDDED_VEX])
+            output_dir = self.config.get(
+                "output_dir", Path(self.context.collect_root_dir, "generic")
+            )
+            base_report_name = self.config.get(
+                "base_report_name", "hopprcop-vulnerability-results"
+            )
+            scanners = self.config.get("scanners", get_scanners())
+            formats = self.config.get("result_formats", [self.EMBEDDED_VEX])
 
-        output_dir.mkdir(parents=True, exist_ok=True)
+            output_dir.mkdir(parents=True, exist_ok=True)
 
-        reporting = Reporting(output_dir, base_report_name)
-        combined = CombinedScanner()
-        combined.set_scanners(scanners)
-        parsed_bom = self.context.delivered_sbom
+            reporting = Reporting(output_dir, base_report_name)
+            combined = CombinedScanner()
+            combined.set_scanners(scanners)
+            parsed_bom = self.context.delivered_sbom
 
-        results = combined.get_vulnerabilities_by_sbom(parsed_bom)
+            results = combined.get_vulnerabilities_by_sbom(parsed_bom)
 
-        # Map bom ref to results - uses purl as ref
-        bom_ref_to_results = dict[str, self.ComponentVulnerabilityWrapper]()
+            # Map bom ref to results - uses purl as ref
+            bom_ref_to_results = dict[str, self.ComponentVulnerabilityWrapper]()
 
-        # Map purls to components, try to normalize purls to lowercase
-        purl_to_component = {
-            component.purl.lower(): component for component in parsed_bom.components
-        }
+            # Map purls to components, try to normalize purls to lowercase
+            purl_to_component = {
+                component.purl.lower(): component for component in parsed_bom.components
+            }
 
-        # Delivered Bom version
-        bom_version = 1 if parsed_bom.version is not None else parsed_bom.version
+            # Delivered Bom version
+            bom_version = 1 if parsed_bom.version is not None else parsed_bom.version
 
-        # Generate Delivered Bom Serial Number if it doesn't exist
-        bom_serial_number = (
-            parsed_bom.serialNumber.split(":")[-1]
-            if parsed_bom.serialNumber is not None
-            else uuid.uuid4()
-        )
+            # Generate Delivered Bom Serial Number if it doesn't exist
+            bom_serial_number = (
+                parsed_bom.serialNumber.split(":")[-1]
+                if parsed_bom.serialNumber is not None
+                else uuid.uuid4()
+            )
 
-        parsed_bom.serialNumber = f"urn:uuid:{bom_serial_number}"
-        parsed_bom.vulnerabilities = (
-            [] if parsed_bom.vulnerabilities is None else parsed_bom.vulnerabilities
-        )
+            parsed_bom.serialNumber = f"urn:uuid:{bom_serial_number}"
+            parsed_bom.vulnerabilities = (
+                [] if parsed_bom.vulnerabilities is None else parsed_bom.vulnerabilities
+            )
 
-        # Build dictionary to go from bom-ref to vulnerabilities
-        for purl in results:
-            # Different purl values being returned from different scanners, attempt to normalize the data
-            # by making it lower case and if not found, reversing pypi expectations with - to _.
-            adjusted_purl = purl.lower()
-            if adjusted_purl not in purl_to_component and "pypi" in adjusted_purl:
-                adjusted_purl = adjusted_purl.replace("-", "_")
+            # Build dictionary to go from bom-ref to vulnerabilities
+            for purl in results:
+                # Different purl values being returned from different scanners, attempt to normalize the data
+                # by making it lower case and if not found, reversing pypi expectations with - to _.
+                adjusted_purl = purl.lower()
+                if adjusted_purl not in purl_to_component and "pypi" in adjusted_purl:
+                    adjusted_purl = adjusted_purl.replace("-", "_")
 
-            if adjusted_purl in purl_to_component:
-                component = purl_to_component[adjusted_purl]
-                bom_ref = component.purl  # component.bom_ref.__root__
-                if (
-                    len(parsed_bom.vulnerabilities) > 0
-                    and bom_ref not in bom_ref_to_results
-                ):
-                    # Account for existing vulnerabilites on bom
-                    for existing_vulnerability in parsed_bom.vulnerabilities:
-                        for affect in existing_vulnerability.affects:
-                            if (
-                                affect.ref == bom_ref
-                                or affect.ref == component.bom_ref.__root__
-                            ):
-                                results[purl].append(existing_vulnerability)
+                if adjusted_purl in purl_to_component:
+                    component = purl_to_component[adjusted_purl]
+                    bom_ref = component.purl  # component.bom_ref.__root__
+                    if (
+                        len(parsed_bom.vulnerabilities) > 0
+                        and bom_ref not in bom_ref_to_results
+                    ):
+                        # Account for existing vulnerabilites on bom
+                        for existing_vulnerability in parsed_bom.vulnerabilities:
+                            for affect in existing_vulnerability.affects:
+                                if (
+                                    affect.ref == bom_ref
+                                    or affect.ref == component.bom_ref.__root__
+                                ):
+                                    results[purl].append(existing_vulnerability)
 
-                    results[purl] = combine_vulnerabilities([{purl: results[purl]}])[0]
+                        results[purl] = combine_vulnerabilities([{purl: results[purl]}])[0]
 
-                updated_results = deepcopy(results[purl])
+                    updated_results = deepcopy(results[purl])
 
-                if bom_ref not in bom_ref_to_results:
-                    wrapper = self.ComponentVulnerabilityWrapper(
-                        bom_serial_number, bom_version, updated_results
-                    )
-                    bom_ref_to_results[bom_ref] = wrapper
-                elif (
-                    len(bom_ref_to_results[bom_ref].vulnerabilities) > 0
-                    and len(updated_results) > 0
-                ):
-                    existing_vulnerabilities: list[Vulnerability] = bom_ref_to_results[
-                        bom_ref
-                    ].vulnerabilities
-                    bom_ref_to_results[
-                        bom_ref
-                    ].vulnerabilities = combine_vulnerabilities(
-                        [{purl: updated_results + existing_vulnerabilities}]
-                    )[
-                        0
-                    ]
-            else:
-                self.get_logger().info(f"Could not find purl ({purl}) in component map")
+                    if bom_ref not in bom_ref_to_results:
+                        wrapper = self.ComponentVulnerabilityWrapper(
+                            bom_serial_number, bom_version, updated_results
+                        )
+                        bom_ref_to_results[bom_ref] = wrapper
+                    elif (
+                        len(bom_ref_to_results[bom_ref].vulnerabilities) > 0
+                        and len(updated_results) > 0
+                    ):
+                        existing_vulnerabilities: list[Vulnerability] = bom_ref_to_results[
+                            bom_ref
+                        ].vulnerabilities
+                        bom_ref_to_results[
+                            bom_ref
+                        ].vulnerabilities = combine_vulnerabilities(
+                            [{purl: updated_results + existing_vulnerabilities}]
+                        )[
+                            0
+                        ]
+                else:
+                    self.get_logger().info(f"Could not find purl ({purl}) in component map")
 
-        hoppr_delivered_bom = self.__perform_hoppr_bom_updates(
-            reporting, deepcopy(parsed_bom), bom_ref_to_results, formats
-        )
-        self.__perform_hopprcop_reporting(reporting, parsed_bom, results, formats)
+            hoppr_delivered_bom = self.__perform_hoppr_bom_updates(
+                reporting, deepcopy(parsed_bom), bom_ref_to_results, formats
+            )
+            self.__perform_hopprcop_reporting(reporting, parsed_bom, results, formats)
 
-        self.get_logger().flush()
+            self.get_logger().flush()
+        except Exception as ex:
+            self.get_logger().error("XXXXXXXXXXXXXXXXXXXXXXXXXXXX\n%s", ex)
+            print(f"XXXXXXXXXXXXXXXXXXXXXXXXXXXX\n{ex}")
+
 
         return Result.success(return_obj=hoppr_delivered_bom)
 
