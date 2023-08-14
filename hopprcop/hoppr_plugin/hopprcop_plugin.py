@@ -89,7 +89,7 @@ class HopprCopPlugin(HopprPlugin):
 
             if adjusted_purl in purl_to_component:
                 component = purl_to_component[adjusted_purl]
-                bom_ref = component.purl  # component.bom_ref.__root__
+                bom_ref = component.purl  # component.bom_ref
                 if (
                     len(parsed_bom.vulnerabilities) > 0
                     and bom_ref not in bom_ref_to_results
@@ -99,7 +99,7 @@ class HopprCopPlugin(HopprPlugin):
                         for affect in existing_vulnerability.affects:
                             if (
                                 affect.ref == bom_ref
-                                or affect.ref == component.bom_ref.__root__
+                                or affect.ref == component.bom_ref
                             ):
                                 results[purl].append(existing_vulnerability)
 
