@@ -28,6 +28,9 @@ from hoppr_cyclonedx_models.cyclonedx_1_3 import (
 from hoppr_cyclonedx_models.cyclonedx_1_4 import (
     CyclonedxSoftwareBillOfMaterialsStandard as Bom_1_4,
 )
+from hoppr_cyclonedx_models.cyclonedx_1_5 import (
+    CyclonedxSoftwareBillOfMaterialsStandard as Bom_1_5,
+)
 from hoppr_cyclonedx_models.cyclonedx_1_4 import Vulnerability, Rating, Severity, Tool
 from packageurl import PackageURL
 from security_commons.common.utils import (
@@ -60,7 +63,7 @@ class GrypeScanner(VulnerabilitySuper):
         return self.get_vulnerabilities_by_sbom(bom)
 
     def get_vulnerabilities_by_sbom(
-        self, bom: [Union[Bom_1_4, Bom_1_3]]
+        self, bom: [Union[Bom_1_5, Bom_1_4, Bom_1_3]]
     ) -> dict[str, Optional[list[Vulnerability]]]:
         """Parse a cyclone dx 1.4 compatible BOM and return a list of vulnerabilities "
         This function will return a dictionary of package URL to vulnerabilities or none if no vulnerabilities are found

@@ -49,10 +49,11 @@ integration-test:
     - chmod 777 ./cyclonedx-cli
     - pip install hoppr
     - python -m pip install --find-links=dist hoppr_cop
-    - hopctl bundle $TEST_DIR/manifest.yml
+    - hopctl bundle
       --transfer $TEST_DIR/transfer.yml
       --log hopprcop_log.txt
       --verbose
+      $TEST_DIR/manifest.yml
     - tar -xvf hoppr-integration-test.tar.gz
     - ./cyclonedx-cli validate
       --input-format json

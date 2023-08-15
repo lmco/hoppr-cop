@@ -70,12 +70,13 @@ class GemnasiumScanner(VulnerabilitySuper):
         """If the ruby semver command isn't installed then extract from this package"""
         data = pkgutil.get_data(__name__, "semver").decode("utf-8")
         self.semver_path = Path(tempfile.gettempdir()) / "semver"
-        with open(self.semver_path, "w", encoding="UTF-8") as file:
-            file.write(data)
-            file.close()
-        os.chmod(
-            self.semver_path,
-            stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH,
+        self.semver_path.write_text(data, encoding="utf-8")
+        self.semver_path.chmod(
+            mode=stat.S_IRWXU
+            | stat.S_IRGRP
+            | stat.S_IXGRP
+            | stat.S_IROTH
+            | stat.S_IXOTH
         )
 
     def __download_and_extract_database(self):
@@ -141,27 +142,27 @@ class GemnasiumScanner(VulnerabilitySuper):
         """
         vulnerabilities_by_purl = {}
         for purl in purls:
-            vulnerabilities_by_purl[purl.to_string()] = []
-            path = self.__get_path(purl)
-            if path.exists():
-                for filename in os.listdir(path):
-                    try:
-                        if (path / filename).is_file():
-                            with open(path / filename, "r", encoding="UTF-8") as file:
-                                data = yaml.full_load(file)
-                                file.close()
-                                vuln = GemnasiumVulnerability(**data)
+            purl_str = purl.to_string()
+            vulnerabilities_by_purl[purl_str] = []
 
-                                if self.__is_affected_range(
-                                    purl.type, purl.version, vuln.affected_range
-                                ):
-                                    vulnerability = self.__convert_to_cyclone_dx(vuln)
-                                    if len(vulnerability.ratings) > 0:
-                                        vulnerabilities_by_purl[
-                                            purl.to_string()
-                                        ].append(vulnerability)
-                    except:  # pylint: disable=bare-except
-                        print(f"failed to parse gemnasium file for {purl}")
+            if not (path := self.__get_path(purl)).exists():
+                continue
+
+            vuln_files = [file for file in path.glob("*") if file.is_file()]
+
+            for vuln_file in vuln_files:
+                try:
+                    data = yaml.full_load(vuln_file.read_text(encoding="utf-8"))
+                    vuln = GemnasiumVulnerability(**data)
+
+                    if self.__is_affected_range(
+                        purl.type, purl.version, vuln.affected_range
+                    ):
+                        vulnerability = self.__convert_to_cyclone_dx(vuln)
+                        if len(vulnerability.ratings) > 0:
+                            vulnerabilities_by_purl[purl_str].append(vulnerability)
+                except:  # pylint: disable=bare-except
+                    print(f"failed to parse gemnasium file for {purl}")
 
         return vulnerabilities_by_purl
 
@@ -217,19 +218,16 @@ class GemnasiumScanner(VulnerabilitySuper):
 
         return Path(tempfile.gettempdir())
 
-    def __get_path(self, purl: PackageURL):
+    def __get_path(self, purl: PackageURL) -> Path:
         """build a path to the gemnasium path"""
         repo_format = purl.type
         if repo_format == "npm":
-            if purl.namespace != "" and purl.namespace is not None:
-                path_slug = f"npm/{purl.namespace}/{purl.name}"
-            else:
-                path_slug = f"npm/{purl.name}"
+            path_slug = Path("npm") / (purl.namespace or "") / purl.name
         elif repo_format == "maven":
-            path_slug = f"maven/{purl.namespace}/{purl.name}"
+            path_slug = Path("maven") / purl.namespace / purl.name
         elif repo_format == "golang":
-            path_slug = f"go/{purl.namespace}/{purl.name}"
+            path_slug = Path("go") / purl.namespace / purl.name
         else:
-            path_slug = f"{repo_format}/{purl.name}"
+            path_slug = Path(repo_format) / purl.name
 
-        return self.database_path / Path(path_slug)
+        return self.database_path / path_slug
