@@ -525,33 +525,29 @@ dev = ["flake8", "markdown", "twine", "wheel"]
 
 [[package]]
 name = "hoppr"
-version = "1.9.3-dev.6"
+version = "1.9.2"
 description = "A tool for defining, verifying, and transferring software dependencies between environments."
 optional = false
-python-versions = "^3.10"
-files = []
-develop = false
+python-versions = ">=3.10,<4.0"
+files = [
+    {file = "hoppr-1.9.2-py3-none-any.whl", hash = "sha256:8781cf4807356bd73b6b0ec6df65ec6518267f47fde3ba72bd0ef84d86672ed1"},
+    {file = "hoppr-1.9.2.tar.gz", hash = "sha256:6c7684cd009a210699428149d7e9badccf157ec5dcedb308921799b9a1b6547c"},
+]
 
 [package.dependencies]
-hoppr-cyclonedx-models = "0.*"
-in-toto = "^1.3.1"
-jc = "^1.22.2"
-Jinja2 = "^3.1.2"
-jmespath = "^1.0.1"
-oras = "0.*"
-packageurl-python = "0.*"
-pydantic = {version = "^1.9.0", extras = ["email"]}
-pydantic-yaml = "0.*"
-PyYAML = "^6.0"
-rapidfuzz = "^3.1.1"
-typer = {version = "0.*", extras = ["all"]}
-types-PyYAML = "^6.0.5"
-
-[package.source]
-type = "git"
-url = "https://gitlab.com/hoppr/hoppr.git"
-reference = "root-attribute-fix"
-resolved_reference = "ce5979ab9235331159185792c05ffd3c0f3082e3"
+hoppr-cyclonedx-models = "==0.*"
+in-toto = ">=1.3.1,<2.0.0"
+jc = ">=1.22.2,<2.0.0"
+Jinja2 = ">=3.1.2,<4.0.0"
+jmespath = ">=1.0.1,<2.0.0"
+oras = "==0.*"
+packageurl-python = "==0.*"
+pydantic = {version = ">=1.9.0,<2.0.0", extras = ["email"]}
+pydantic-yaml = "==0.*"
+PyYAML = ">=6.0,<7.0"
+rapidfuzz = ">=3.1.1,<4.0.0"
+typer = {version = "==0.*", extras = ["all"]}
+types-PyYAML = ">=6.0.5,<7.0.0"
 
 [[package]]
 name = "hoppr-cyclonedx-models"
@@ -2152,4 +2148,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "c27b35beeb20de54eae9b9223bf3247eaf5c499a918676e2d21bbd60fd8448b0"
+content-hash = "595fea6a4e05bdd7696235ad31c735e59909e7860fa1c121a7d9d9f40b5608f1"
