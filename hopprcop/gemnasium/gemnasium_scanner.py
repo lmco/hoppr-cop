@@ -141,28 +141,27 @@ class GemnasiumScanner(VulnerabilitySuper):
         """
         vulnerabilities_by_purl = {}
         for purl in purls:
-            vulnerabilities_by_purl[purl.to_string()] = []
-            path = self.__get_path(purl)
-            if path.exists():
-                vuln_files = [file for file in path.glob("*") if file.is_file()]
+            purl_str = purl.to_string()
+            vulnerabilities_by_purl[purl_str] = []
 
-                for vuln_file in vuln_files:
-                    try:
-                        with vuln_file.open(mode="r", encoding="utf-8") as file:
-                            data = yaml.full_load(file)
-                            file.close()
-                            vuln = GemnasiumVulnerability(**data)
+            if not (path := self.__get_path(purl)).exists():
+                continue
 
-                            if self.__is_affected_range(
-                                purl.type, purl.version, vuln.affected_range
-                            ):
-                                vulnerability = self.__convert_to_cyclone_dx(vuln)
-                                if len(vulnerability.ratings) > 0:
-                                    vulnerabilities_by_purl[purl.to_string()].append(
-                                        vulnerability
-                                    )
-                    except:  # pylint: disable=bare-except
-                        print(f"failed to parse gemnasium file for {purl}")
+            vuln_files = [file for file in path.glob("*") if file.is_file()]
+
+            for vuln_file in vuln_files:
+                try:
+                    data = yaml.full_load(vuln_file.read_text(encoding="utf-8"))
+                    vuln = GemnasiumVulnerability(**data)
+
+                    if self.__is_affected_range(
+                        purl.type, purl.version, vuln.affected_range
+                    ):
+                        vulnerability = self.__convert_to_cyclone_dx(vuln)
+                        if len(vulnerability.ratings) > 0:
+                            vulnerabilities_by_purl[purl_str].append(vulnerability)
+                except:  # pylint: disable=bare-except
+                    print(f"failed to parse gemnasium file for {purl}")
 
         return vulnerabilities_by_purl
 
@@ -218,7 +217,7 @@ class GemnasiumScanner(VulnerabilitySuper):
 
         return Path(tempfile.gettempdir())
 
-    def __get_path(self, purl: PackageURL):
+    def __get_path(self, purl: PackageURL) -> Path:
         """build a path to the gemnasium path"""
         repo_format = purl.type
         if repo_format == "npm":
