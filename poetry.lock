@@ -525,29 +525,33 @@ dev = ["flake8", "markdown", "twine", "wheel"]
 
 [[package]]
 name = "hoppr"
-version = "1.9.2"
+version = "1.9.3-dev.6"
 description = "A tool for defining, verifying, and transferring software dependencies between environments."
 optional = false
-python-versions = ">=3.10,<4.0"
-files = [
-    {file = "hoppr-1.9.2-py3-none-any.whl", hash = "sha256:8781cf4807356bd73b6b0ec6df65ec6518267f47fde3ba72bd0ef84d86672ed1"},
-    {file = "hoppr-1.9.2.tar.gz", hash = "sha256:6c7684cd009a210699428149d7e9badccf157ec5dcedb308921799b9a1b6547c"},
-]
+python-versions = "^3.10"
+files = []
+develop = false
 
 [package.dependencies]
-hoppr-cyclonedx-models = "==0.*"
-in-toto = ">=1.3.1,<2.0.0"
-jc = ">=1.22.2,<2.0.0"
-Jinja2 = ">=3.1.2,<4.0.0"
-jmespath = ">=1.0.1,<2.0.0"
-oras = "==0.*"
-packageurl-python = "==0.*"
-pydantic = {version = ">=1.9.0,<2.0.0", extras = ["email"]}
-pydantic-yaml = "==0.*"
-PyYAML = ">=6.0,<7.0"
-rapidfuzz = ">=3.1.1,<4.0.0"
-typer = {version = "==0.*", extras = ["all"]}
-types-PyYAML = ">=6.0.5,<7.0.0"
+hoppr-cyclonedx-models = "0.*"
+in-toto = "^1.3.1"
+jc = "^1.22.2"
+Jinja2 = "^3.1.2"
+jmespath = "^1.0.1"
+oras = "0.*"
+packageurl-python = "0.*"
+pydantic = {version = "^1.9.0", extras = ["email"]}
+pydantic-yaml = "0.*"
+PyYAML = "^6.0"
+rapidfuzz = "^3.1.1"
+typer = {version = "0.*", extras = ["all"]}
+types-PyYAML = "^6.0.5"
+
+[package.source]
+type = "git"
+url = "https://gitlab.com/hoppr/hoppr.git"
+reference = "root-attribute-fix"
+resolved_reference = "ce5979ab9235331159185792c05ffd3c0f3082e3"
 
 [[package]]
 name = "hoppr-cyclonedx-models"
@@ -575,12 +579,18 @@ files = [
 ]
 
 [package.dependencies]
-hoppr-cyclonedx-models = "==0.*"
-jinja2 = ">=3.1.2,<4.0.0"
-packageurl-python = "==0.*"
-requests = ">=2.29.0,<3.0.0"
-tabulate = "==0.*"
-typer = "==0.*"
+hoppr-cyclonedx-models = "0.*"
+jinja2 = "^3.1.2"
+packageurl-python = "0.*"
+requests = "^2.29.0"
+tabulate = "0.*"
+typer = "0.*"
+
+[package.source]
+type = "git"
+url = "https://gitlab.com/hoppr/modules/security-commons.git"
+reference = "236-dependency-version-conflicts-2"
+resolved_reference = "0f10cae3db4c847a6b12865a9f2fb6e6b655ec2e"
 
 [[package]]
 name = "idna"
@@ -2148,4 +2158,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "696d3aac2463363ddf53a0bbd16d0400640ed248fb57202c08f54aa7beed81ed"
+content-hash = "aaed5ce5c16c952d4d8ba747d0647ab1fd4c7a9f9a65510af56531f5fe624546"
