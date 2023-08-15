@@ -565,13 +565,13 @@ pydantic = {version = ">=1.10.2,<2.0.0", extras = ["email"]}
 
 [[package]]
 name = "hoppr-security-commons"
-version = "0.0.54"
+version = "0.0.55"
 description = "Common Library For hoppr-cop"
 optional = false
 python-versions = ">=3.10,<4.0"
 files = [
-    {file = "hoppr_security_commons-0.0.54-py3-none-any.whl", hash = "sha256:90762832601db1218f77e9ac99564e320054357f9c3268087544c27e805be47d"},
-    {file = "hoppr_security_commons-0.0.54.tar.gz", hash = "sha256:b967175db8778500e380f9d456e4d8d1af2c3c7318f58146616fb827e5029fac"},
+    {file = "hoppr_security_commons-0.0.55-py3-none-any.whl", hash = "sha256:2558f8ed619844c09dbca856ca1a4e8bedf535dde9ccd0643a5ca0b635f6ca36"},
+    {file = "hoppr_security_commons-0.0.55.tar.gz", hash = "sha256:15be3000b2bf9199a9a14f7e16cb3e720ef75c3d5f6b3dcf32d80c8fbcf9f0a5"},
 ]
 
 [package.dependencies]
