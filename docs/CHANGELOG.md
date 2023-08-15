@@ -1,3 +1,16 @@
+## [1.1.10](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.9...v1.1.10) (2023-08-15)
+
+
+### Bug Fixes
+
+* support 1.5 spec and custom root models ([f3d8373](https://gitlab.com/hoppr/hoppr-cop/commit/f3d8373c7d87b11c02e131f88116ce9002a54f4e))
+* TrivyScanner exception ([7f8fa5d](https://gitlab.com/hoppr/hoppr-cop/commit/7f8fa5dd940421c2b777e2d464deff2681ae8b98))
+
+
+### Reverts
+
+* testing changes ([d1ae483](https://gitlab.com/hoppr/hoppr-cop/commit/d1ae4833f3519a0d5ad3b637e67644c7f5fb8a43))
+
 ## [1.1.9](https://gitlab.com/hoppr/hoppr-cop/compare/v1.1.8...v1.1.9) (2023-07-13)
 
 
