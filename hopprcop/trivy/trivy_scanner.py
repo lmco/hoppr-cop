@@ -22,6 +22,9 @@ from subprocess import PIPE, Popen
 from typing import Optional, Union
 
 import typer
+from hoppr_cyclonedx_models.cyclonedx_1_5 import (
+    CyclonedxSoftwareBillOfMaterialsStandard as Bom_1_5,
+)
 from hoppr_cyclonedx_models.cyclonedx_1_4 import (
     CyclonedxSoftwareBillOfMaterialsStandard as Bom_1_4,
 )
@@ -29,6 +32,9 @@ from hoppr_cyclonedx_models.cyclonedx_1_3 import (
     CyclonedxSoftwareBillOfMaterialSpecification as Bom_1_3,
 )
 
+from hoppr_cyclonedx_models.cyclonedx_1_5 import (
+    Component as Bom_1_5_Component,
+)
 from hoppr_cyclonedx_models.cyclonedx_1_4 import (
     Component as Bom_1_4_Component,
 )
@@ -48,7 +54,9 @@ class TrivyScanner(VulnerabilitySuper):
     """ "Interacts with the trivy cli to scan an sbom"""
 
     # used to store the operating system component discovered in the provided bom for generating the bom for trivy
-    __os_component: Optional[Union[Bom_1_4_Component, Bom_1_3_Component]] = None
+    __os_component: Optional[
+        Union[Bom_1_5_Component, Bom_1_4_Component, Bom_1_3_Component]
+    ] = None
 
     trivy_os_distro = os.getenv("OS_DISTRIBUTION", None)
 
@@ -99,20 +107,30 @@ class TrivyScanner(VulnerabilitySuper):
 
             bom_dict["metadata"]["component"]["type"] = "application"
             bom_dict["metadata"]["component"]["name"] = "generated"
-            trivy_result = Bom_1_4(**bom_dict)
 
-            for vuln in trivy_result.vulnerabilities:
-                for affects in vuln.affects:
-                    _, _, purl = str(affects.ref).partition("#")
-                    affects.ref = purl.strip("'")
+            match bom_dict["specVersion"]:
+                case "1.3":
+                    trivy_result = Bom_1_3(**bom_dict)
+                case "1.4":
+                    trivy_result = Bom_1_4(**bom_dict)
+                case "1.5":
+                    trivy_result = Bom_1_5(**bom_dict)
+
+            for vuln in trivy_result.vulnerabilities or []:
+                for affect in vuln.affects or []:
+                    affect_dict = affect.dict()
+                    *_, purl = str(affect_dict["ref"]).split("#")
+                    affect.ref = purl.strip("'")
+
                     if vuln.ratings is not None:
-                        results[str(affects.ref)].append(vuln)
+                        results[affect_dict["ref"]].append(vuln)
+
                 vuln.tools = [Tool(vendor="Aquasec", name="Trivy")]
 
         return results
 
     def get_vulnerabilities_by_sbom(
-        self, bom: [Union[Bom_1_4, Bom_1_3]]
+        self, bom: [Union[Bom_1_5, Bom_1_4, Bom_1_3]]
     ) -> dict[str, Optional[list[Vulnerability]]]:
         """Accepts a cyclone dx compatible BOM and returns a list of vulnerabilities "
         This function will return a dictionary of package URL to vulnerabilities or none if no vulnerabilities are found
@@ -120,7 +138,7 @@ class TrivyScanner(VulnerabilitySuper):
         purls = []
         self.__os_component = None
 
-        for component in bom.components:
+        for component in bom.components or []:
             if component.purl is not None and component.purl != "":
                 purls.append(PackageURL.from_string(component.purl))
             if "operating_system" in str(component.dict()["type"]):

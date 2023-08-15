@@ -161,7 +161,7 @@ class Attestation(BaseModel):
 
 class Configuration(BaseModel):
     config_path: str = Field(..., alias="configPath")
-    output: str
+    output: str | List[str]
     file: str
     distro: str
     add_cpes_if_none: bool = Field(..., alias="add-cpes-if-none")
