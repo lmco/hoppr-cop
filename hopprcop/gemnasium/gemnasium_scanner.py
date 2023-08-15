@@ -70,12 +70,13 @@ class GemnasiumScanner(VulnerabilitySuper):
         """If the ruby semver command isn't installed then extract from this package"""
         data = pkgutil.get_data(__name__, "semver").decode("utf-8")
         self.semver_path = Path(tempfile.gettempdir()) / "semver"
-        with self.semver_path.open(mode="w", encoding="utf-8") as file:
-            file.write(data)
-            file.close()
-        os.chmod(
-            self.semver_path,
-            stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH,
+        self.semver_path.write_text(data, encoding="utf-8")
+        self.semver_path.chmod(
+            mode=stat.S_IRWXU
+            | stat.S_IRGRP
+            | stat.S_IXGRP
+            | stat.S_IROTH
+            | stat.S_IXOTH
         )
 
     def __download_and_extract_database(self):
