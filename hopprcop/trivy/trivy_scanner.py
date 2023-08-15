@@ -119,10 +119,11 @@ class TrivyScanner(VulnerabilitySuper):
             for vuln in trivy_result.vulnerabilities or []:
                 for affect in vuln.affects or []:
                     affect_dict = affect.dict()
-                    *_, purl = str(affect_dict["ref"]).split("#")
-                    affect.ref = purl.strip("'")
+                    *_, purl_str = str(affect_dict["ref"]).split("#")
+                    affect.ref = purl_str
 
                     if vuln.ratings is not None:
+                        results.setdefault(affect_dict["ref"], [])
                         results[affect_dict["ref"]].append(vuln)
 
                 vuln.tools = [Tool(vendor="Aquasec", name="Trivy")]

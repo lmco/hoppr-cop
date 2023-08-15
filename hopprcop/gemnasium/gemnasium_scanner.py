@@ -70,7 +70,7 @@ class GemnasiumScanner(VulnerabilitySuper):
         """If the ruby semver command isn't installed then extract from this package"""
         data = pkgutil.get_data(__name__, "semver").decode("utf-8")
         self.semver_path = Path(tempfile.gettempdir()) / "semver"
-        with open(self.semver_path, "w", encoding="UTF-8") as file:
+        with self.semver_path.open(mode="w", encoding="utf-8") as file:
             file.write(data)
             file.close()
         os.chmod(
@@ -144,22 +144,23 @@ class GemnasiumScanner(VulnerabilitySuper):
             vulnerabilities_by_purl[purl.to_string()] = []
             path = self.__get_path(purl)
             if path.exists():
-                for filename in os.listdir(path):
-                    try:
-                        if (path / filename).is_file():
-                            with open(path / filename, "r", encoding="UTF-8") as file:
-                                data = yaml.full_load(file)
-                                file.close()
-                                vuln = GemnasiumVulnerability(**data)
+                vuln_files = [file for file in path.glob("*") if file.is_file()]
 
-                                if self.__is_affected_range(
-                                    purl.type, purl.version, vuln.affected_range
-                                ):
-                                    vulnerability = self.__convert_to_cyclone_dx(vuln)
-                                    if len(vulnerability.ratings) > 0:
-                                        vulnerabilities_by_purl[
-                                            purl.to_string()
-                                        ].append(vulnerability)
+                for vuln_file in vuln_files:
+                    try:
+                        with vuln_file.open(mode="r", encoding="utf-8") as file:
+                            data = yaml.full_load(file)
+                            file.close()
+                            vuln = GemnasiumVulnerability(**data)
+
+                            if self.__is_affected_range(
+                                purl.type, purl.version, vuln.affected_range
+                            ):
+                                vulnerability = self.__convert_to_cyclone_dx(vuln)
+                                if len(vulnerability.ratings) > 0:
+                                    vulnerabilities_by_purl[purl.to_string()].append(
+                                        vulnerability
+                                    )
                     except:  # pylint: disable=bare-except
                         print(f"failed to parse gemnasium file for {purl}")
 
@@ -221,15 +222,12 @@ class GemnasiumScanner(VulnerabilitySuper):
         """build a path to the gemnasium path"""
         repo_format = purl.type
         if repo_format == "npm":
-            if purl.namespace != "" and purl.namespace is not None:
-                path_slug = f"npm/{purl.namespace}/{purl.name}"
-            else:
-                path_slug = f"npm/{purl.name}"
+            path_slug = Path("npm") / (purl.namespace or "") / purl.name
         elif repo_format == "maven":
-            path_slug = f"maven/{purl.namespace}/{purl.name}"
+            path_slug = Path("maven") / purl.namespace / purl.name
         elif repo_format == "golang":
-            path_slug = f"go/{purl.namespace}/{purl.name}"
+            path_slug = Path("go") / purl.namespace / purl.name
         else:
-            path_slug = f"{repo_format}/{purl.name}"
+            path_slug = Path(repo_format) / purl.name
 
-        return self.database_path / Path(path_slug)
+        return self.database_path / path_slug
