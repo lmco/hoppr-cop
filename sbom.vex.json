@@ -1,0 +1,250 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://openvex.dev/docs/public/vex-1709140b590e9da9a9db6cd5c3e5fd164b2f2348534a70b001c1e9901e2ab7cf",
+  "author": "Unknown Author",
+  "timestamp": "2024-10-04T14:02:32.738057+02:00",
+  "last_updated": "2024-10-04T14:02:33.236518+02:00",
+  "version": 20,
+  "statements": [
+    {
+      "vulnerability": {
+        "name": "CVE-2022-23491"
+      },
+      "timestamp": "2024-10-04T14:02:32.738058+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/certifi@2022.6.15"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2022-40896"
+      },
+      "timestamp": "2024-10-04T14:02:32.766805+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/pygments@2.13.0"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2022-42969"
+      },
+      "timestamp": "2024-10-04T14:02:32.794203+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/py@1.11.0"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2023-29483"
+      },
+      "timestamp": "2024-10-04T14:02:32.819791+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/dnspython@2.2.1"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2023-29483"
+      },
+      "timestamp": "2024-10-04T14:02:32.84462+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/eventlet@2.2.1"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2023-32309"
+      },
+      "timestamp": "2024-10-04T14:02:32.869842+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/pymdown-extensions@9.5"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2023-32681"
+      },
+      "timestamp": "2024-10-04T14:02:32.896445+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/requests@2.28.1"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2023-37920"
+      },
+      "timestamp": "2024-10-04T14:02:32.921116+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/certifi@2022.6.15"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2023-43804"
+      },
+      "timestamp": "2024-10-04T14:02:32.947675+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/urllib3@1.26.11"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2023-45803"
+      },
+      "timestamp": "2024-10-04T14:02:32.972798+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/urllib3@1.26.11"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-21503"
+      },
+      "timestamp": "2024-10-04T14:02:32.999671+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/black@22.6.0"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-22195"
+      },
+      "timestamp": "2024-10-04T14:02:33.025518+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/jinja2@3.1.2"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-34064"
+      },
+      "timestamp": "2024-10-04T14:02:33.053184+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/jinja2@3.1.2"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-35195"
+      },
+      "timestamp": "2024-10-04T14:02:33.078018+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/requests@2.28.1"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-3651"
+      },
+      "timestamp": "2024-10-04T14:02:33.103982+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/idna@3.3"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-3772"
+      },
+      "timestamp": "2024-10-04T14:02:33.129508+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/pydantic@1.9.2"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-37891"
+      },
+      "timestamp": "2024-10-04T14:02:33.155386+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/urllib3@1.26.11"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-39689"
+      },
+      "timestamp": "2024-10-04T14:02:33.182201+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/certifi@2022.6.15"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-5569"
+      },
+      "timestamp": "2024-10-04T14:02:33.207842+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/zipp@3.8.1"
+        }
+      ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-6345"
+      },
+      "timestamp": "2024-10-04T14:02:33.236521+02:00",
+      "products": [
+        {
+          "@id": "pkg:pypi/setuptools@65.6.3"
+        }
+      ],
+      "status": "under_investigation"
+    }
+  ]
+}
